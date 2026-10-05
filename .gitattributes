@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+
+# El traspaso interno contiene rutas privadas; se conserva solo en el repositorio local.
+docs/CONTINUAR.md export-ignore

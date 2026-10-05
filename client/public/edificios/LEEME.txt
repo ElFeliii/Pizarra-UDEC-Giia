@@ -1,0 +1,4 @@
+Las fotos de los edificios van en esta carpeta.
+Se nombran en client/src/map/edificios.json, con su autor y licencia si son de terceros.
+Las que están ahora vienen de Wikimedia Commons: las descarga "npm run fotos".
+Qué falta y cómo agregar las propias: docs/EDIFICIOS.md

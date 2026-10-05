@@ -1,0 +1,30 @@
+{
+  "name": "@pizarra/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/index.ts --port 3000",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "dev:lan": "tsx watch --clear-screen=false src/index.ts --lan --port 3000"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.2",
+    "@types/proxy-addr": "^2.0.3",
+    "tsup": "^8.5.1"
+  },
+  "dependencies": {
+    "@fastify/compress": "^9.2.0",
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/helmet": "^13.1.1",
+    "@fastify/static": "^10.1.4",
+    "@pizarra/shared": "*",
+    "better-sqlite3": "^13.0.3",
+    "fastify": "^5.12.5",
+    "proxy-addr": "^2.0.8",
+    "socket.io": "^4.8.3",
+    "zod": "^4.6.5"
+  }
+}

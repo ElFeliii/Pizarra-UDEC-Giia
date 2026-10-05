@@ -1,0 +1,3188 @@
+[
+  {
+    "id": "universidad-de-concepcion",
+    "name": "Universidad de Concepción",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-del-bio-bio",
+    "name": "Universidad del Bío-Bío",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-catolica-de-la-santisima-concepcion",
+    "name": "Universidad Católica de la Santísima Concepción",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-tecnica-federico-santa-maria",
+    "name": "Universidad Técnica Federico Santa María",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-san-sebastian",
+    "name": "Universidad San Sebastián",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-del-desarrollo",
+    "name": "Universidad del Desarrollo",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-andres-bello",
+    "name": "Universidad Andrés Bello",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-de-las-americas",
+    "name": "Universidad de Las Américas",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-santo-tomas",
+    "name": "Universidad Santo Tomás",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-tecnologica-de-chile-inacap",
+    "name": "Universidad Tecnológica de Chile INACAP",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-la-republica",
+    "name": "Universidad La República",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-bolivariana",
+    "name": "Universidad Bolivariana",
+    "type": "universidad"
+  },
+  {
+    "id": "american-junior-college-coronel",
+    "name": "American Junior College",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "arturo-prat-chacon-talcahuano",
+    "name": "Arturo Prat Chacon",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "arturo-prat-chacon-talcahuano-2",
+    "name": "Arturo Prat Chacon",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "basica-sargento-candelaria-perez-san-pedro-de-la-paz",
+    "name": "Basica Sargento Candelaria Perez",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "c-e-i-a-san-luis-de-potosi-republica-de-mexico-lota",
+    "name": "C.E.I.A San Luis de Potosi República de México",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "c-e-i-a-hualpencillo-hualpen",
+    "name": "C.E.I.A. Hualpencillo",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "centro-capacitacion-laboral-mirando-el-futuro-san-pedro-de-la-paz",
+    "name": "Centro Capacitación Laboral Mirando el Futuro",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "centro-de-capacitacion-laboral-apandi-lota",
+    "name": "Centro de Capacitacion Laboral Apandi",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "centro-de-capacitacion-laboral-educacion-especial-paulo-freire-concepcion",
+    "name": "Centro de Capacitación Laboral Educación Especial Paulo Freire",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "centro-de-educacion-de-adultos-newentun-concepcion",
+    "name": "Centro de Educación de Adultos Newentun",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "centro-de-educacion-integrada-de-adultos-poeta-alfonso-mora-tome",
+    "name": "Centro de Educacion Integrada de Adultos Poeta Alfonso Mora",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "centro-de-educacion-integral-de-adultos-nahuelquin-talcahuano",
+    "name": "Centro de Educación Integral de Adultos Nahuelquín",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "centro-de-estimulacion-temprana-ego-sum-concepcion",
+    "name": "Centro de Estimulacion Temprana Ego Sum",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "centro-de-formacion-laboral-huellas-coronel",
+    "name": "Centro de Formacion Laboral Huellas",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "centro-de-formacion-laboral-san-andres-coronel",
+    "name": "Centro de Formacion Laboral San Andres",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "centro-de-lenguaje-el-umbral-san-pedro-de-la-paz",
+    "name": "Centro de Lenguaje el Umbral",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "centro-de-nivelacion-y-de-capacitacion-para-adultos-madre-maria-m-y-s-chiguayante",
+    "name": "Centro de Nivelación y de Capacitación Para Adultos Madre Maria M y S",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "centro-diferencial-estimulacion-temprana-manantial-concepcion",
+    "name": "Centro Diferencial Estimulación Temprana Manantial",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "centro-educacion-evangelico-de-hualpen-hualpen",
+    "name": "Centro Educación Evangélico de Hualpén",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "centro-educacion-integrada-de-adultos-coronel",
+    "name": "Centro Educación Integrada de Adultos",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "centro-educacion-integral-de-adultos-janequeo-concepcion-concepcion",
+    "name": "Centro Educación Integral de Adultos Janequeo - Concepción",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "centro-educacional-alborada-penco",
+    "name": "Centro Educacional Alborada",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "centro-educacional-bicentenario-altos-de-tome-tome",
+    "name": "Centro Educacional Bicentenario Altos de Tomé",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "centro-integrado-de-educacion-especial-concepcion",
+    "name": "Centro Integrado de Educación Especial",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "centro-integral-de-educacion-high-scope-limitada-hualpen",
+    "name": "Centro Integral de Educación High Scope Limitada",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "centro-integral-los-aromos-hualpen",
+    "name": "Centro Integral los Aromos",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "centro-laboral-polivalente-alonkura-talcahuano",
+    "name": "Centro Laboral Polivalente Alonkura",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "centro-psicopedagogico-emmanuel-san-pedro-de-la-paz",
+    "name": "Centro Psicopedagogico Emmanuel",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "charles-de-gaulle-concepcion",
+    "name": "Charles de Gaulle",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "christian-college-hualqui",
+    "name": "Christian College",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "colegio-a-lafken-penco",
+    "name": "Colegio A-Lafken",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "colegio-adultos-renacer-concepcion",
+    "name": "Colegio Adultos Renacer",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-adventista-lota",
+    "name": "Colegio Adventista",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "colegio-adventista-de-concepcion-concepcion",
+    "name": "Colegio Adventista de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-adventista-de-concepcion-talcahuano",
+    "name": "Colegio Adventista de Concepcion",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-adventista-de-talcahuano-centro-talcahuano",
+    "name": "Colegio Adventista de Talcahuano Centro",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-aleman-de-concepcion-san-pedro-de-la-paz",
+    "name": "Colegio Aleman de Concepción",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-alerce-concepcion",
+    "name": "Colegio Alerce",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-aliwe-college-coronel",
+    "name": "Colegio Aliwe College",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-almondale-san-pedro-de-la-paz",
+    "name": "Colegio Almondale",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-almondale-lomas-concepcion",
+    "name": "Colegio Almondale Lomas",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-amanecer-coronel",
+    "name": "Colegio Amanecer",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-amanecer-san-carlos-san-pedro-de-la-paz",
+    "name": "Colegio Amanecer San Carlos",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-amanecer-talcahuano-talcahuano",
+    "name": "Colegio Amanecer Talcahuano",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-angel-de-peredo-lota",
+    "name": "Colegio Angel de Peredo",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "colegio-anibal-esquivel-tapia-coronel",
+    "name": "Colegio Anibal Esquivel Tapia",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-aurora-de-chile-chiguayante-chiguayante",
+    "name": "Colegio Aurora de Chile Chiguayante",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-aurora-de-chile-sur-chiguayante",
+    "name": "Colegio Aurora de Chile Sur",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-basico-los-lobos-talcahuano",
+    "name": "Colegio Basico los Lobos",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-basico-nueva-los-lobos-talcahuano",
+    "name": "Colegio Basico Nueva los Lobos",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-basico-san-vicente-talcahuano",
+    "name": "Colegio Basico San Vicente",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-basico-villa-acero-hualpen",
+    "name": "Colegio Basico Villa Acero",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "colegio-bautista-de-concepcion-concepcion",
+    "name": "Colegio Bautista de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-bernardo-o-higgins-hualpen",
+    "name": "Colegio Bernardo O´higgins",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "colegio-bicentenario-espana-concepcion",
+    "name": "Colegio Bicentenario España",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-bicentenario-ines-enriquez-frodden-florida",
+    "name": "Colegio Bicentenario Ines Enriquez Frodden",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "colegio-bicentenario-padre-manuel-d-alzon-lota",
+    "name": "Colegio Bicentenario Padre Manuel D`alzon",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "colegio-bicentenario-republica-del-brasil-concepcion",
+    "name": "Colegio Bicentenario República del Brasil",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-biobio-concepcion",
+    "name": "Colegio Biobío",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-camilo-henriquez-concepcion",
+    "name": "Colegio Camilo Henriquez",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-carmela-carvajal-de-prat-talcahuano",
+    "name": "Colegio Carmela Carvajal de Prat",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-carmela-romero-de-espinosa-concepcion",
+    "name": "Colegio Carmela Romero de Espinosa",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-chileno-arabe-chiguayante",
+    "name": "Colegio Chileno Arabe",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-claro-de-luna-college-talcahuano",
+    "name": "Colegio Claro de Luna College",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-colegio-martin-luther-san-pedro-de-la-paz",
+    "name": "Colegio Colegio Martín Luther",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-concepcion-chiguayante",
+    "name": "Colegio Concepcion",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-concepcion-chiguayante-chiguayante",
+    "name": "Colegio Concepcion Chiguayante",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-concepcion-hualqui-hualqui",
+    "name": "Colegio Concepcion Hualqui",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "colegio-concepcion-los-acacios-concepcion",
+    "name": "Colegio Concepcion los Acacios",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-concepcion-san-pedro-san-pedro-de-la-paz",
+    "name": "Colegio Concepcion San Pedro",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-creacion-concepcion-concepcion",
+    "name": "Colegio Creación Concepción",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-de-la-santisima-trinidad-san-pedro-de-la-paz",
+    "name": "Colegio de la Santisima Trinidad",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-de-lenguaje-senderos-del-biobio-chiguayante",
+    "name": "Colegio de Lenguaje Senderos del Biobío",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-del-sagrado-corazon-concepcion",
+    "name": "Colegio del Sagrado Corazon",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-doctor-guillermo-velasco-barros-tome",
+    "name": "Colegio Doctor Guillermo Velasco Barros",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "colegio-educa-biobio-san-pedro-de-la-paz",
+    "name": "Colegio Educa Biobío",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-edward-concepcion",
+    "name": "Colegio Edward",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-einstein-concepcion",
+    "name": "Colegio Einstein",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-einstein-coronel",
+    "name": "Colegio Einstein",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-el-arrayan-san-pedro-de-la-paz",
+    "name": "Colegio el Arrayan",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-el-faro-concepcion",
+    "name": "Colegio el Faro",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-el-refugio-penco",
+    "name": "Colegio el Refugio",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "colegio-el-valle-de-hualqui-hualqui",
+    "name": "Colegio el Valle de Hualqui",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "colegio-espiritu-santo-talcahuano",
+    "name": "Colegio Espiritu Santo",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-etchegoyen-talcahuano-talcahuano",
+    "name": "Colegio Etchegoyen Talcahuano",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-fraternidad-san-pedro-de-la-paz",
+    "name": "Colegio Fraternidad",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-galvarino-de-lomas-coloradas-san-pedro-de-la-paz",
+    "name": "Colegio Galvarino de Lomas Coloradas",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-golden-school-chiguayante",
+    "name": "Colegio Golden School",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-gran-bretana-concepcion",
+    "name": "Colegio Gran Bretaña",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-huachipato-talcahuano",
+    "name": "Colegio Huachipato",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-ingles-british-royal-school-concepcion",
+    "name": "Colegio Inglés British Royal School",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-inmaculada-concepcion-concepcion",
+    "name": "Colegio Inmaculada Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-itahue-de-chiguayante-chiguayante",
+    "name": "Colegio Itahue de Chiguayante",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-jahve-nisi-santa-juana",
+    "name": "Colegio Jahve Nisi",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "colegio-john-kennedy-chiguayante",
+    "name": "Colegio John Kennedy",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-jose-hipolito-salas-y-toro-chiguayante",
+    "name": "Colegio Jose Hipolito Salas y Toro",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-juan-gregorio-las-heras-concepcion",
+    "name": "Colegio Juan Gregorio las Heras",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-la-providencia-concepcion",
+    "name": "Colegio la Providencia",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-laguna-redonda-concepcion",
+    "name": "Colegio Laguna Redonda",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-lican-ray-san-pedro-de-la-paz",
+    "name": "Colegio Lican Ray",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-licanray-chiguayante",
+    "name": "Colegio Licanray",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-los-condores-talcahuano",
+    "name": "Colegio los Condores",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-los-educadores-san-pedro-de-la-paz",
+    "name": "Colegio los Educadores",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-madre-paulina-chiguayante",
+    "name": "Colegio Madre Paulina",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-marcela-paz-concepcion",
+    "name": "Colegio Marcela Paz",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-maria-inmaculada-concepcion",
+    "name": "Colegio Maria Inmaculada",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-marina-de-chile-concepcion",
+    "name": "Colegio Marina de Chile",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-metodista-concepcion-concepcion",
+    "name": "Colegio Metodista Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-metodista-lagunillas-coronel",
+    "name": "Colegio Metodista Lagunillas",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-mixto-inmaculada-concepcion-talcahuano",
+    "name": "Colegio Mixto Inmaculada Concepcion",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-montaner-de-hualpen-hualpen",
+    "name": "Colegio Montaner de Hualpen",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "colegio-mozart-schule-concepcion",
+    "name": "Colegio Mozart Schule",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-nuevos-horizontes-san-pedro-de-la-paz",
+    "name": "Colegio Nuevos Horizontes",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-olimpia-guzman-bello-chiguayante",
+    "name": "Colegio Olimpia Guzman Bello",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-pacific-school-chiguayante",
+    "name": "Colegio Pacific School",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-padre-luis-amigo-concepcion",
+    "name": "Colegio Padre Luis Amigo",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-parque-central-hualpen",
+    "name": "Colegio Parque Central",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "colegio-particular-alberto-blest-gana-san-pedro-de-la-paz",
+    "name": "Colegio Particular Alberto Blest Gana",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-particular-alborada-san-pedro-de-la-paz",
+    "name": "Colegio Particular Alborada",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-particular-alonso-de-ercilla-concepcion",
+    "name": "Colegio Particular Alonso de Ercilla",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-particular-andres-bello-chiguayante",
+    "name": "Colegio Particular Andrés Bello",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-particular-aurora-de-chile-chiguayante",
+    "name": "Colegio Particular Aurora de Chile",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-particular-el-libertador-concepcion",
+    "name": "Colegio Particular el Libertador",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-particular-funny-school-penco",
+    "name": "Colegio Particular Funny School",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "colegio-particular-gabriela-mistral-coronel",
+    "name": "Colegio Particular Gabriela Mistral",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-particular-ignacio-carrera-pinto-coronel",
+    "name": "Colegio Particular Ignacio Carrera Pinto",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-particular-juan-bosco-san-pedro-de-la-paz",
+    "name": "Colegio Particular Juan Bosco",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-particular-kennedy-school-chiguayante",
+    "name": "Colegio Particular Kennedy School",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-particular-nino-jesus-lota",
+    "name": "Colegio Particular Niño Jesús",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "colegio-particular-san-pedro-coronel",
+    "name": "Colegio Particular San Pedro",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-particular-santa-ines-chiguayante",
+    "name": "Colegio Particular Santa Ines",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-particular-subvencionado-timonel-coronel-coronel",
+    "name": "Colegio Particular Subvencionado Timonel-Coronel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-particular-talcahuano-talcahuano",
+    "name": "Colegio Particular Talcahuano",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-paulo-freire-san-pedro-de-la-paz",
+    "name": "Colegio Paulo Freire",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-per-se-concepcion",
+    "name": "Colegio Per Sé",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-pinares-chiguayante",
+    "name": "Colegio Pinares",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-polivalente-domingo-parra-corvalan-coronel",
+    "name": "Colegio Polivalente Domingo Parra Corvalan",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "colegio-porvenir-school-chiguayante",
+    "name": "Colegio Porvenir School",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-preston-school-hualpen",
+    "name": "Colegio Preston School",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "colegio-remodelacion-simons-talcahuano",
+    "name": "Colegio Remodelacion Simons",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-republica-de-grecia-chiguayante",
+    "name": "Colegio Republica de Grecia",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-republica-de-israel-concepcion",
+    "name": "Colegio República de Israel",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-republica-del-ecuador-concepcion",
+    "name": "Colegio República del Ecuador",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-rucalhue-hualpen",
+    "name": "Colegio Rucalhue",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "colegio-saint-joan-college-santa-juana",
+    "name": "Colegio Saint Joan College",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "colegio-salesiano-de-concepcion-concepcion",
+    "name": "Colegio Salesiano de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-san-andres-concepcion",
+    "name": "Colegio San Andrés",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-san-cristobal-talcahuano",
+    "name": "Colegio San Cristobal",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-san-ignacio-san-pedro-de-la-paz",
+    "name": "Colegio San Ignacio",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "colegio-san-joaquin-concepcion",
+    "name": "Colegio San Joaquin",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-san-luis-talcahuano",
+    "name": "Colegio San Luis",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-san-nicolas-concepcion",
+    "name": "Colegio San Nicolás",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-san-patricio-chiguayante",
+    "name": "Colegio San Patricio",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "colegio-santa-bernardita-talcahuano",
+    "name": "Colegio Santa Bernardita",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-santa-cecilia-talcahuano",
+    "name": "Colegio Santa Cecilia",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "colegio-santa-eufrasia-concepcion",
+    "name": "Colegio Santa Eufrasia",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-santa-luisa-de-concepcion-concepcion",
+    "name": "Colegio Santa Luisa de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-santa-sabina-concepcion",
+    "name": "Colegio Santa Sabina",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-the-almondale-school-valle-concepcion",
+    "name": "Colegio The Almondale School Valle",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-villa-nonguen-concepcion",
+    "name": "Colegio Villa Nonguen",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "colegio-wenga-coronel-coronel",
+    "name": "Colegio Wenga Coronel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "complejo-educacional-gloria-mendez-briones-penco",
+    "name": "Complejo Educacional Gloria Mendez Briones",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "esc-esp-de-transt-comun-domingo-parra-coronel",
+    "name": "Esc. Esp. de Transt. Comun Domingo Parra",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "esc-espec-de-lenguaje-senderos-de-san-pedro-san-pedro-de-la-paz",
+    "name": "Esc. Espec. de Lenguaje Senderos de San Pedro",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-adelaida-miguieles-soto-coronel",
+    "name": "Escuela Adelaida Miguieles Soto",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-adultos-las-americas-talcahuano",
+    "name": "Escuela Adultos las Americas",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-adventista-de-hualpen-hualpen",
+    "name": "Escuela Adventista de Hualpen",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-agua-corta-hualqui",
+    "name": "Escuela Agua Corta",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-alejandro-varela-santa-maria-hualqui",
+    "name": "Escuela Alejandro Varela Santa Maria",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-almirante-jorge-montt-alvarez-penco",
+    "name": "Escuela Almirante Jorge Montt Álvarez",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-almirante-patricio-lynch-penco",
+    "name": "Escuela Almirante Patricio Lynch",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-alonkura-hualpen",
+    "name": "Escuela Alonkura",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-ambrosio-o-higgins-coronel",
+    "name": "Escuela Ambrosio O´higgins",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-arturo-hughes-cerna-coronel",
+    "name": "Escuela Arturo Hughes Cerna",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-balmaceda-saavedra-l-chiguayante",
+    "name": "Escuela Balmaceda Saavedra L.",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-barrancas-juntas-hualqui",
+    "name": "Escuela Barrancas Juntas",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-basica-agua-de-la-gloria-concepcion",
+    "name": "Escuela Basica Agua de la Gloria",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-artistica-isaias-guevara-soto-lota",
+    "name": "Escuela Básica Artística Isaías Guevara Soto",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-basica-arturo-prat-tome",
+    "name": "Escuela Basica Arturo Prat",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-bellavista-tome",
+    "name": "Escuela Basica Bellavista",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-bello-horizonte-lota",
+    "name": "Escuela Basica Bello Horizonte",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-basica-boca-del-bio-bio-sur-san-pedro-de-la-paz",
+    "name": "Escuela Basica Boca del Bio Bio Sur",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-basica-caleta-del-medio-tome",
+    "name": "Escuela Basica Caleta del Medio",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-cancha-de-los-montero-florida",
+    "name": "Escuela Basica Cancha de los Montero",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-carlos-mahns-choupay-tome",
+    "name": "Escuela Basica Carlos Mahns Choupay",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-centenario-lota",
+    "name": "Escuela Basica Centenario",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-basica-cerro-cornou-talcahuano",
+    "name": "Escuela Basica Cerro Cornou",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-cerro-estanque-tome",
+    "name": "Escuela Basica Cerro Estanque",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-cerro-san-francisco-talcahuano",
+    "name": "Escuela Basica Cerro San Francisco",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-chupallar-tome",
+    "name": "Escuela Basica Chupallar",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-cocholgue-tome",
+    "name": "Escuela Basica Cocholgue",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-colcura-lota",
+    "name": "Escuela Basica Colcura",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-basica-comun-hospital-concepcion",
+    "name": "Escuela Básica Común Hospital",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-coroney-tome",
+    "name": "Escuela Basica Coroney",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-cristobal-colon-hualpen",
+    "name": "Escuela Básica Cristóbal Colón",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-basica-cruz-del-sur-talcahuano",
+    "name": "Escuela Basica Cruz del Sur",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-dichato-tome",
+    "name": "Escuela Basica Dichato",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-el-espino-tome",
+    "name": "Escuela Basica el Espino",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-el-maiten-hualqui",
+    "name": "Escuela Basica el Maiten",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-basica-el-mirador-tome",
+    "name": "Escuela Basica el Mirador",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-eliezer-talcahuano",
+    "name": "Escuela Basica Eliezer",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-florida-florida",
+    "name": "Escuela Basica Florida",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-forjadores-de-chile-penco",
+    "name": "Escuela Basica Forjadores de Chile",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-basica-fundo-chanco-concepcion",
+    "name": "Escuela Basica Fundo Chanco",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-ignacio-serrano-montaner-tome",
+    "name": "Escuela Basica Ignacio Serrano Montaner",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-irene-frei-de-cid-concepcion",
+    "name": "Escuela Básica Irene Frei de Cid",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-javiera-carrera-coronel",
+    "name": "Escuela Basica Javiera Carrera",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-basica-konrad-adenauer-lota",
+    "name": "Escuela Basica Konrad Adenauer",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-basica-la-dama-blanca-talcahuano",
+    "name": "Escuela Basica la Dama Blanca",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-lagos-de-chile-concepcion",
+    "name": "Escuela Basica Lagos de Chile",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-las-higueras-talcahuano",
+    "name": "Escuela Basica las Higueras",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-lautaro-concepcion",
+    "name": "Escuela Basica Lautaro",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-libertad-talcahuano",
+    "name": "Escuela Basica Libertad",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-lisa-enriqueta-peter-teubner-tome",
+    "name": "Escuela Básica Lisa Enriqueta Peter Teubner",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-lloicura-tome",
+    "name": "Escuela Basica Lloicura",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-los-conquistadores-penco",
+    "name": "Escuela Basica los Conquistadores",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-basica-los-libertadores-hualqui",
+    "name": "Escuela Basica los Libertadores",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-basica-luis-alberto-acevedo-san-pedro-de-la-paz",
+    "name": "Escuela Basica Luis Alberto Acevedo",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-basica-malvina-romero-vidal-concepcion",
+    "name": "Escuela Basica Malvina Romero Vidal",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-manquimavida-chiguayante",
+    "name": "Escuela Basica Manquimavida",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-basica-menque-tome",
+    "name": "Escuela Basica Menque",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-michaihue-san-pedro-de-la-paz",
+    "name": "Escuela Basica Michaihue",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-basica-millahue-tome",
+    "name": "Escuela Basica Millahue",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-nahuelbuta-san-pedro-de-la-paz",
+    "name": "Escuela Basica Nahuelbuta",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-basica-patagual-coronel",
+    "name": "Escuela Basica Patagual",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-basica-peninhueque-florida",
+    "name": "Escuela Basica Peninhueque",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-peninsula-de-tumbes-talcahuano",
+    "name": "Escuela Basica Peninsula de Tumbes",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-basica-playas-negras-coronel",
+    "name": "Escuela Basica Playas Negras",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-basica-ponen-florida",
+    "name": "Escuela Basica Ponen",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-primer-agua-abajo-penco",
+    "name": "Escuela Basica Primer Agua Abajo",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-basica-puente-siete-florida",
+    "name": "Escuela Basica Puente Siete",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-punta-de-parra-tome",
+    "name": "Escuela Basica Punta de Parra",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-quebrada-las-ulloa-florida",
+    "name": "Escuela Basica Quebrada las Ulloa",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-rafael-tome",
+    "name": "Escuela Basica Rafael",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-rafael-ampuero-villarroel-tome",
+    "name": "Escuela Basica Rafael Ampuero Villarroel",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-ramon-freire-serrano-coronel",
+    "name": "Escuela Basica Ramon Freire Serrano",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-basica-ranguel-hualqui",
+    "name": "Escuela Basica Ranguel",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-basica-rene-louvel-bert-concepcion",
+    "name": "Escuela Basica Rene Louvel Bert",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-basica-republica-de-panama-tome",
+    "name": "Escuela Basica Republica de Panama",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-san-antonio-tome",
+    "name": "Escuela Basica San Antonio",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-san-carlitos-tome",
+    "name": "Escuela Basica San Carlitos",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-san-francisco-tome",
+    "name": "Escuela Basica San Francisco",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-san-sebastian-de-manco-florida",
+    "name": "Escuela Basica San Sebastian de Manco",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-basica-santa-maria-de-guadalupe-lota",
+    "name": "Escuela Basica Santa Maria de Guadalupe",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-basica-vegas-de-coliumo-tome",
+    "name": "Escuela Basica Vegas de Coliumo",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-basica-villamavida-florida",
+    "name": "Escuela Basica Villamavida",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-belgica-chiguayante",
+    "name": "Escuela Belgica",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-blanca-estela-prat-carvajal-hualpen",
+    "name": "Escuela Blanca Estela Prat Carvajal",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-buena-vista-zaror-talcahuano",
+    "name": "Escuela Buena Vista Zaror",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-carlos-alberto-fernandez-castillo-hualqui",
+    "name": "Escuela Carlos Alberto Fernández Castillo",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-chacayal-santa-juana",
+    "name": "Escuela Chacayal",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-colico-alto-santa-juana",
+    "name": "Escuela Colico Alto",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-corneta-cabrales-talcahuano",
+    "name": "Escuela Corneta Cabrales",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-curamavida-santa-juana",
+    "name": "Escuela Curamavida",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-d-n-475-talcahuano",
+    "name": "Escuela D N° 475",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-dario-salas-marchant-san-pedro-de-la-paz",
+    "name": "Escuela Dario Salas Marchant",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-especial-lenguaje-aliwenko-coronel",
+    "name": "Escuela de Especial Lenguaje Aliwenko",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-de-leguanje-el-faro-concepcion",
+    "name": "Escuela de Leguanje el Faro",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-de-lenguaje-alborada-san-pedro-de-la-paz",
+    "name": "Escuela de Lenguaje Alborada",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-lenguaje-altos-de-chiguayante-chiguayante",
+    "name": "Escuela de Lenguaje Altos de Chiguayante",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-de-lenguaje-altue-talcahuano",
+    "name": "Escuela de Lenguaje Altue",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-de-lenguaje-amanecer-tome",
+    "name": "Escuela de Lenguaje Amanecer",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-de-lenguaje-amulen-santa-juana",
+    "name": "Escuela de Lenguaje Amulen",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-de-lenguaje-andalue-san-pedro-de-la-paz",
+    "name": "Escuela de Lenguaje Andalué",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-lenguaje-arco-iris-hualpen",
+    "name": "Escuela de Lenguaje Arco Iris",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-de-lenguaje-aserrin-aserran-san-pedro-de-la-paz",
+    "name": "Escuela de Lenguaje Aserrin Aserran",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-lenguaje-chileduca-chiguayante",
+    "name": "Escuela de Lenguaje Chileduca",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-de-lenguaje-cicel-concepcion",
+    "name": "Escuela de Lenguaje Cicel",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-de-lenguaje-educere-hualqui",
+    "name": "Escuela de Lenguaje Educere",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-de-lenguaje-el-roble-san-pedro-de-la-paz",
+    "name": "Escuela de Lenguaje el Roble",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-lenguaje-florida-florida",
+    "name": "Escuela de Lenguaje Florida",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-de-lenguaje-girasol-concepcion",
+    "name": "Escuela de Lenguaje Girasol",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-de-lenguaje-inalaf-talcahuano",
+    "name": "Escuela de Lenguaje Inalaf",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-de-lenguaje-lomas-coloradas-san-pedro-de-la-paz",
+    "name": "Escuela de Lenguaje Lomas Coloradas",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-lenguaje-mar-azul-talcahuano",
+    "name": "Escuela de Lenguaje Mar Azul",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-de-lenguaje-nueva-esperanza-de-dichato-tome",
+    "name": "Escuela de Lenguaje Nueva Esperanza de Dichato",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-de-lenguaje-paso-a-paso-talcahuano",
+    "name": "Escuela de Lenguaje Paso A Paso",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-de-lenguaje-san-nicolas-penco",
+    "name": "Escuela de Lenguaje San Nicolas",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-de-lenguaje-santa-juana-santa-juana",
+    "name": "Escuela de Lenguaje Santa Juana",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-de-lenguaje-santa-marietta-talcahuano",
+    "name": "Escuela de Lenguaje Santa Marietta",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-de-lenguaje-timonel-coronel",
+    "name": "Escuela de Lenguaje Timonel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-de-lenguaje-valentina-san-pedro-de-la-paz",
+    "name": "Escuela de Lenguaje Valentina",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-de-lenguaje-y-jardin-infantil-porvenir-chiguayante",
+    "name": "Escuela de Lenguaje y Jardín Infantil Porvenir",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-diego-portales-santa-juana",
+    "name": "Escuela Diego Portales",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-diego-portales-palazuelos-concepcion",
+    "name": "Escuela Diego Portales Palazuelos",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-diferencial-alto-del-rey-san-pedro-de-la-paz",
+    "name": "Escuela Diferencial Alto del Rey",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-diferencial-aspaut-chiguayante-chiguayante",
+    "name": "Escuela Diferencial Aspaut Chiguayante",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-diferencial-bao-bab-hualpen",
+    "name": "Escuela Diferencial Bao Bab",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-diferencial-centro-de-estudio-e-inclusion-laboral-biocor-coronel",
+    "name": "Escuela Diferencial Centro de Estudio E Inclusion Laboral Biocor",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-diferencial-maria-ester-breve-gonzalez-coronel",
+    "name": "Escuela Diferencial María Ester Breve González",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-diferencial-maria-montessori-hualpen",
+    "name": "Escuela Diferencial Maria Montessori",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-diferencial-marta-stowhas-kargus-penco",
+    "name": "Escuela Diferencial Marta Stowhas Kargus",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-diferencial-pierre-mendes-france-san-pedro-de-la-paz",
+    "name": "Escuela Diferencial Pierre Mendes France",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-diferencial-rayito-de-sol-coronel",
+    "name": "Escuela Diferencial Rayito de Sol",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-diferencial-y-centro-de-atencion-temprana-libertad-concepcion",
+    "name": "Escuela Diferencial y Centro de Atencion Temprana Libertad",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-eduardo-cambell-saavedra-penco",
+    "name": "Escuela Eduardo Cambell Saavedra",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-enrique-soro-barriga-san-pedro-de-la-paz",
+    "name": "Escuela Enrique Soro Barriga",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-escuadron-coronel",
+    "name": "Escuela Escuadron",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-esp-trast-lenguaje-y-j-infantil-titirimundi-concepcion",
+    "name": "Escuela Esp.trast.lenguaje y J.infantil Titirimundi",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-centro-de-capacitacion-e-integracion-laboral-kries-chiguayante",
+    "name": "Escuela Especial Centro de Capacitación E Integración Laboral Kries",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-especial-ceres-concepcion",
+    "name": "Escuela Especial Ceres",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-chile-espana-concepcion",
+    "name": "Escuela Especial Chile España",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-discapacidad-auditiva-y-trastornos-graves-de-la-comunicacion-hablame-de-amor-concepcion",
+    "name": "Escuela Especial de Discapacidad Auditiva y Trastornos Graves de la Comunicación Háblame de Amor",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-amanecer-talcahuano",
+    "name": "Escuela Especial de Lenguaje Amanecer",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-amapola-concepcion",
+    "name": "Escuela Especial de Lenguaje Amapola",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-araucaria-concepcion",
+    "name": "Escuela Especial de Lenguaje Araucaria",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-arboliris-coronel",
+    "name": "Escuela Especial de Lenguaje Arboliris",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-bosque-encantado-coronel",
+    "name": "Escuela Especial de Lenguaje Bosque Encantado",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-bosque-magico-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Bosque Magico",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-bristol-hualpen",
+    "name": "Escuela Especial de Lenguaje Bristol",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-buen-retiro-coronel",
+    "name": "Escuela Especial de Lenguaje Buen Retiro",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-campanella-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Campanella",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-campanita-tome",
+    "name": "Escuela Especial de Lenguaje Campanita",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-cidnee-coronel",
+    "name": "Escuela Especial de Lenguaje Cidnee",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-descubre-palabras-chiguayante",
+    "name": "Escuela Especial de Lenguaje Descubre Palabras",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-efrain-aedo-coronel",
+    "name": "Escuela Especial de Lenguaje Efrain Aedo",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-el-nogal-florida",
+    "name": "Escuela Especial de Lenguaje el Nogal",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-entre-palabras-concepcion",
+    "name": "Escuela Especial de Lenguaje Entre Palabras",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-estoy-feliz-coronel",
+    "name": "Escuela Especial de Lenguaje Estoy Feliz",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-exploradores-del-saber-coronel",
+    "name": "Escuela Especial de Lenguaje Exploradores del Saber",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-farolito-dorado-coronel",
+    "name": "Escuela Especial de Lenguaje Farolito Dorado",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-golden-house-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Golden House",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-hijos-del-rey-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Hijos del Rey",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-jardin-de-palabras-penco",
+    "name": "Escuela Especial de Lenguaje Jardín de Palabras",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-ketrawue-concepcion",
+    "name": "Escuela Especial de Lenguaje Ketrawue",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-kimalu-penco",
+    "name": "Escuela Especial de Lenguaje Kimalu",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-las-palmeritas-concepcion",
+    "name": "Escuela Especial de Lenguaje las Palmeritas",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-letritas-concepcion",
+    "name": "Escuela Especial de Lenguaje Letritas",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-manquimavida-chiguayante",
+    "name": "Escuela Especial de Lenguaje Manquimavida",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-matilda-concepcion",
+    "name": "Escuela Especial de Lenguaje Matilda",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-mi-castillo-concepcion",
+    "name": "Escuela Especial de Lenguaje Mi Castillo",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-mis-dulces-palabras-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Mis Dulces Palabras",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-nuevo-futuro-penco",
+    "name": "Escuela Especial de Lenguaje Nuevo Futuro",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-palabras-de-ninos-coronel",
+    "name": "Escuela Especial de Lenguaje Palabras de Niños",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-palabritas-concepcion",
+    "name": "Escuela Especial de Lenguaje Palabritas",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-pequenos-amigos-coronel",
+    "name": "Escuela Especial de Lenguaje Pequeños Amigos",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-pequenos-amigos-concepcion",
+    "name": "Escuela Especial de Lenguaje Pequeños Amigos",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-pequenos-tesoros-hualpen",
+    "name": "Escuela Especial de Lenguaje Pequeños Tesoros",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-peumayen-hualpen",
+    "name": "Escuela Especial de Lenguaje Peumayen",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-peumayen-coronel",
+    "name": "Escuela Especial de Lenguaje Peumayen",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-pioneros-coronel",
+    "name": "Escuela Especial de Lenguaje Pioneros",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-remolino-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Remolino",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-rucahue-talcahuano",
+    "name": "Escuela Especial de Lenguaje Rucahue",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-san-carlos-talcahuano",
+    "name": "Escuela Especial de Lenguaje San Carlos",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-san-francisco-de-asis-talcahuano",
+    "name": "Escuela Especial de Lenguaje San Francisco de Asis",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-san-sebastian-hualpen",
+    "name": "Escuela Especial de Lenguaje San Sebastian",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-santa-catalina-talcahuano",
+    "name": "Escuela Especial de Lenguaje Santa Catalina",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-santa-dominga-coronel",
+    "name": "Escuela Especial de Lenguaje Santa Dominga",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-santa-leonor-talcahuano",
+    "name": "Escuela Especial de Lenguaje Santa Leonor",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-semillita-hualpen",
+    "name": "Escuela Especial de Lenguaje Semillita",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-teson-minero-lota",
+    "name": "Escuela Especial de Lenguaje Tesón Minero",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-tierra-de-ninos-tome",
+    "name": "Escuela Especial de Lenguaje Tierra de Niños",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-timonel-coronel-coronel",
+    "name": "Escuela Especial de Lenguaje Timonel Coronel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-villa-hermosa-hualpen",
+    "name": "Escuela Especial de Lenguaje Villa Hermosa",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-wenga-lota",
+    "name": "Escuela Especial de Lenguaje Wenga",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-y-jardin-infantil-castillo-tia-paola-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje y Jardin Infantil Castillo Tia Paola",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-y-jardin-infantil-tutumpi-coronel",
+    "name": "Escuela Especial de Lenguaje y Jardín Infantil Tutumpi",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-y-jardin-infantil-wonderful-wordl-talcahuano",
+    "name": "Escuela Especial de Lenguaje y Jardin Infantil Wonderful Wordl",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-yireh-los-molles-coronel",
+    "name": "Escuela Especial de Lenguaje Yireh los Molles",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-de-lenguaje-yupanqui-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Lenguaje Yupanqui",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-de-trastorno-de-la-comunicacion-san-rodric-lota",
+    "name": "Escuela Especial de Trastorno de la Comunicación San Rodric",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-especial-de-trastornos-de-la-comunicacion-abra-palabra-san-pedro-de-la-paz",
+    "name": "Escuela Especial de Trastornos de la Comunicación Abra Palabra",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-especial-diferencial-expresion-de-amor-tome",
+    "name": "Escuela Especial Diferencial Expresion de Amor",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-especial-diferencial-florecer-talcahuano",
+    "name": "Escuela Especial Diferencial Florecer",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-diferencial-huallerehue-santa-juana",
+    "name": "Escuela Especial Diferencial Huallerehue",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-especial-diferencial-luis-espinoza-pierretti-talcahuano",
+    "name": "Escuela Especial Diferencial Luis Espinoza Pierretti",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-diferencial-nidal-talcahuano",
+    "name": "Escuela Especial Diferencial Nidal",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-especial-diferencial-rucakuyen-hualpen",
+    "name": "Escuela Especial Diferencial Rucakuyén",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-especial-diferencial-sol-naciente-coronel",
+    "name": "Escuela Especial Diferencial Sol Naciente",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-diferencial-y-de-lenguaje-maison-de-l-enfance-concepcion",
+    "name": "Escuela Especial Diferencial y de Lenguaje Maison de L`enfance",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-infantil-san-andres-concepcion",
+    "name": "Escuela Especial Infantil San Andres",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-lenguaje-palabras-magicas-coronel",
+    "name": "Escuela Especial Lenguaje Palabras Mágicas",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-especial-luis-cousino-squella-lota",
+    "name": "Escuela Especial Luis Cousino Squella",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-especial-play-school-concepcion",
+    "name": "Escuela Especial Play School",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-especial-tome-tome",
+    "name": "Escuela Especial Tomé",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-especial-trastornos-de-la-comunicacion-nahuel-concepcion",
+    "name": "Escuela Especial Trastornos de la Comunicación Nahuel",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-espigado-santa-juana",
+    "name": "Escuela Espigado",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-esther-hunneus-de-claro-concepcion",
+    "name": "Escuela Esther Hunneus de Claro",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-ethel-henck-de-grant-penco",
+    "name": "Escuela Ethel Henck de Grant",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-f-500-huertos-familiares-talcahuano",
+    "name": "Escuela F 500 Huertos Familiares",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-francisco-coloane-coronel",
+    "name": "Escuela Francisco Coloane",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-gabriela-mistral-tome",
+    "name": "Escuela Gabriela Mistral",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-genaro-rios-campos-coronel",
+    "name": "Escuela Genaro Rios Campos",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-gomero-hualqui",
+    "name": "Escuela Gomero",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-helen-keller-adams-hualpen",
+    "name": "Escuela Helen Keller Adams",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-isidora-goyenechea-lota",
+    "name": "Escuela Isidora Goyenechea",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-isla-de-pascua-penco",
+    "name": "Escuela Isla de Pascua",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-jorge-rojas-miranda-coronel",
+    "name": "Escuela Jorge Rojas Miranda",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-jose-miguel-carrera-san-pedro-de-la-paz",
+    "name": "Escuela Jose Miguel Carrera",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-juan-jose-latorre-benavente-coronel",
+    "name": "Escuela Juan Jose Latorre Benavente",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-la-calle-hualqui",
+    "name": "Escuela la Calle",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-la-generala-santa-juana",
+    "name": "Escuela la Generala",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-la-greda-penco",
+    "name": "Escuela la Greda",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-los-quiques-santa-juana",
+    "name": "Escuela los Quiques",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-luis-alfredo-munoz-burboa-concepcion",
+    "name": "Escuela Luis Alfredo Muñoz Burboa",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-manuel-amat-y-juniet-hualqui",
+    "name": "Escuela Manuel Amat y Juniet",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-mariano-egana-tome",
+    "name": "Escuela Mariano Egana",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-maule-coronel",
+    "name": "Escuela Maule",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-metodista-coronel",
+    "name": "Escuela Metodista",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-mexico-estado-de-guerrero-talcahuano",
+    "name": "Escuela Mexico Estado de Guerrero",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-miguel-de-cervantes-chiguayante",
+    "name": "Escuela Miguel de Cervantes",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-miguel-jose-zanartu-santa-maria-san-pedro-de-la-paz",
+    "name": "Escuela Miguel Jose Zanartu Santa Maria",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-nueva-republica-hualqui",
+    "name": "Escuela Nueva Republica",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-octavio-salinas-cariaga-coronel",
+    "name": "Escuela Octavio Salinas Cariaga",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-oscar-castro-zuniga-concepcion",
+    "name": "Escuela Oscar Castro Zuniga",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-palestina-de-palomares-concepcion",
+    "name": "Escuela Palestina de Palomares",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-particular-americo-vespucio-coronel",
+    "name": "Escuela Particular Americo Vespucio",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-particular-andres-bello-san-pedro-de-la-paz",
+    "name": "Escuela Particular Andres Bello",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-particular-clorinda-avello-santa-juana",
+    "name": "Escuela Particular Clorinda Avello",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-particular-diego-portales-hualpen",
+    "name": "Escuela Particular Diego Portales",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-particular-el-nazareno-concepcion",
+    "name": "Escuela Particular el Nazareno",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-particular-esmeralda-talcahuano",
+    "name": "Escuela Particular Esmeralda",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-particular-getsemani-lota",
+    "name": "Escuela Particular Getsemani",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "escuela-particular-instituto-san-pedro-san-pedro-de-la-paz",
+    "name": "Escuela Particular Instituto San Pedro",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-particular-manquimavida-chiguayante",
+    "name": "Escuela Particular Manquimavida",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "escuela-particular-manuel-rodriguez-hualpen",
+    "name": "Escuela Particular Manuel Rodriguez",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-particular-margarita-naseau-tome",
+    "name": "Escuela Particular Margarita Naseau",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-particular-pedro-de-ona-san-pedro-de-la-paz",
+    "name": "Escuela Particular Pedro de Ona",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-particular-queen-elizabeth-school-penco",
+    "name": "Escuela Particular Queen Elizabeth School",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-particular-san-jose-san-pedro-de-la-paz",
+    "name": "Escuela Particular San Jose",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "escuela-particular-san-marcos-coronel",
+    "name": "Escuela Particular San Marcos",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-particular-santa-cruz-hualqui",
+    "name": "Escuela Particular Santa Cruz",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-particular-unicornio-florida",
+    "name": "Escuela Particular Unicornio",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-patrimonial-california-tome",
+    "name": "Escuela Patrimonial California",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "escuela-penco-penco",
+    "name": "Escuela Penco",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-profesora-juana-salgado-parra-de-unihue-hualqui",
+    "name": "Escuela Profesora Juana Salgado Parra de Unihue",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-pucara-concepcion",
+    "name": "Escuela Pucara",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "escuela-rafael-sotomayor-baeza-coronel",
+    "name": "Escuela Rafael Sotomayor Baeza",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-rahuil-florida",
+    "name": "Escuela Rahuil",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "escuela-recaredo-vigueras-araneda-santa-juana",
+    "name": "Escuela Recaredo Vigueras Araneda",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-remigio-castro-aburto-coronel",
+    "name": "Escuela Remigio Castro Aburto",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-republica-de-francia-coronel",
+    "name": "Escuela Republica de Francia",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-republica-de-italia-penco",
+    "name": "Escuela Republica de Italia",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-republica-del-peru-hualpen",
+    "name": "Escuela Republica del Peru",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-rosa-medel-aguilera-coronel",
+    "name": "Escuela Rosa Medel Aguilera",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-rosa-yanez-rodriguez-coronel",
+    "name": "Escuela Rosa Yanez Rodriguez",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-rosita-renard-coronel",
+    "name": "Escuela Rosita Renard",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-san-jose-la-palma-hualqui",
+    "name": "Escuela San Jose la Palma",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-san-nicanor-hualqui",
+    "name": "Escuela San Nicanor",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-santa-clara-talcahuano",
+    "name": "Escuela Santa Clara",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-santa-susana-de-pichaco-hualqui",
+    "name": "Escuela Santa Susana de Pichaco",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "escuela-santa-teresita-hualpen",
+    "name": "Escuela Santa Teresita",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-tanahuillin-santa-juana",
+    "name": "Escuela Tanahuillin",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "escuela-thomas-jefferson-d-465-hualpen",
+    "name": "Escuela Thomas Jefferson D 465",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "escuela-victor-domingo-silva-coronel",
+    "name": "Escuela Victor Domingo Silva",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "escuela-villa-centinela-sur-talcahuano",
+    "name": "Escuela Villa Centinela Sur",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-villa-independencia-talcahuano",
+    "name": "Escuela Villa Independencia",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "escuela-vipla-penco",
+    "name": "Escuela Vipla",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "escuela-vista-hermosa-coronel",
+    "name": "Escuela Vista Hermosa",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "instituto-de-humanidades-alfredo-silva-s-concepcion",
+    "name": "Instituto de Humanidades Alfredo Silva S",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "instituto-de-humanidades-antonio-moreno-casamitjana-coronel",
+    "name": "Instituto de Humanidades Antonio Moreno Casamitjana",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "instituto-down-concepcion",
+    "name": "Instituto Down",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "instituto-humanidades-monsenor-jose-manuel-santo-ascarza-chiguayante",
+    "name": "Instituto Humanidades Monseñor Jose Manuel Santo Ascarza",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "instituto-humanidades-san-francisco-de-asis-lota",
+    "name": "Instituto Humanidades San Francisco de Asis",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "jardin-infantil-y-escuela-especial-arcoiris-hualqui",
+    "name": "Jardín Infantil y Escuela Especial Arcoiris",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "jardin-infantil-y-escuela-especial-de-lenguaje-maison-de-l-enfance-concepcion",
+    "name": "Jardín Infantil y Escuela Especial de Lenguaje Maison de L´enfance",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "kingston-college-concepcion",
+    "name": "Kingston College",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-baldomero-lillo-figueroa-lota",
+    "name": "Liceo Baldomero Lillo Figueroa",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "liceo-bicentenario-almirante-pedro-espina-ritchie-talcahuano",
+    "name": "Liceo Bicentenario Almirante Pedro Espina Ritchie",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-bicentenario-anita-serrano-sepulveda-talcahuano",
+    "name": "Liceo Bicentenario Anita Serrano Sepulveda",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-bicentenario-de-coronel-coronel",
+    "name": "Liceo Bicentenario de Coronel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "liceo-bicentenario-de-excelencia-comercial-insuco-concepcion",
+    "name": "Liceo Bicentenario de Excelencia Comercial Insuco",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-bicentenario-de-excelencia-industrial-de-tome-tome",
+    "name": "Liceo Bicentenario de Excelencia Industrial de Tome",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "liceo-bicentenario-de-excelencia-industrial-federico-schwager-coronel",
+    "name": "Liceo Bicentenario de Excelencia Industrial Federico Schwager",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "liceo-bicentenario-de-excelencia-industrial-metodista-de-coronel-coronel",
+    "name": "Liceo Bicentenario de Excelencia Industrial Metodista de Coronel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "liceo-bicentenario-industrial-de-la-construccion-hernan-valenzuela-leyton-hualpen",
+    "name": "Liceo Bicentenario Industrial de la Construcción Hernán Valenzuela Leyton",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "liceo-carlos-cousino-goyenechea-lota",
+    "name": "Liceo Carlos Cousiño Goyenechea",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "liceo-chiguayante-chiguayante",
+    "name": "Liceo Chiguayante",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "liceo-comercial-andres-bello-lopez-coronel",
+    "name": "Liceo Comercial Andres Bello Lopez",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "liceo-comercial-de-tome-tome",
+    "name": "Liceo Comercial de Tome",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "liceo-comercial-femenino-de-concepcion-concepcion",
+    "name": "Liceo Comercial Femenino de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-comercial-presidente-frei-montalva-lota",
+    "name": "Liceo Comercial Presidente Frei Montalva",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "liceo-comercial-profesor-sergio-moraga-arcil-talcahuano",
+    "name": "Liceo Comercial Profesor Sergio Moraga Arcil",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-copiulemu-florida",
+    "name": "Liceo Copiulemu",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "liceo-coronel-antonio-salamanca-coronel",
+    "name": "Liceo Coronel Antonio Salamanca",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "liceo-de-adultos-jose-manuel-balmaceda-fernandez-concepcion",
+    "name": "Liceo de Adultos José Manuel Balmaceda Fernández",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-de-ninas-concepcion",
+    "name": "Liceo de Niñas",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-domingo-santa-maria-concepcion",
+    "name": "Liceo Domingo Santa María",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-enrique-molina-garmendia-concepcion",
+    "name": "Liceo Enrique Molina Garmendia",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-industrial-de-concepcion-concepcion",
+    "name": "Liceo Industrial de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-industrial-juan-antonio-rios-talcahuano",
+    "name": "Liceo Industrial Juan Antonio Rios",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-juan-martinez-de-rozas-concepcion",
+    "name": "Liceo Juan Martinez de Rozas",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-la-asuncion-talcahuano",
+    "name": "Liceo la Asuncion",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-lorenzo-arenas-olivo-concepcion",
+    "name": "Liceo Lorenzo Arenas Olivo",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-lucero-gonzalez-concepcion",
+    "name": "Liceo Lucero Gonzalez",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-luis-de-alava-florida",
+    "name": "Liceo Luis de Alava",
+    "type": "colegio",
+    "comuna": "Florida"
+  },
+  {
+    "id": "liceo-mauricio-hochschild-san-pedro-de-la-paz",
+    "name": "Liceo Mauricio Hochschild",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "liceo-nueva-zelandia-santa-juana",
+    "name": "Liceo Nueva Zelandia",
+    "type": "colegio",
+    "comuna": "Santa Juana"
+  },
+  {
+    "id": "liceo-obispo-san-miguel-chiguayante",
+    "name": "Liceo Obispo San Miguel",
+    "type": "colegio",
+    "comuna": "Chiguayante"
+  },
+  {
+    "id": "liceo-particular-los-andes-san-pedro-de-la-paz",
+    "name": "Liceo Particular los Andes",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "liceo-pencopolitano-penco",
+    "name": "Liceo Pencopolitano",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "liceo-politecnico-rosauro-santana-rios-lota",
+    "name": "Liceo Politecnico Rosauro Santana Rios",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "liceo-polivalente-experimental-lucila-godoy-alcayaga-concepcion",
+    "name": "Liceo Polivalente Experimental Lucila Godoy Alcayaga",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-polivalente-las-salinas-talcahuano",
+    "name": "Liceo Polivalente las Salinas",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-rebeca-matte-bello-concepcion",
+    "name": "Liceo Rebeca Matte Bello",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-republica-del-ecuador-tome",
+    "name": "Liceo República del Ecuador",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "liceo-rios-de-chile-penco",
+    "name": "Liceo Rios de Chile",
+    "type": "colegio",
+    "comuna": "Penco"
+  },
+  {
+    "id": "liceo-san-agustin-de-concepcion-concepcion",
+    "name": "Liceo San Agustin de Concepcion",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-san-juan-bautista-de-hualqui-hualqui",
+    "name": "Liceo San Juan Bautista de Hualqui",
+    "type": "colegio",
+    "comuna": "Hualqui"
+  },
+  {
+    "id": "liceo-san-pedro-san-pedro-de-la-paz",
+    "name": "Liceo San Pedro",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "liceo-santa-doris-lota",
+    "name": "Liceo Santa Doris",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "liceo-santa-leonor-talcahuano",
+    "name": "Liceo Santa Leonor",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-simon-bolivar-hualpen",
+    "name": "Liceo Simón Bolívar",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "liceo-tecnico-de-talcahuano-talcahuano",
+    "name": "Liceo Tecnico de Talcahuano",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "liceo-tecnico-femenino-a-29-de-concepcion-concepcion",
+    "name": "Liceo Técnico Femenino A-29 de Concepción",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-tecnico-profesional-bicentenario-jorge-sanchez-ugarte-concepcion",
+    "name": "Liceo Técnico Profesional Bicentenario Jorge Sánchez Ugarte",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-tecnico-profesional-de-adultos-biobio-concepcion",
+    "name": "Liceo Técnico Profesional de Adultos Biobío",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-tecnico-profesional-de-la-madera-coronel",
+    "name": "Liceo Tecnico Profesional de la Madera",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "liceo-tecnico-profesional-la-araucana-concepcion",
+    "name": "Liceo Tecnico Profesional la Araucana",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "liceo-tecnico-profesional-lucila-godoy-alcayaga-hualpen",
+    "name": "Liceo Técnico Profesional Lucila Godoy Alcayaga",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "liceo-tecnico-profesional-pedro-del-rio-zanartu-hualpen",
+    "name": "Liceo Técnico Profesional Pedro del Río Zañartu",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "liceo-thompson-matthews-lota",
+    "name": "Liceo Thompson Matthews",
+    "type": "colegio",
+    "comuna": "Lota"
+  },
+  {
+    "id": "liceo-vicente-alberto-palacios-valdes-tome",
+    "name": "Liceo Vicente Alberto Palacios Valdes",
+    "type": "colegio",
+    "comuna": "Tomé"
+  },
+  {
+    "id": "liceo-yobilo-de-coronel-coronel",
+    "name": "Liceo Yobilo de Coronel",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "sagrados-corazones-hualpen",
+    "name": "Sagrados Corazones",
+    "type": "colegio",
+    "comuna": "Hualpén"
+  },
+  {
+    "id": "saint-john-s-school-san-pedro-de-la-paz",
+    "name": "Saint John´s School",
+    "type": "colegio",
+    "comuna": "San Pedro de la Paz"
+  },
+  {
+    "id": "san-pedro-nolasco-concepcion",
+    "name": "San Pedro Nolasco",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "scuola-italiana-di-concepcion-coronel",
+    "name": "Scuola Italiana Di Concepcion",
+    "type": "colegio",
+    "comuna": "Coronel"
+  },
+  {
+    "id": "the-thomas-jefferson-school-talcahuano",
+    "name": "The Thomas Jefferson School",
+    "type": "colegio",
+    "comuna": "Talcahuano"
+  },
+  {
+    "id": "the-wessex-school-concepcion",
+    "name": "The Wessex School",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  {
+    "id": "unidad-de-integracion-del-limitado-visual-concepcion",
+    "name": "Unidad de Integración del Limitado Visual",
+    "type": "colegio",
+    "comuna": "Concepción"
+  }
+]

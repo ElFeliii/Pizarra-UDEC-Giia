@@ -1,0 +1,9 @@
+[
+  {
+    "id": "colegio-ejemplo-1",
+    "name": "Colegio ejemplo 1",
+    "type": "colegio",
+    "comuna": "Concepción"
+  },
+  { "id": "universidad-ejemplo-1", "name": "Universidad ejemplo 1", "type": "universidad" }
+]

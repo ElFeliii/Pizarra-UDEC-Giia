@@ -1,0 +1,34 @@
+[
+  { "id": "universidad-de-concepcion", "name": "Universidad de Concepción", "type": "universidad" },
+  { "id": "universidad-del-bio-bio", "name": "Universidad del Bío-Bío", "type": "universidad" },
+  {
+    "id": "universidad-catolica-de-la-santisima-concepcion",
+    "name": "Universidad Católica de la Santísima Concepción",
+    "type": "universidad"
+  },
+  {
+    "id": "universidad-tecnica-federico-santa-maria",
+    "name": "Universidad Técnica Federico Santa María",
+    "type": "universidad"
+  },
+  { "id": "universidad-san-sebastian", "name": "Universidad San Sebastián", "type": "universidad" },
+  {
+    "id": "universidad-del-desarrollo",
+    "name": "Universidad del Desarrollo",
+    "type": "universidad"
+  },
+  { "id": "universidad-andres-bello", "name": "Universidad Andrés Bello", "type": "universidad" },
+  {
+    "id": "universidad-de-las-americas",
+    "name": "Universidad de Las Américas",
+    "type": "universidad"
+  },
+  { "id": "universidad-santo-tomas", "name": "Universidad Santo Tomás", "type": "universidad" },
+  {
+    "id": "universidad-tecnologica-de-chile-inacap",
+    "name": "Universidad Tecnológica de Chile INACAP",
+    "type": "universidad"
+  },
+  { "id": "universidad-la-republica", "name": "Universidad La República", "type": "universidad" },
+  { "id": "universidad-bolivariana", "name": "Universidad Bolivariana", "type": "universidad" }
+]

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "nota": "Estado inicial de cada sección. El moderador los cambia en vivo desde el panel; al subir la versión se agregan solo las secciones nuevas, sin pisar lo que el moderador haya dejado.",
+  "secciones": [
+    { "id": "mapa", "tipo": "lienzo", "nombre": "Mapa", "orden": 1, "estado": "abierta" },
+    { "id": "pizarra", "tipo": "lienzo", "nombre": "Pizarra", "orden": 2, "estado": "abierta" },
+    { "id": "consejos", "tipo": "muro", "nombre": "Consejos", "orden": 3, "estado": "abierta" },
+    { "id": "historias", "tipo": "muro", "nombre": "Historias", "orden": 4, "estado": "abierta" },
+    { "id": "carreras", "tipo": "muro", "nombre": "Carreras", "orden": 5, "estado": "abierta" },
+    { "id": "faq", "tipo": "muro", "nombre": "Preguntas frecuentes", "orden": 6, "estado": "abierta" },
+    { "id": "votaciones", "tipo": "encuesta", "nombre": "Votaciones", "orden": 7, "estado": "oculta" }
+  ]
+}

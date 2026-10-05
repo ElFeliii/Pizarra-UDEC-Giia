@@ -1,0 +1,25 @@
+node_modules/
+dist/
+# Solo la base de datos de la raíz: server/data/ sí se versiona (lista de instituciones).
+/data/
+
+# Insumos y salidas intermedias del mapa: se regeneran (ver docs/MAPA.md).
+assets/mapa/*.dxf
+assets/mapa/*.dwg
+assets/mapa/*.svg
+assets/mapa/osm-campus.json
+assets/mapa/osm-entorno.json
+assets/mapa/capas/
+
+*.db
+*.db-wal
+*.db-shm
+.env
+coverage/
+test-results/
+playwright-report/
+.vite/
+*.log
+
+# Configuración local del editor
+.*/

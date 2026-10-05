@@ -1,0 +1,51 @@
+{
+  "name": "pizarra-udec",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pizarra colaborativa en tiempo real para eventos de la Universidad de Concepción",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,magenta \"npm run dev -w @pizarra/server\" \"npm run dev -w @pizarra/client\"",
+    "build": "npm run build -w @pizarra/client && npm run build -w @pizarra/server",
+    "start": "npm run start -w @pizarra/server",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p shared --noEmit && tsc -p server --noEmit && tsc -p client --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "loadtest": "tsx scripts/loadtest.ts",
+    "carreras": "tsx scripts/carreras/build.ts",
+    "mapa": "tsx scripts/mapa/build.ts",
+    "mapa:entorno": "tsx scripts/mapa/build-entorno.ts",
+    "datos": "tsx server/src/tools/datos.ts",
+    "fotos": "tsx scripts/fotos/build.ts",
+    "fotos:inventario": "tsx scripts/fotos/inventario.ts",
+    "dev:lan": "concurrently -n server,client -c blue,magenta \"npm run dev:lan -w @pizarra/server\" \"npm run dev:lan -w @pizarra/client\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.8",
+    "socket.io-client": "^4.8.3",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vitest": "^5.0.1"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "esbuild@0.28.2": true,
+    "better-sqlite3": false
+  },
+  "type": "module"
+}

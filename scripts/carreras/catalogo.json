@@ -1,0 +1,225 @@
+{
+  "version": 1,
+  "fechaConsulta": "2026-10-04",
+  "fuentes": [
+    "https://admision.udec.cl/carreras-udec/",
+    "https://admision.udec.cl/puertas-abiertas/",
+    "https://www.udec.cl/facultades/"
+  ],
+  "unidades": [
+    {
+      "nombre": "Facultad de Agronomía",
+      "campus": "Concepción",
+      "carreras": ["Agronomía"]
+    },
+    {
+      "nombre": "Facultad de Arquitectura, Urbanismo y Geografía",
+      "campus": "Concepción",
+      "carreras": ["Arquitectura", "Geografía"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Ambientales",
+      "campus": "Concepción",
+      "carreras": ["Ingeniería Ambiental"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Biológicas",
+      "campus": "Concepción",
+      "carreras": ["Bioingeniería"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Económicas y Administrativas",
+      "campus": "Concepción",
+      "carreras": ["Auditoría", "Ingeniería Comercial"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "carreras": [
+        "Astronomía",
+        "Ciencias Físicas",
+        "Geofísica",
+        "Ingeniería Civil Matemática",
+        "Ingeniería Estadística",
+        "Licenciatura en Matemática"
+      ]
+    },
+    {
+      "nombre": "Facultad de Ciencias Forestales",
+      "campus": "Concepción",
+      "carreras": [
+        "Ingeniería en Biotecnología Vegetal",
+        "Ingeniería en Conservación de Recursos Naturales",
+        "Ingeniería Forestal"
+      ]
+    },
+    {
+      "nombre": "Facultad de Ciencias Jurídicas y Sociales",
+      "campus": "Concepción",
+      "carreras": ["Administración Pública y Ciencia Política", "Derecho"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Naturales y Oceanográficas",
+      "campus": "Concepción",
+      "carreras": [
+        "Biología",
+        "Biología Marina",
+        "Ingeniería en Biotecnología Marina y Acuicultura"
+      ]
+    },
+    {
+      "nombre": "Facultad de Ciencias Químicas",
+      "campus": "Concepción",
+      "carreras": [
+        "Bachillerato en Ciencias e Innovación",
+        "Geología",
+        "Licenciatura en Química–Químico",
+        "Químico/a Analista"
+      ]
+    },
+    {
+      "nombre": "Facultad de Ciencias Sociales",
+      "campus": "Concepción",
+      "carreras": ["Antropología", "Periodismo", "Psicología", "Sociología", "Trabajo Social"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Veterinarias",
+      "campus": "Concepción",
+      "carreras": ["Medicina Veterinaria"]
+    },
+    {
+      "nombre": "Facultad de Educación",
+      "campus": "Concepción",
+      "carreras": [
+        "Educación General Básica",
+        "Educación Diferencial",
+        "Educación Parvularia",
+        "Pedagogía en Artes Visuales",
+        "Pedagogía en Ciencias Naturales y Biología",
+        "Pedagogía en Ciencias Naturales y Física",
+        "Pedagogía en Ciencias Naturales y Química",
+        "Pedagogía en Educación Física",
+        "Pedagogía en Educación Musical",
+        "Pedagogía en Español",
+        "Pedagogía en Filosofía",
+        "Pedagogía en Historia y Geografía",
+        "Pedagogía en Inglés",
+        "Pedagogía en Matemáticas"
+      ]
+    },
+    {
+      "nombre": "Facultad de Enfermería",
+      "campus": "Concepción",
+      "carreras": ["Enfermería"]
+    },
+    {
+      "nombre": "Facultad de Farmacia",
+      "campus": "Concepción",
+      "carreras": ["Bioquímica", "Nutrición y Dietética", "Química y Farmacia"]
+    },
+    {
+      "nombre": "Facultad de Humanidades y Arte",
+      "campus": "Concepción",
+      "carreras": [
+        "Artes Visuales",
+        "Bachillerato en Humanidades",
+        "Licenciatura en Historia",
+        "Teatro",
+        "Traducción / Interpretación en Idiomas Extranjeros"
+      ]
+    },
+    {
+      "nombre": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "carreras": [
+        "Ingeniería Civil – Primer Año Común",
+        "Ingeniería Civil",
+        "Ingeniería Civil Aeroespacial",
+        "Ingeniería Civil Biomédica",
+        "Ingeniería Civil de Materiales",
+        "Ingeniería Civil de Minas",
+        "Ingeniería Civil Eléctrica",
+        "Ingeniería Civil Electrónica",
+        "Ingeniería Civil en Telecomunicaciones",
+        "Ingeniería Civil Industrial",
+        "Ingeniería Civil Informática",
+        "Ingeniería Civil Mecánica",
+        "Ingeniería Civil Metalúrgica",
+        "Ingeniería Civil Química"
+      ]
+    },
+    {
+      "nombre": "Facultad de Medicina",
+      "campus": "Concepción",
+      "carreras": [
+        "Fonoaudiología",
+        "Kinesiología",
+        "Medicina",
+        "Obstetricia y Puericultura",
+        "Tecnología Médica"
+      ]
+    },
+    {
+      "nombre": "Facultad de Odontología",
+      "campus": "Concepción",
+      "carreras": ["Odontología"]
+    },
+    {
+      "nombre": "Facultad de Agronomía",
+      "campus": "Chillán",
+      "carreras": ["Agronomía"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Jurídicas y Sociales",
+      "campus": "Chillán",
+      "carreras": ["Derecho"]
+    },
+    {
+      "nombre": "Facultad de Enfermería",
+      "campus": "Chillán",
+      "carreras": ["Enfermería"]
+    },
+    {
+      "nombre": "Facultad de Ingeniería Agrícola",
+      "campus": "Chillán",
+      "carreras": ["Ingeniería Ambiental", "Ingeniería Civil Agrícola"]
+    },
+    {
+      "nombre": "Escuela de Administración y Negocios",
+      "campus": "Chillán",
+      "carreras": ["Ingeniería Comercial"]
+    },
+    {
+      "nombre": "Facultad de Ciencias Veterinarias",
+      "campus": "Chillán",
+      "carreras": ["Medicina Veterinaria"]
+    },
+    {
+      "nombre": "Escuela de Ciencias y Tecnologías",
+      "campus": "Los Ángeles",
+      "carreras": [
+        "Auditoría",
+        "Ingeniería Comercial",
+        "Ingeniería en Biotecnología Vegetal",
+        "Ingeniería Geomática"
+      ]
+    },
+    {
+      "nombre": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "carreras": [
+        "Educación General Básica",
+        "Educación Diferencial",
+        "Pedagogía en Ciencias Naturales y Biología",
+        "Pedagogía en Español",
+        "Pedagogía en Inglés",
+        "Pedagogía en Matemáticas"
+      ]
+    },
+    {
+      "nombre": "Facultad de Enfermería",
+      "campus": "Los Ángeles",
+      "carreras": ["Enfermería"]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "nota": "Fotos con licencia libre (Wikimedia Commons), revisadas una por una: se descartaron planos de archivo, interiores poco reconocibles y placas. `titulo` es el nombre del archivo en Commons; el autor y la licencia se consultan a la API al descargar. Para agregar una foto propia del equipo, no toques este archivo: deja el .jpg en client/public/edificios/ y anótalo a mano en client/src/map/edificios.json.",
+  "edificios": [
+    {
+      "id": "edificio-campanil",
+      "titulos": ["Campanil Universidad de Concepción.jpg", "Campanil UdeC.jpg"]
+    },
+    {
+      "id": "edificio-biblioteca-central-luis-david-cruz-ocampo",
+      "titulos": ["Biblioteca Central UdeC.jpg"]
+    },
+    {
+      "id": "edificio-casa-del-arte-jose-clemente-orozco",
+      "titulos": [
+        "Pinacoteca udec1.jpg",
+        "Mural \"Presencia de América Latina\" de Jorge González Camarena - Vista Panorámica.jpg"
+      ]
+    },
+    {
+      "id": "edificio-facultad-de-ciencias-biologicas-arco",
+      "titulos": ["Acceso A Facultad Ciencias Biológicas UdeC.jpg", "Arco Udec.jpg"]
+    },
+    { "id": "edificio-casa-del-deporte", "titulos": ["Casa del deporte - luchadores.jpg"] },
+    { "id": "edificio-de-aulas-salvador-galvez", "titulos": ["Edificio Salvador Galvez 21.jpg"] },
+    { "id": "edificio-facultad-de-ingenieria", "titulos": ["FI Udec.JPG"] },
+    { "id": "edificio-facultad-de-medicina-udec", "titulos": ["Facultad de medicina udec.jpg"] },
+    { "id": "edificio-facultad-de-odontologia", "titulos": ["Odonto udec.jpg"] },
+    {
+      "id": "edificio-facultad-de-farmacia",
+      "titulos": ["Edificio de Facultad de Farmacia UdeC.jpg"]
+    },
+    { "id": "edificio-facultad-de-ciencias-juridicas-y-sociales", "titulos": ["Derecho udec.jpg"] },
+    {
+      "id": "edificio-facultad-de-ciencias-fisicas-y-matematicas",
+      "titulos": ["Facultad de Ciencias Físicas y Matemáticas U.de Concepción..jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-ciencias-economicas-y-administrativas",
+      "titulos": [
+        "Universidad de Concepción – Facultad de Ciencias Económicas y Administrativas.jpg"
+      ]
+    },
+    {
+      "id": "edificio-facultad-de-ciencias-quimicas",
+      "titulos": ["Universidad de Concepción – Facultad de Ciencias Químicas (2023).jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-humanidades-y-arte",
+      "titulos": ["Facultad de Humanidades y Arte UdeC.jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-ciencias-forestales",
+      "titulos": ["Facultadcienciasforestalesudec.jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-ciencias-veterinarias",
+      "titulos": ["Facultadcienciasveterinariasudec.jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-ciencias-naturales-y-oceanograficas",
+      "titulos": ["Edificio Ciencias Naturales y Oceanográficas.jpg"]
+    },
+    {
+      "id": "edificio-centro-de-biotecnologia",
+      "titulos": ["Centro de Biotecnología de la Universidad de Concepción.jpg"]
+    },
+    {
+      "id": "edificio-departamento-de-astronomia-facultad-de-ciencias-fisicas-y-matematicas",
+      "titulos": ["Departamento de Astronomía UdeC.jpg"]
+    },
+    { "id": "edificio-centro-de-formacion-y-recursos-didacticos", "titulos": ["CFRD.jpg"] },
+    { "id": "edificio-de-anatomia", "titulos": ["Pabellón de Anatomía Acceso.jpg"] },
+    { "id": "edificio-ingenieria-de-sistemas", "titulos": ["DIICC.JPG"] }
+  ]
+}

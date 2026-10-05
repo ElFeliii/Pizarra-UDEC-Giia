@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+# Solo la carpeta de datos de la raíz: server/data/ sí entra en la imagen.
+/data
+.git
+.env
+.*/
+coverage
+*.log
+docs

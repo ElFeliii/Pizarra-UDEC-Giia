@@ -1,0 +1,655 @@
+{
+  "version": 1,
+  "fechaConsulta": "2026-10-04",
+  "fuentes": [
+    "https://admision.udec.cl/carreras-udec/",
+    "https://admision.udec.cl/puertas-abiertas/",
+    "https://www.udec.cl/facultades/"
+  ],
+  "temas": [
+    {
+      "id": "carrera-administracion-publica-y-ciencia-politica-concepcion",
+      "nombre": "Administración Pública y Ciencia Política",
+      "grupo": "Facultad de Ciencias Jurídicas y Sociales",
+      "campus": "Concepción",
+      "orden": 0
+    },
+    {
+      "id": "carrera-agronomia-chillan",
+      "nombre": "Agronomía",
+      "grupo": "Facultad de Agronomía",
+      "campus": "Chillán",
+      "orden": 1
+    },
+    {
+      "id": "carrera-agronomia-concepcion",
+      "nombre": "Agronomía",
+      "grupo": "Facultad de Agronomía",
+      "campus": "Concepción",
+      "orden": 2
+    },
+    {
+      "id": "carrera-antropologia-concepcion",
+      "nombre": "Antropología",
+      "grupo": "Facultad de Ciencias Sociales",
+      "campus": "Concepción",
+      "orden": 3
+    },
+    {
+      "id": "carrera-arquitectura-concepcion",
+      "nombre": "Arquitectura",
+      "grupo": "Facultad de Arquitectura, Urbanismo y Geografía",
+      "campus": "Concepción",
+      "orden": 4
+    },
+    {
+      "id": "carrera-artes-visuales-concepcion",
+      "nombre": "Artes Visuales",
+      "grupo": "Facultad de Humanidades y Arte",
+      "campus": "Concepción",
+      "orden": 5
+    },
+    {
+      "id": "carrera-astronomia-concepcion",
+      "nombre": "Astronomía",
+      "grupo": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "orden": 6
+    },
+    {
+      "id": "carrera-auditoria-concepcion",
+      "nombre": "Auditoría",
+      "grupo": "Facultad de Ciencias Económicas y Administrativas",
+      "campus": "Concepción",
+      "orden": 7
+    },
+    {
+      "id": "carrera-auditoria-los-angeles",
+      "nombre": "Auditoría",
+      "grupo": "Escuela de Ciencias y Tecnologías",
+      "campus": "Los Ángeles",
+      "orden": 8
+    },
+    {
+      "id": "carrera-bachillerato-en-ciencias-e-innovacion-concepcion",
+      "nombre": "Bachillerato en Ciencias e Innovación",
+      "grupo": "Facultad de Ciencias Químicas",
+      "campus": "Concepción",
+      "orden": 9
+    },
+    {
+      "id": "carrera-bachillerato-en-humanidades-concepcion",
+      "nombre": "Bachillerato en Humanidades",
+      "grupo": "Facultad de Humanidades y Arte",
+      "campus": "Concepción",
+      "orden": 10
+    },
+    {
+      "id": "carrera-bioingenieria-concepcion",
+      "nombre": "Bioingeniería",
+      "grupo": "Facultad de Ciencias Biológicas",
+      "campus": "Concepción",
+      "orden": 11
+    },
+    {
+      "id": "carrera-biologia-concepcion",
+      "nombre": "Biología",
+      "grupo": "Facultad de Ciencias Naturales y Oceanográficas",
+      "campus": "Concepción",
+      "orden": 12
+    },
+    {
+      "id": "carrera-biologia-marina-concepcion",
+      "nombre": "Biología Marina",
+      "grupo": "Facultad de Ciencias Naturales y Oceanográficas",
+      "campus": "Concepción",
+      "orden": 13
+    },
+    {
+      "id": "carrera-bioquimica-concepcion",
+      "nombre": "Bioquímica",
+      "grupo": "Facultad de Farmacia",
+      "campus": "Concepción",
+      "orden": 14
+    },
+    {
+      "id": "carrera-ciencias-fisicas-concepcion",
+      "nombre": "Ciencias Físicas",
+      "grupo": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "orden": 15
+    },
+    {
+      "id": "carrera-derecho-chillan",
+      "nombre": "Derecho",
+      "grupo": "Facultad de Ciencias Jurídicas y Sociales",
+      "campus": "Chillán",
+      "orden": 16
+    },
+    {
+      "id": "carrera-derecho-concepcion",
+      "nombre": "Derecho",
+      "grupo": "Facultad de Ciencias Jurídicas y Sociales",
+      "campus": "Concepción",
+      "orden": 17
+    },
+    {
+      "id": "carrera-educacion-diferencial-concepcion",
+      "nombre": "Educación Diferencial",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 18
+    },
+    {
+      "id": "carrera-educacion-diferencial-los-angeles",
+      "nombre": "Educación Diferencial",
+      "grupo": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "orden": 19
+    },
+    {
+      "id": "carrera-educacion-general-basica-concepcion",
+      "nombre": "Educación General Básica",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 20
+    },
+    {
+      "id": "carrera-educacion-general-basica-los-angeles",
+      "nombre": "Educación General Básica",
+      "grupo": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "orden": 21
+    },
+    {
+      "id": "carrera-educacion-parvularia-concepcion",
+      "nombre": "Educación Parvularia",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 22
+    },
+    {
+      "id": "carrera-enfermeria-chillan",
+      "nombre": "Enfermería",
+      "grupo": "Facultad de Enfermería",
+      "campus": "Chillán",
+      "orden": 23
+    },
+    {
+      "id": "carrera-enfermeria-concepcion",
+      "nombre": "Enfermería",
+      "grupo": "Facultad de Enfermería",
+      "campus": "Concepción",
+      "orden": 24
+    },
+    {
+      "id": "carrera-enfermeria-los-angeles",
+      "nombre": "Enfermería",
+      "grupo": "Facultad de Enfermería",
+      "campus": "Los Ángeles",
+      "orden": 25
+    },
+    {
+      "id": "carrera-fonoaudiologia-concepcion",
+      "nombre": "Fonoaudiología",
+      "grupo": "Facultad de Medicina",
+      "campus": "Concepción",
+      "orden": 26
+    },
+    {
+      "id": "carrera-geofisica-concepcion",
+      "nombre": "Geofísica",
+      "grupo": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "orden": 27
+    },
+    {
+      "id": "carrera-geografia-concepcion",
+      "nombre": "Geografía",
+      "grupo": "Facultad de Arquitectura, Urbanismo y Geografía",
+      "campus": "Concepción",
+      "orden": 28
+    },
+    {
+      "id": "carrera-geologia-concepcion",
+      "nombre": "Geología",
+      "grupo": "Facultad de Ciencias Químicas",
+      "campus": "Concepción",
+      "orden": 29
+    },
+    {
+      "id": "carrera-ingenieria-ambiental-chillan",
+      "nombre": "Ingeniería Ambiental",
+      "grupo": "Facultad de Ingeniería Agrícola",
+      "campus": "Chillán",
+      "orden": 30
+    },
+    {
+      "id": "carrera-ingenieria-ambiental-concepcion",
+      "nombre": "Ingeniería Ambiental",
+      "grupo": "Facultad de Ciencias Ambientales",
+      "campus": "Concepción",
+      "orden": 31
+    },
+    {
+      "id": "carrera-ingenieria-civil-concepcion",
+      "nombre": "Ingeniería Civil",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 32
+    },
+    {
+      "id": "carrera-ingenieria-civil-primer-ano-comun-concepcion",
+      "nombre": "Ingeniería Civil – Primer Año Común",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 33
+    },
+    {
+      "id": "carrera-ingenieria-civil-aeroespacial-concepcion",
+      "nombre": "Ingeniería Civil Aeroespacial",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 34
+    },
+    {
+      "id": "carrera-ingenieria-civil-agricola-chillan",
+      "nombre": "Ingeniería Civil Agrícola",
+      "grupo": "Facultad de Ingeniería Agrícola",
+      "campus": "Chillán",
+      "orden": 35
+    },
+    {
+      "id": "carrera-ingenieria-civil-biomedica-concepcion",
+      "nombre": "Ingeniería Civil Biomédica",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 36
+    },
+    {
+      "id": "carrera-ingenieria-civil-de-materiales-concepcion",
+      "nombre": "Ingeniería Civil de Materiales",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 37
+    },
+    {
+      "id": "carrera-ingenieria-civil-de-minas-concepcion",
+      "nombre": "Ingeniería Civil de Minas",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 38
+    },
+    {
+      "id": "carrera-ingenieria-civil-electrica-concepcion",
+      "nombre": "Ingeniería Civil Eléctrica",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 39
+    },
+    {
+      "id": "carrera-ingenieria-civil-electronica-concepcion",
+      "nombre": "Ingeniería Civil Electrónica",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 40
+    },
+    {
+      "id": "carrera-ingenieria-civil-en-telecomunicaciones-concepcion",
+      "nombre": "Ingeniería Civil en Telecomunicaciones",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 41
+    },
+    {
+      "id": "carrera-ingenieria-civil-industrial-concepcion",
+      "nombre": "Ingeniería Civil Industrial",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 42
+    },
+    {
+      "id": "carrera-ingenieria-civil-informatica-concepcion",
+      "nombre": "Ingeniería Civil Informática",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 43
+    },
+    {
+      "id": "carrera-ingenieria-civil-matematica-concepcion",
+      "nombre": "Ingeniería Civil Matemática",
+      "grupo": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "orden": 44
+    },
+    {
+      "id": "carrera-ingenieria-civil-mecanica-concepcion",
+      "nombre": "Ingeniería Civil Mecánica",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 45
+    },
+    {
+      "id": "carrera-ingenieria-civil-metalurgica-concepcion",
+      "nombre": "Ingeniería Civil Metalúrgica",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 46
+    },
+    {
+      "id": "carrera-ingenieria-civil-quimica-concepcion",
+      "nombre": "Ingeniería Civil Química",
+      "grupo": "Facultad de Ingeniería",
+      "campus": "Concepción",
+      "orden": 47
+    },
+    {
+      "id": "carrera-ingenieria-comercial-chillan",
+      "nombre": "Ingeniería Comercial",
+      "grupo": "Escuela de Administración y Negocios",
+      "campus": "Chillán",
+      "orden": 48
+    },
+    {
+      "id": "carrera-ingenieria-comercial-concepcion",
+      "nombre": "Ingeniería Comercial",
+      "grupo": "Facultad de Ciencias Económicas y Administrativas",
+      "campus": "Concepción",
+      "orden": 49
+    },
+    {
+      "id": "carrera-ingenieria-comercial-los-angeles",
+      "nombre": "Ingeniería Comercial",
+      "grupo": "Escuela de Ciencias y Tecnologías",
+      "campus": "Los Ángeles",
+      "orden": 50
+    },
+    {
+      "id": "carrera-ingenieria-en-biotecnologia-marina-y-acuicultura-concepcion",
+      "nombre": "Ingeniería en Biotecnología Marina y Acuicultura",
+      "grupo": "Facultad de Ciencias Naturales y Oceanográficas",
+      "campus": "Concepción",
+      "orden": 51
+    },
+    {
+      "id": "carrera-ingenieria-en-biotecnologia-vegetal-concepcion",
+      "nombre": "Ingeniería en Biotecnología Vegetal",
+      "grupo": "Facultad de Ciencias Forestales",
+      "campus": "Concepción",
+      "orden": 52
+    },
+    {
+      "id": "carrera-ingenieria-en-biotecnologia-vegetal-los-angeles",
+      "nombre": "Ingeniería en Biotecnología Vegetal",
+      "grupo": "Escuela de Ciencias y Tecnologías",
+      "campus": "Los Ángeles",
+      "orden": 53
+    },
+    {
+      "id": "carrera-ingenieria-en-conservacion-de-recursos-naturales-concepcion",
+      "nombre": "Ingeniería en Conservación de Recursos Naturales",
+      "grupo": "Facultad de Ciencias Forestales",
+      "campus": "Concepción",
+      "orden": 54
+    },
+    {
+      "id": "carrera-ingenieria-estadistica-concepcion",
+      "nombre": "Ingeniería Estadística",
+      "grupo": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "orden": 55
+    },
+    {
+      "id": "carrera-ingenieria-forestal-concepcion",
+      "nombre": "Ingeniería Forestal",
+      "grupo": "Facultad de Ciencias Forestales",
+      "campus": "Concepción",
+      "orden": 56
+    },
+    {
+      "id": "carrera-ingenieria-geomatica-los-angeles",
+      "nombre": "Ingeniería Geomática",
+      "grupo": "Escuela de Ciencias y Tecnologías",
+      "campus": "Los Ángeles",
+      "orden": 57
+    },
+    {
+      "id": "carrera-kinesiologia-concepcion",
+      "nombre": "Kinesiología",
+      "grupo": "Facultad de Medicina",
+      "campus": "Concepción",
+      "orden": 58
+    },
+    {
+      "id": "carrera-licenciatura-en-historia-concepcion",
+      "nombre": "Licenciatura en Historia",
+      "grupo": "Facultad de Humanidades y Arte",
+      "campus": "Concepción",
+      "orden": 59
+    },
+    {
+      "id": "carrera-licenciatura-en-matematica-concepcion",
+      "nombre": "Licenciatura en Matemática",
+      "grupo": "Facultad de Ciencias Físicas y Matemáticas",
+      "campus": "Concepción",
+      "orden": 60
+    },
+    {
+      "id": "carrera-licenciatura-en-quimica-quimico-concepcion",
+      "nombre": "Licenciatura en Química–Químico",
+      "grupo": "Facultad de Ciencias Químicas",
+      "campus": "Concepción",
+      "orden": 61
+    },
+    {
+      "id": "carrera-medicina-concepcion",
+      "nombre": "Medicina",
+      "grupo": "Facultad de Medicina",
+      "campus": "Concepción",
+      "orden": 62
+    },
+    {
+      "id": "carrera-medicina-veterinaria-chillan",
+      "nombre": "Medicina Veterinaria",
+      "grupo": "Facultad de Ciencias Veterinarias",
+      "campus": "Chillán",
+      "orden": 63
+    },
+    {
+      "id": "carrera-medicina-veterinaria-concepcion",
+      "nombre": "Medicina Veterinaria",
+      "grupo": "Facultad de Ciencias Veterinarias",
+      "campus": "Concepción",
+      "orden": 64
+    },
+    {
+      "id": "carrera-nutricion-y-dietetica-concepcion",
+      "nombre": "Nutrición y Dietética",
+      "grupo": "Facultad de Farmacia",
+      "campus": "Concepción",
+      "orden": 65
+    },
+    {
+      "id": "carrera-obstetricia-y-puericultura-concepcion",
+      "nombre": "Obstetricia y Puericultura",
+      "grupo": "Facultad de Medicina",
+      "campus": "Concepción",
+      "orden": 66
+    },
+    {
+      "id": "carrera-odontologia-concepcion",
+      "nombre": "Odontología",
+      "grupo": "Facultad de Odontología",
+      "campus": "Concepción",
+      "orden": 67
+    },
+    {
+      "id": "carrera-pedagogia-en-artes-visuales-concepcion",
+      "nombre": "Pedagogía en Artes Visuales",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 68
+    },
+    {
+      "id": "carrera-pedagogia-en-ciencias-naturales-y-biologia-concepcion",
+      "nombre": "Pedagogía en Ciencias Naturales y Biología",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 69
+    },
+    {
+      "id": "carrera-pedagogia-en-ciencias-naturales-y-biologia-los-angeles",
+      "nombre": "Pedagogía en Ciencias Naturales y Biología",
+      "grupo": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "orden": 70
+    },
+    {
+      "id": "carrera-pedagogia-en-ciencias-naturales-y-fisica-concepcion",
+      "nombre": "Pedagogía en Ciencias Naturales y Física",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 71
+    },
+    {
+      "id": "carrera-pedagogia-en-ciencias-naturales-y-quimica-concepcion",
+      "nombre": "Pedagogía en Ciencias Naturales y Química",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 72
+    },
+    {
+      "id": "carrera-pedagogia-en-educacion-fisica-concepcion",
+      "nombre": "Pedagogía en Educación Física",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 73
+    },
+    {
+      "id": "carrera-pedagogia-en-educacion-musical-concepcion",
+      "nombre": "Pedagogía en Educación Musical",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 74
+    },
+    {
+      "id": "carrera-pedagogia-en-espanol-concepcion",
+      "nombre": "Pedagogía en Español",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 75
+    },
+    {
+      "id": "carrera-pedagogia-en-espanol-los-angeles",
+      "nombre": "Pedagogía en Español",
+      "grupo": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "orden": 76
+    },
+    {
+      "id": "carrera-pedagogia-en-filosofia-concepcion",
+      "nombre": "Pedagogía en Filosofía",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 77
+    },
+    {
+      "id": "carrera-pedagogia-en-historia-y-geografia-concepcion",
+      "nombre": "Pedagogía en Historia y Geografía",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 78
+    },
+    {
+      "id": "carrera-pedagogia-en-ingles-concepcion",
+      "nombre": "Pedagogía en Inglés",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 79
+    },
+    {
+      "id": "carrera-pedagogia-en-ingles-los-angeles",
+      "nombre": "Pedagogía en Inglés",
+      "grupo": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "orden": 80
+    },
+    {
+      "id": "carrera-pedagogia-en-matematicas-concepcion",
+      "nombre": "Pedagogía en Matemáticas",
+      "grupo": "Facultad de Educación",
+      "campus": "Concepción",
+      "orden": 81
+    },
+    {
+      "id": "carrera-pedagogia-en-matematicas-los-angeles",
+      "nombre": "Pedagogía en Matemáticas",
+      "grupo": "Escuela de Educación",
+      "campus": "Los Ángeles",
+      "orden": 82
+    },
+    {
+      "id": "carrera-periodismo-concepcion",
+      "nombre": "Periodismo",
+      "grupo": "Facultad de Ciencias Sociales",
+      "campus": "Concepción",
+      "orden": 83
+    },
+    {
+      "id": "carrera-psicologia-concepcion",
+      "nombre": "Psicología",
+      "grupo": "Facultad de Ciencias Sociales",
+      "campus": "Concepción",
+      "orden": 84
+    },
+    {
+      "id": "carrera-quimica-y-farmacia-concepcion",
+      "nombre": "Química y Farmacia",
+      "grupo": "Facultad de Farmacia",
+      "campus": "Concepción",
+      "orden": 85
+    },
+    {
+      "id": "carrera-quimico-a-analista-concepcion",
+      "nombre": "Químico/a Analista",
+      "grupo": "Facultad de Ciencias Químicas",
+      "campus": "Concepción",
+      "orden": 86
+    },
+    {
+      "id": "carrera-sociologia-concepcion",
+      "nombre": "Sociología",
+      "grupo": "Facultad de Ciencias Sociales",
+      "campus": "Concepción",
+      "orden": 87
+    },
+    {
+      "id": "carrera-teatro-concepcion",
+      "nombre": "Teatro",
+      "grupo": "Facultad de Humanidades y Arte",
+      "campus": "Concepción",
+      "orden": 88
+    },
+    {
+      "id": "carrera-tecnologia-medica-concepcion",
+      "nombre": "Tecnología Médica",
+      "grupo": "Facultad de Medicina",
+      "campus": "Concepción",
+      "orden": 89
+    },
+    {
+      "id": "carrera-trabajo-social-concepcion",
+      "nombre": "Trabajo Social",
+      "grupo": "Facultad de Ciencias Sociales",
+      "campus": "Concepción",
+      "orden": 90
+    },
+    {
+      "id": "carrera-traduccion-interpretacion-en-idiomas-extranjeros-concepcion",
+      "nombre": "Traducción / Interpretación en Idiomas Extranjeros",
+      "grupo": "Facultad de Humanidades y Arte",
+      "campus": "Concepción",
+      "orden": 91
+    }
+  ]
+}

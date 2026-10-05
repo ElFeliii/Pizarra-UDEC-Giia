@@ -1,0 +1,33 @@
+services:
+  pizarra:
+    build: .
+    image: pizarra-udec:latest
+    container_name: pizarra-udec
+    restart: unless-stopped
+    # Node queda como PID 1: init recoge procesos huérfanos y traslada bien las señales.
+    init: true
+    # El servidor cierra las conexiones al recibir SIGTERM; se le da tiempo a terminar.
+    stop_grace_period: 20s
+    # Sin env_file: así "docker compose up" funciona aunque no exista .env. Si el archivo está,
+    # Compose lo lee igual para reemplazar estas variables.
+    environment:
+      MOD_USERS: ${MOD_USERS:-}
+      MOD_PASSWORD: ${MOD_PASSWORD:-}
+      # Si se deja vacía, el servidor genera el secreto y lo guarda en data/session-secret.
+      SESSION_SECRET: ${SESSION_SECRET:-}
+      TRUST_PROXY: ${TRUST_PROXY:-loopback}
+      AUTO_HIDE_REPORTS: ${AUTO_HIDE_REPORTS:-3}
+    ports:
+      # Solo escucha en localhost: el proxy HTTPS de la universidad reenvía hacia aquí.
+      # Para exponerlo directo en la red, cambiar a "3000:3000".
+      - '127.0.0.1:3000:3000'
+    volumes:
+      # Base de datos SQLite persistente (sobrevive a reinicios y actualizaciones).
+      - ./data:/app/data
+      # Lista de instituciones editable sin reconstruir la imagen (reiniciar el contenedor tras editar).
+      - ./server/data/instituciones.json:/app/server/data/instituciones.json:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '5'
