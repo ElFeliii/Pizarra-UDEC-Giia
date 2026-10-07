@@ -79,7 +79,9 @@ derivado queda bajo la misma licencia. El texto viene en `campus.json` (`attribu
 
 ## 2. Fichas de edificios (nombre, foto y descripción)
 
-En el mapa, **solo los edificios con ficha se iluminan y se pueden abrir**. Las fichas viven en
+Los **85 edificios identificados** se pueden abrir desde su silueta, su nombre visible o el
+buscador, incluso si aún falta una foto o una descripción. También admiten Enter y espacio.
+Al colocar un pin, los clics pasan al lienzo para publicar sobre un edificio. Las fichas viven en
 [client/src/map/edificios.json](../client/src/map/edificios.json), con el **id del edificio** como clave:
 
 ```json
@@ -100,6 +102,7 @@ En el mapa, **solo los edificios con ficha se iluminan y se pueden abrir**. Las 
 
 - Los ids salen de `campus.json` (o del listado que imprime `npm run mapa`). Ejemplos:
   `edificio-facultad-de-ingenieria`, `edificio-eula-1`, `edificio-casa-del-deporte`.
+- `fuenteDescripcion` es un enlace institucional opcional que aparece junto al texto.
 - Las **fotos** se guardan en `client/public/edificios/`. Se muestran todas, una bajo otra.
 - `autor`, `licencia` y `fuente` son para material de terceros: el crédito se imprime bajo la
   foto porque las licencias Creative Commons lo exigen. Una foto propia del equipo solo lleva
@@ -117,8 +120,10 @@ npm run fotos:inventario   # regenera docs/EDIFICIOS.md
 ```
 
 `scripts/fotos/fuentes.json` es una lista revisada a mano: se descartaron planos de archivo,
-placas e interiores poco reconocibles. El script descarga la versión de 900 px de cada foto y
-escribe el crédito que devuelve la API de Commons, sin tocar las descripciones ya escritas.
+placas e interiores poco reconocibles. El script solicita 1200 px por defecto (se puede indicar `--ancho 960`) y
+escribe el crédito que devuelve la API de Commons, conservando descripciones y enlaces
+institucionales. Añadir títulos al final de cada lista conserva los nombres de archivo:
+reordenarlos requiere volver a descargar las fotos para no atribuir un archivo a otro autor.
 
 **No se pueden usar fotos de Google Maps, Street View, Instagram ni de medios de prensa**: son
 obras protegidas y publicarlas en el sitio de la Universidad expone a un reclamo. Lo que falta

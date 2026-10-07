@@ -46,6 +46,8 @@ export interface Foto {
 export interface BuildingInfo {
   /** Texto para la ventana del edificio. Vacío mientras no lo entreguen. */
   descripcion: string;
+  /** Página institucional que respalda el texto y permite conocer más de la unidad. */
+  fuenteDescripcion?: string;
   fotos: Foto[];
 }
 
@@ -53,7 +55,7 @@ export const campus = raw as CampusMap;
 
 export const BUILDINGS: Map<string, Building> = new Map(campus.buildings.map((b) => [b.id, b]));
 
-/** Edificios con ficha escrita: solo esos se iluminan y se pueden abrir. */
+/** Contenido disponible; la selección del mapa incluye todos los edificios identificados. */
 export const BUILDING_INFO = contenido as Record<string, BuildingInfo>;
 
 export function buildingInfo(id: string | null | undefined): BuildingInfo | undefined {

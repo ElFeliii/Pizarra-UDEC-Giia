@@ -13,20 +13,20 @@ Una segunda parte futura (C) será un **mapa vectorial de la UdeC** con fichas d
 
 ## Decisiones cerradas
 
-| Tema | Decisión |
-|---|---|
-| Despliegue | Un contenedor Docker (`docker compose up`) en servidor UdeC, detrás de su proxy HTTPS |
-| Stack | Node 22 LTS + TypeScript · Fastify 5 + Socket.IO 4 · SQLite (better-sqlite3, WAL) · React 19 + Vite · d3-zoom · zustand · zod |
-| Identidad | Nombre + institución, sin contraseña. Nombre pasa por censura. Suplantación tolerada si no es ofensiva |
-| Instituciones | Lista editable en JSON (colegios + universidades). Semilla: "Colegio ejemplo 1", "Universidad ejemplo 1" + opción "Otra" (texto libre, censurado) |
-| Estilo visual | **Blanco minimalista** con cuadrícula suave; chinches circulares con brillo/sombra |
-| Pizarra | Lienzo grande (8000×8000 u.) con zoom y desplazamiento (mouse, rueda, dedos/pinch) |
-| Edición | El autor NO edita ni borra; solo el moderador oculta/restaura |
-| Censura | (1) filtro de palabras normalizado, (3) moderación humana, (4) límites anti-spam. Sin IA |
-| Auto-ocultar | 3 reportes de usuarios distintos → oculto y a cola de revisión (configurable) |
-| Moderador | Login dentro de la misma página (`/moderador`), contraseña en variable de entorno |
-| Datos post-evento | Se conservan; exportación CSV (compatible con Excel) |
-| Idioma / zona | Español · `America/Santiago` |
+| Tema              | Decisión                                                                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Despliegue        | Un contenedor Docker (`docker compose up`) en servidor UdeC, detrás de su proxy HTTPS                                                             |
+| Stack             | Node 22 LTS + TypeScript · Fastify 5 + Socket.IO 4 · SQLite (better-sqlite3, WAL) · React 19 + Vite · d3-zoom · zustand · zod                     |
+| Identidad         | Nombre + institución, sin contraseña. Nombre pasa por censura. Suplantación tolerada si no es ofensiva                                            |
+| Instituciones     | Lista editable en JSON (colegios + universidades). Semilla: "Colegio ejemplo 1", "Universidad ejemplo 1" + opción "Otra" (texto libre, censurado) |
+| Estilo visual     | **Blanco minimalista** con cuadrícula suave; chinches circulares con brillo/sombra                                                                |
+| Pizarra           | Lienzo grande (8000×8000 u.) con zoom y desplazamiento (mouse, rueda, dedos/pinch)                                                                |
+| Edición           | El autor NO edita ni borra; solo el moderador oculta/restaura                                                                                     |
+| Censura           | (1) filtro de palabras normalizado, (3) moderación humana, (4) límites anti-spam. Sin IA                                                          |
+| Auto-ocultar      | 3 reportes de usuarios distintos → oculto y a cola de revisión (configurable)                                                                     |
+| Moderador         | Login dentro de la misma página (`/moderador`), contraseña en variable de entorno                                                                 |
+| Datos post-evento | Se conservan; exportación CSV (compatible con Excel)                                                                                              |
+| Idioma / zona     | Español · `America/Santiago`                                                                                                                      |
 
 ## Estructura de carpetas (monorepo con npm workspaces)
 
@@ -35,8 +35,8 @@ Pizarra Udec/
 ├─ package.json              # workspaces: shared, server, client; scripts dev/build/test
 ├─ tsconfig.base.json
 ├─ Dockerfile                # multi-stage: build client+server → runtime node:22-slim
-├─ docker-compose.yml        # servicio "pizarra", volumen ./data, env_file .env, healthcheck
-├─ .env.example              # PORT, MOD_PASSWORD, SESSION_SECRET, DB_PATH, TRUST_PROXY, AUTO_HIDE_REPORTS
+├─ docker-compose.yml        # servicio "pizarra", volumen ./data, variables de .env, healthcheck
+├─ .env.example              # PUERTO_PUBLICADO, MOD_USERS, MOD_PASSWORD, SESSION_SECRET, TRUST_PROXY, AUTO_HIDE_REPORTS
 ├─ .gitignore / .dockerignore
 ├─ docs/
 │  ├─ diseno.md              # copia de este plano (spec)
@@ -132,6 +132,7 @@ n=0→12 · 1→17 · 4→22 · 9→27 · 25→37 · 36→42 · ≥52→48 (tope
 ## Censura y anti-abuso (lo crítico)
 
 ### Pipeline de normalización (`normalize.ts`)
+
 1. Quitar caracteres invisibles/de control (zero-width, bidi, etc.) y limitar saltos de línea (máx. 2 seguidos).
 2. Minúsculas + NFD + quitar tildes, **preservando `ñ`** (así "coño" ≠ "cono").
 3. Leetspeak: `0→o 1→i 3→e 4→a 5→s 7→t @→a $→s !→i`.
@@ -139,6 +140,7 @@ n=0→12 · 1→17 · 4→22 · 9→27 · 25→37 · 36→42 · ≥52→48 (tope
 5. Tokenizar por no-letras. Además: unir secuencias de letras sueltas (`w e o n`, `c.t.m` → `weon`, `ctm`) y una versión **sin separadores** del mensaje completo.
 
 ### Matching por modo (evita falsos positivos tipo "computadora")
+
 - `exact`: el token completo coincide (`ctm`, `csm`).
 - `prefix`: el token empieza con el término (`puta` → puta, putas, putamadre; **no** "disputa", "computadora").
 - `contains`: subcadena en cualquier token y en la versión sin separadores. Solo para raíces inequívocas (`weon`, `culia`, `conchetumadre`).
@@ -151,11 +153,13 @@ n=0→12 · 1→17 · 4→22 · 9→27 · 25→37 · 36→42 · ≥52→48 (tope
 - Botón para el moderador al agregar palabra: **"Ocultar contenido existente que la contenga"** (aplicación retroactiva usando FTS).
 
 ### Reglas de contenido (`contentRules.ts`)
+
 - Largos: nombre 2–40 · pin 1–280 · respuesta 1–500 · motivo de reporte 0–200.
 - Bloqueo de links (`http`, `www.`, patrón `dominio.tld`), emails y teléfonos (evita datos personales).
 - Mismo texto de la misma sesión en <10 min → rechazado (anti-duplicado).
 
 ### Límites anti-spam (`rateLimit.ts`, token bucket en memoria)
+
 - Por sesión: pines 2 de ráfaga, 1 cada 30 s · respuestas 3 de ráfaga, 1 cada 5 s · reportes 10 cada 10 min. Solo cuenta lo que se publica.
 - Rechazos del filtro: 6 seguidos por usuario, luego 1 cada 10 s (frena a quien prueba variantes sin castigar al que corrige su mensaje).
 - Creación de sesiones: solo por IP, 60 de ráfaga y 1/s (no hay sesión todavía y el WiFi del evento comparte IP).
@@ -164,6 +168,7 @@ n=0→12 · 1→17 · 4→22 · 9→27 · 25→37 · 36→42 · ≥52→48 (tope
 - Socket.IO `maxHttpBufferSize` = 16 KB.
 
 ### Moderación humana
+
 - **Silenciar** usuario: puede leer, no publicar (`silenced_at`). Recibe aviso. (Evadible borrando localStorage; aceptable, el moderador lo vuelve a silenciar.)
 - **Auto-ocultado**: 3 reportes de usuarios distintos → `hidden_reason='reports'`, entra a la cola; el moderador **restaura** o **confirma**. Umbral en `AUTO_HIDE_REPORTS`.
 - Todas las acciones van a `mod_log` con el nombre del moderador.
@@ -172,20 +177,20 @@ n=0→12 · 1→17 · 4→22 · 9→27 · 25→37 · 36→42 · ≥52→48 (tope
 
 Handshake con `auth: { token }`. Escrituras por socket con **ack** (`{ok:true,data}` | `{ok:false,error:{code,message}}`).
 
-| Dirección | Evento | Payload / notas |
-|---|---|---|
-| C→S | `pin:create` | `{surface,x,y,color,text}` |
-| C→S | `reply:create` | `{pinId,text}` |
-| C→S | `report:create` | `{targetType,targetId,reason?}` |
-| C→S | `thread:join` / `thread:leave` | `{pinId}` → entra/sale de la sala `pin:<id>` |
-| S→todos | `pin:created` | resumen del pin |
-| S→todos | `pins:updated` | **lote** `[{id,replyCount}]` emitido cada 500 ms si hubo cambios |
-| S→todos | `pin:removed` / `pin:restored` | ocultado / restaurado |
-| S→sala | `reply:created` / `reply:removed` | solo a quienes tienen el hilo abierto |
-| S→todos | `words:top` | top 20, máx. cada 10 s y solo si cambió |
-| S→todos | `presence:count` | "N conectados", máx. cada 5 s |
-| S→usuario | `session:silenced` | |
-| S→mods | `mod:feed`, `mod:report` | sala `mods`: todo lo publicado y cada reporte, en vivo |
+| Dirección | Evento                            | Payload / notas                                                  |
+| --------- | --------------------------------- | ---------------------------------------------------------------- |
+| C→S       | `pin:create`                      | `{surface,x,y,color,text}`                                       |
+| C→S       | `reply:create`                    | `{pinId,text}`                                                   |
+| C→S       | `report:create`                   | `{targetType,targetId,reason?}`                                  |
+| C→S       | `thread:join` / `thread:leave`    | `{pinId}` → entra/sale de la sala `pin:<id>`                     |
+| S→todos   | `pin:created`                     | resumen del pin                                                  |
+| S→todos   | `pins:updated`                    | **lote** `[{id,replyCount}]` emitido cada 500 ms si hubo cambios |
+| S→todos   | `pin:removed` / `pin:restored`    | ocultado / restaurado                                            |
+| S→sala    | `reply:created` / `reply:removed` | solo a quienes tienen el hilo abierto                            |
+| S→todos   | `words:top`                       | top 20, máx. cada 10 s y solo si cambió                          |
+| S→todos   | `presence:count`                  | "N conectados", máx. cada 5 s                                    |
+| S→usuario | `session:silenced`                |                                                                  |
+| S→mods    | `mod:feed`, `mod:report`          | sala `mods`: todo lo publicado y cada reporte, en vivo           |
 
 Optimización clave: la carga inicial manda solo **resúmenes** (id, x, y, color, replyCount, preview de 80 caracteres, autor, institución, fecha); el hilo completo se pide al abrir el pin. Reconexión: `GET /api/pins?since=<updatedAt>` trae solo lo cambiado (incluye ocultados). Compresión HTTP activada.
 

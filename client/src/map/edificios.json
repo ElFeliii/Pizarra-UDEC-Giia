@@ -7,6 +7,12 @@
         "autor": "Tomás Jorquera",
         "licencia": "CC BY 2.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Biblioteca_Central_UdeC.jpg"
+      },
+      {
+        "archivo": "biblioteca-central-luis-david-cruz-ocampo-2.jpg",
+        "autor": "BiblioJona",
+        "licencia": "CC BY-SA 4.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Acceso_principal_Biblioteca_Central_Luis_David_Cruz_Ocampo.jpg"
       }
     ]
   },
@@ -26,6 +32,11 @@
         "fuente": "https://commons.wikimedia.org/wiki/File:Campanil_UdeC.jpg"
       }
     ]
+  },
+  "edificio-capsiudec": {
+    "descripcion": "Centro clínico docente de atención psicológica de la Universidad. Ofrece atención a la comunidad y servicios con arancel diferenciado para estudiantes.",
+    "fotos": [],
+    "fuenteDescripcion": "https://educacion.udec.cl/saludmental/"
   },
   "edificio-casa-del-arte-jose-clemente-orozco": {
     "descripcion": "Alberga la Pinacoteca de la Universidad, una de las colecciones de pintura chilena más completas del país. En su hall está el mural «Presencia de América Latina», pintado por el mexicano Jorge González Camarena entre 1964 y 1965 y declarado Monumento Nacional.",
@@ -77,6 +88,11 @@
       }
     ]
   },
+  "edificio-centro-de-investigacion-en-ingenieria-matematica-ci-ma": {
+    "descripcion": "El CI²MA desarrolla investigación en matemáticas aplicadas. Reúne investigadores, estudiantes de postgrado y visitantes que trabajan en modelos y métodos para resolver problemas científicos.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.ci2ma.udec.cl/"
+  },
   "edificio-de-anatomia": {
     "descripcion": "El antiguo Pabellón de Anatomía, uno de los edificios históricos del campus. Aquí se hacen las clases prácticas de anatomía de las carreras de la salud.",
     "fotos": [
@@ -99,6 +115,11 @@
       }
     ]
   },
+  "edificio-de-ingenieria-civil-e-ingenieria-civil-aeroespacial": {
+    "descripcion": "Ubicado en el extremo sur del campus, alberga salas de clases y laboratorios de Ingeniería Civil e Ingeniería Civil Aeroespacial.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fi.udec.cl/facultad/infraestructura/edificios/"
+  },
   "edificio-departamento-de-astronomia-facultad-de-ciencias-fisicas-y-matematicas": {
     "descripcion": "Parte de la Facultad de Ciencias Físicas y Matemáticas. Aquí trabajan los astrónomos de la Universidad, que observan con telescopios instalados en el norte de Chile y participan en colaboraciones internacionales.",
     "fotos": [
@@ -109,6 +130,36 @@
         "fuente": "https://commons.wikimedia.org/wiki/File:Departamento_de_Astronom%C3%ADa_UdeC.jpg"
       }
     ]
+  },
+  "edificio-direccion-de-docencia": {
+    "descripcion": "Esta dirección impulsa la política de docencia de pregrado y su mejoramiento continuo. Sus unidades apoyan la enseñanza y la formación universitaria.",
+    "fotos": [],
+    "fuenteDescripcion": "https://dirdocweb.udec.cl/"
+  },
+  "edificio-direccion-de-tecnologias-de-informacion": {
+    "descripcion": "La DTI mantiene servicios tecnológicos de la Universidad, como la cuenta institucional y sus plataformas digitales. Apoya a estudiantes y funcionarios en el uso de estas herramientas.",
+    "fotos": [],
+    "fuenteDescripcion": "https://educacion.udec.cl/induccion/"
+  },
+  "edificio-eula-1": {
+    "descripcion": "Parte del Centro de Ciencias Ambientales EULA-Chile. El centro desarrolla investigación aplicada, análisis de laboratorio y asistencia técnica sobre problemas ambientales.",
+    "fotos": [],
+    "fuenteDescripcion": "https://eula.udec.cl/"
+  },
+  "edificio-eula-2": {
+    "descripcion": "Parte del Centro de Ciencias Ambientales EULA-Chile. El centro desarrolla investigación aplicada, análisis de laboratorio y asistencia técnica sobre problemas ambientales.",
+    "fotos": [],
+    "fuenteDescripcion": "https://eula.udec.cl/"
+  },
+  "edificio-eula-3": {
+    "descripcion": "Parte del Centro de Ciencias Ambientales EULA-Chile. El centro desarrolla investigación aplicada, análisis de laboratorio y asistencia técnica sobre problemas ambientales.",
+    "fotos": [],
+    "fuenteDescripcion": "https://eula.udec.cl/"
+  },
+  "edificio-facultad-de-arquitectura-urbanismo-y-geografia": {
+    "descripcion": "La FAUG forma profesionales de Arquitectura y Geografía. Sus departamentos estudian los edificios, las ciudades y el territorio, con énfasis en un desarrollo sostenible.",
+    "fotos": [],
+    "fuenteDescripcion": "https://faug.udec.cl/quienes-somos/"
   },
   "edificio-facultad-de-ciencias-biologicas-arco": {
     "descripcion": "El Arco es la entrada histórica del campus y hoy el edificio de la Facultad de Ciencias Biológicas, con salas, auditorios, laboratorios y biblioteca. Se le sigue llamando «Arco de Medicina» porque esa fue su primera ocupante; el relieve que corona el paso es obra del escultor Ormezzano.",
@@ -124,6 +175,18 @@
         "autor": "@lasfotosde_conce ; Andrés Pacheco Cádiz",
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Arco_Udec.jpg"
+      },
+      {
+        "archivo": "facultad-de-ciencias-biologicas-arco-3.jpg",
+        "autor": "BiblioJona",
+        "licencia": "CC BY 4.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Acceso_B_Facultad_Ciencias_Biol%C3%B3gicas_UdeC.jpg"
+      },
+      {
+        "archivo": "facultad-de-ciencias-biologicas-arco-4.jpg",
+        "autor": "BiblioJona",
+        "licencia": "CC BY-SA 4.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Arco_UdeC_2026.jpg"
       }
     ]
   },
@@ -168,6 +231,12 @@
         "autor": "Yordan Garrido González",
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Derecho_udec.jpg"
+      },
+      {
+        "archivo": "facultad-de-ciencias-juridicas-y-sociales-2.jpg",
+        "autor": "BiblioJona",
+        "licencia": "CC BY-SA 4.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:AccesoFacDerechoUdeC.jpg"
       }
     ]
   },
@@ -179,6 +248,12 @@
         "autor": "BiblioJona",
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Edificio_Ciencias_Naturales_y_Oceanogr%C3%A1ficas.jpg"
+      },
+      {
+        "archivo": "facultad-de-ciencias-naturales-y-oceanograficas-2.jpg",
+        "autor": "Gnzlndrs",
+        "licencia": "CC BY-SA 4.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Frontis_facultad_de_ciencias_naturales_udec.jpg"
       }
     ]
   },
@@ -193,6 +268,11 @@
       }
     ]
   },
+  "edificio-facultad-de-ciencias-sociales": {
+    "descripcion": "Reúne Antropología, Periodismo, Psicología, Trabajo Social y Sociología. Su docencia e investigación ayudan a comprender la sociedad y sus vínculos con las comunidades.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-sociales/"
+  },
   "edificio-facultad-de-ciencias-veterinarias": {
     "descripcion": "Sede en Concepción de la Facultad de Ciencias Veterinarias, cuya escuela principal está en el Campus Chillán. La carrera de Medicina Veterinaria nació justamente acá, en 1972, antes de trasladarse al año siguiente.",
     "fotos": [
@@ -204,6 +284,11 @@
       }
     ]
   },
+  "edificio-facultad-de-educacion": {
+    "descripcion": "Forma docentes para educación parvularia, básica, diferencial y enseñanza media. Sus pedagogías abarcan ciencias, humanidades, artes y educación física.",
+    "fotos": [],
+    "fuenteDescripcion": "https://educacion.udec.cl/carreras/"
+  },
   "edificio-facultad-de-farmacia": {
     "descripcion": "Forma químicos farmacéuticos y bioquímicos. Sus laboratorios de síntesis, análisis y control de calidad ocupan buena parte del edificio.",
     "fotos": [
@@ -212,6 +297,12 @@
         "autor": "Tamara biblio",
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Edificio_de_Facultad_de_Farmacia_UdeC.jpg"
+      },
+      {
+        "archivo": "facultad-de-farmacia-2.jpg",
+        "autor": "Farisori",
+        "licencia": "CC BY-SA 3.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Facultad_Farmacia_UdeC.JPG"
       }
     ]
   },
@@ -260,7 +351,7 @@
     ]
   },
   "edificio-ingenieria-de-sistemas": {
-    "descripcion": "Sede del Departamento de Ingeniería Informática y Ciencias de la Computación (DIICC), con los laboratorios de computación donde se hacen las clases de programación.",
+    "descripcion": "Alberga laboratorios de Ingeniería Civil Biomédica, aulas, espacios de estudio y salas de computación. Se conecta con oficinas de Biomédica y Telecomunicaciones.",
     "fotos": [
       {
         "archivo": "ingenieria-de-sistemas.jpg",
@@ -268,6 +359,27 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:DIICC.JPG"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://fi.udec.cl/facultad/infraestructura/edificios/"
+  },
+  "edificio-ingenieria-metalurgica": {
+    "descripcion": "Sede del Departamento de Ingeniería Metalúrgica, con laboratorios y oficinas. Fue renombrado Edificio Alexander Sutulov Popov en 2024.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fi.udec.cl/emotiva-ceremonia-oficializa-el-cambio-de-nombre-del-edificio-del-departamento-de-ingenieria-metalurgica-a-alexander-sutulov-p-y-el-auditorio-dr-fernando-concha-a/"
+  },
+  "edificio-tecnologico-mecanico": {
+    "descripcion": "Aquí se realizan prácticas de ingeniería en laboratorios de electricidad, electrónica, mecánica y telecomunicaciones. Es parte de la infraestructura de la Facultad de Ingeniería.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fi.udec.cl/facultad/infraestructura/edificios/"
+  },
+  "edificio-tecnologico-quimico-gustavo-pizarro-castro": {
+    "descripcion": "Sede del Departamento de Ingeniería Química, inaugurada en 1959. Lleva el nombre de Gustavo Pizarro Castro por su contribución a la carrera.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fi.udec.cl/facultad/infraestructura/edificios/"
+  },
+  "edificio-virginio-gomez": {
+    "descripcion": "Este antiguo hogar universitario, inaugurado en 1952, forma parte de la historia del campus. En su primer piso funciona el Archivo Central de la Universidad.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fp.udec.cl/index.php/archivo-central-de-la-universidad-de-concepcion-chile"
   }
 }

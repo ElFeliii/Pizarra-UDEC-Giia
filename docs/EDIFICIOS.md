@@ -3,10 +3,11 @@
 > Generado por `npm run fotos:inventario`. No lo edites a mano.
 
 85 edificios con nombre, tomados de OpenStreetMap. **Con foto: 23.
-Con descripción: 23.**
+Con descripción: 38.**
 
-Solo los edificios que aparecen en `client/src/map/edificios.json` se iluminan y se pueden
-abrir en el mapa: mientras no tengan ficha, son parte del dibujo y nada más.
+Todos los edificios identificados se pueden abrir desde su silueta, su nombre o el buscador,
+incluso si falta contenido. Las fotos y descripciones disponibles viven en
+`client/src/map/edificios.json`; los campos pendientes se indican en la ficha.
 
 ## Cómo agregar una foto propia
 
@@ -35,36 +36,36 @@ ya están vinieron de Wikimedia Commons, con licencia libre y su crédito visibl
 
 | Edificio | Área (m²) | Foto | Descripción | Crédito | id |
 | --- | ---: | --- | --- | --- | --- |
-| Edificio Tecnológico Mecánico | 2916 | — | — |  | `edificio-tecnologico-mecanico` |
+| Edificio Tecnológico Mecánico | 2916 | — | ✅ |  | `edificio-tecnologico-mecanico` |
 | Casa del Deporte | 2678 | ✅ 1 | ✅ | Farisori (CC BY-SA 3.0) | `edificio-casa-del-deporte` |
-| Biblioteca Central Luis David Cruz Ocampo | 2677 | ✅ 1 | ✅ | Tomás Jorquera (CC BY 2.0) | `edificio-biblioteca-central-luis-david-cruz-ocampo` |
-| Facultad de Arquitectura, Urbanismo y Geografía | 2408 | — | — |  | `edificio-facultad-de-arquitectura-urbanismo-y-geografia` |
+| Biblioteca Central Luis David Cruz Ocampo | 2677 | ✅ 2 | ✅ | Tomás Jorquera (CC BY 2.0); BiblioJona (CC BY-SA 4.0) | `edificio-biblioteca-central-luis-david-cruz-ocampo` |
+| Facultad de Arquitectura, Urbanismo y Geografía | 2408 | — | ✅ |  | `edificio-facultad-de-arquitectura-urbanismo-y-geografia` |
 | Facultad de Odontología | 2051 | ✅ 1 | ✅ | Yordan Garrido González (CC BY-SA 4.0) | `edificio-facultad-de-odontologia` |
 | Facultad de Ciencias Químicas | 2001 | ✅ 1 | ✅ | Yordan Garrido González (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-quimicas` |
-| Edificio Ingeniería Metalúrgica | 2001 | — | — |  | `edificio-ingenieria-metalurgica` |
+| Edificio Ingeniería Metalúrgica | 2001 | — | ✅ |  | `edificio-ingenieria-metalurgica` |
 | Facultad de Medicina UdeC | 1851 | ✅ 1 | ✅ | Farisori (CC BY-SA 3.0) | `edificio-facultad-de-medicina-udec` |
-| Edificio Virginio Gómez | 1794 | — | — |  | `edificio-virginio-gomez` |
-| Facultad de Educación | 1792 | — | — |  | `edificio-facultad-de-educacion` |
-| Edificio de Ingeniería Civil e Ingeniería Civil Aeroespacial | 1779 | — | — |  | `edificio-de-ingenieria-civil-e-ingenieria-civil-aeroespacial` |
+| Edificio Virginio Gómez | 1794 | — | ✅ |  | `edificio-virginio-gomez` |
+| Facultad de Educación | 1792 | — | ✅ |  | `edificio-facultad-de-educacion` |
+| Edificio de Ingeniería Civil e Ingeniería Civil Aeroespacial | 1779 | — | ✅ |  | `edificio-de-ingenieria-civil-e-ingenieria-civil-aeroespacial` |
 | Casa del Arte José Clemente Orozco | 1708 | ✅ 2 | ✅ | Fotografía tomada por User:Farisori ; Arquitectos: Osvaldo Cáceres y Alejandro Rodríguez; Propiedad de la Universidad de Concepción , Chile (Public domain); LuisCG11 (CC BY-SA 3.0) | `edificio-casa-del-arte-jose-clemente-orozco` |
 | Facultad de Ciencias Físicas y Matemáticas | 1670 | ✅ 1 | ✅ | Gnzlndrs (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-fisicas-y-matematicas` |
 | Facultad de Ciencias Económicas y Administrativas | 1645 | ✅ 1 | ✅ | Yordan Garrido González (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-economicas-y-administrativas` |
 | Facultad de Ciencias Químicas | 1578 | — | — |  | `edificio-facultad-de-ciencias-quimicas-2` |
-| Facultad de Ciencias Biológicas (Arco) | 1574 | ✅ 2 | ✅ | BiblioJona (CC BY 4.0); @lasfotosde_conce ; Andrés Pacheco Cádiz (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-biologicas-arco` |
+| Facultad de Ciencias Biológicas (Arco) | 1574 | ✅ 4 | ✅ | BiblioJona (CC BY 4.0); @lasfotosde_conce ; Andrés Pacheco Cádiz (CC BY-SA 4.0); BiblioJona (CC BY 4.0); BiblioJona (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-biologicas-arco` |
 | Edificio de Aulas Salvador Gálvez | 1543 | ✅ 1 | ✅ | Ivotoledo45 (CC BY-SA 4.0) | `edificio-de-aulas-salvador-galvez` |
-| Facultad de Ciencias Naturales y Oceanográficas | 1525 | ✅ 1 | ✅ | BiblioJona (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-naturales-y-oceanograficas` |
+| Facultad de Ciencias Naturales y Oceanográficas | 1525 | ✅ 2 | ✅ | BiblioJona (CC BY-SA 4.0); Gnzlndrs (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-naturales-y-oceanograficas` |
 | Centro de Biotecnología | 1524 | ✅ 1 | ✅ | Gnzlndrs (CC BY-SA 4.0) | `edificio-centro-de-biotecnologia` |
 | Mozatschule Concepción | 1489 | — | — |  | `edificio-mozatschule-concepcion` |
 | Facultad de Ciencias Forestales | 1390 | ✅ 1 | ✅ | Gnzlndrs (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-forestales` |
-| Facultad de Farmacia | 1297 | ✅ 1 | ✅ | Tamara biblio (CC BY-SA 4.0) | `edificio-facultad-de-farmacia` |
-| Facultad de Ciencias Sociales | 1270 | — | — |  | `edificio-facultad-de-ciencias-sociales` |
+| Facultad de Farmacia | 1297 | ✅ 2 | ✅ | Tamara biblio (CC BY-SA 4.0); Farisori (CC BY-SA 3.0) | `edificio-facultad-de-farmacia` |
+| Facultad de Ciencias Sociales | 1270 | — | ✅ |  | `edificio-facultad-de-ciencias-sociales` |
 | Edificio de Anatomía | 1264 | ✅ 1 | ✅ | Tamara biblio (CC BY-SA 4.0) | `edificio-de-anatomia` |
-| Dirección de Tecnologías de Información | 1193 | — | — |  | `edificio-direccion-de-tecnologias-de-informacion` |
-| Facultad de Ciencias Jurídicas y Sociales | 1191 | ✅ 1 | ✅ | Yordan Garrido González (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-juridicas-y-sociales` |
+| Dirección de Tecnologías de Información | 1193 | — | ✅ |  | `edificio-direccion-de-tecnologias-de-informacion` |
+| Facultad de Ciencias Jurídicas y Sociales | 1191 | ✅ 2 | ✅ | Yordan Garrido González (CC BY-SA 4.0); BiblioJona (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-juridicas-y-sociales` |
 | Facultad de Ingeniería | 1187 | ✅ 1 | ✅ | Farisori (CC BY-SA 3.0) | `edificio-facultad-de-ingenieria` |
 | Edificio Ingeniería de Sistemas | 1157 | ✅ 1 | ✅ | Farisori (CC BY-SA 3.0) | `edificio-ingenieria-de-sistemas` |
 | Facultad de Humanidades y Arte | 1152 | ✅ 1 | ✅ | BiblioJona (CC BY-SA 4.0) | `edificio-facultad-de-humanidades-y-arte` |
-| Edificio Tecnológico Químico Gustavo Pizarro Castro | 1148 | — | — |  | `edificio-tecnologico-quimico-gustavo-pizarro-castro` |
+| Edificio Tecnológico Químico Gustavo Pizarro Castro | 1148 | — | ✅ |  | `edificio-tecnologico-quimico-gustavo-pizarro-castro` |
 | Block 3 Plaza Perú | 976 | — | — |  | `edificio-block-3-plaza-peru` |
 | Central Térmica | 951 | — | — |  | `edificio-central-termica` |
 | Edificio de Aulas N° 4 | 881 | — | — |  | `edificio-de-aulas-n-4` |
@@ -80,13 +81,13 @@ ya están vinieron de Wikimedia Commons, con licencia libre y su crédito visibl
 | Facultad de Ciencias Veterinarias | 654 | ✅ 1 | ✅ | Gnzlndrs (CC BY-SA 4.0) | `edificio-facultad-de-ciencias-veterinarias` |
 | Departamento de Educación Física | 637 | — | — |  | `edificio-departamento-de-educacion-fisica` |
 | Edificio Víctor Lamas | 630 | — | — |  | `edificio-victor-lamas` |
-| Edificio EULA 1 | 616 | — | — |  | `edificio-eula-1` |
+| Edificio EULA 1 | 616 | — | ✅ |  | `edificio-eula-1` |
 | Clínica Veterinaria | 558 | — | — |  | `edificio-clinica-veterinaria` |
 | Edificio Enlaces | 556 | — | — |  | `edificio-enlaces` |
 | Planta Piloto "Igor Wilkomirsky" | 548 | — | — |  | `edificio-planta-piloto-igor-wilkomirsky` |
-| Edificio EULA 2 | 547 | — | — |  | `edificio-eula-2` |
+| Edificio EULA 2 | 547 | — | ✅ |  | `edificio-eula-2` |
 | Edificio de Aulas Nº 5 | 541 | — | — |  | `edificio-de-aulas-n-5` |
-| Edificio EULA 3 | 518 | — | — |  | `edificio-eula-3` |
+| Edificio EULA 3 | 518 | — | ✅ |  | `edificio-eula-3` |
 | Edificio de Aulas N° 1 | 486 | — | — |  | `edificio-de-aulas-n-1` |
 | Edificio de Aulas N° 2 | 464 | — | — |  | `edificio-de-aulas-n-2` |
 | Estudio TVU | 456 | — | — |  | `edificio-estudio-tvu` |
@@ -96,13 +97,13 @@ ya están vinieron de Wikimedia Commons, con licencia libre y su crédito visibl
 | Departamento de Filosofía UDEC | 413 | — | — |  | `edificio-departamento-de-filosofia-udec` |
 | Departamento de Ciencias de la Tierra | 412 | — | — |  | `edificio-departamento-de-ciencias-de-la-tierra` |
 | Facultad de Agronomía | 393 | — | — |  | `edificio-facultad-de-agronomia` |
-| Centro de Investigación en Ingeniería Matemática (CI²MA) | 392 | — | — |  | `edificio-centro-de-investigacion-en-ingenieria-matematica-ci-ma` |
+| Centro de Investigación en Ingeniería Matemática (CI²MA) | 392 | — | ✅ |  | `edificio-centro-de-investigacion-en-ingenieria-matematica-ci-ma` |
 | Centro Médico Emsa | 380 | — | — |  | `edificio-centro-medico-emsa` |
 | Departamento de Astronomía, Facultad de Ciencias Físicas y Matemáticas | 362 | ✅ 1 | ✅ | Gnzlndrs (CC BY-SA 4.0) | `edificio-departamento-de-astronomia-facultad-de-ciencias-fisicas-y-matematicas` |
 | Aula 9 | 360 | — | — |  | `edificio-aula-9` |
 | TVU | 319 | — | — |  | `edificio-tvu` |
-| Dirección de Docencia | 316 | — | — |  | `edificio-direccion-de-docencia` |
-| CapsiUdeC | 298 | — | — |  | `edificio-capsiudec` |
+| Dirección de Docencia | 316 | — | ✅ |  | `edificio-direccion-de-docencia` |
+| CapsiUdeC | 298 | — | ✅ |  | `edificio-capsiudec` |
 | Laboratorio Silvotecnológico de la Madera | 285 | — | — |  | `edificio-laboratorio-silvotecnologico-de-la-madera` |
 | Casa Enrique Molina | 285 | — | — |  | `edificio-casa-enrique-molina` |
 | Parroquia Universitaria Concepción | 280 | — | — |  | `edificio-parroquia-universitaria-concepcion` |

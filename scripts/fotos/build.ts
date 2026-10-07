@@ -34,6 +34,7 @@ interface Foto {
 
 interface Ficha {
   descripcion: string;
+  fuenteDescripcion?: string;
   fotos: Foto[];
 }
 
@@ -90,7 +91,11 @@ async function main(): Promise<void> {
       });
     }
 
-    salida[fuente.id] = { descripcion: previas[fuente.id]?.descripcion ?? '', fotos };
+    salida[fuente.id] = {
+      ...previas[fuente.id],
+      descripcion: previas[fuente.id]?.descripcion ?? '',
+      fotos,
+    };
   }
 
   const ordenado = Object.fromEntries(

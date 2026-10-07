@@ -1,133 +1,132 @@
-# Entrega de Pizarra UdeC al administrador
+# Entrega de Pizarra UdeC a GIIA
 
-## Repositorio y dirección
+La Célula de Infraestructura y Seguridad realiza el levantamiento, previa solicitud y
+aprobación por su plataforma de tickets. Esta guía sigue el Manual de Trabajo 1.0 del
+15 de junio de 2026. No se necesita modificar el código para escoger el puerto del servidor.
 
-- Repositorio privado: https://github.com/ElFeliii/Pizarra-UDEC-Giia. Dar acceso a la cuenta de quien despliega; no enviar claves en el repositorio.
-- Dirección pública solicitada: un subdominio que termine en **.giia.udec.cl**.
-- Ejemplo pendiente de asignación: **https://pizarra.giia.udec.cl**. El nombre del repositorio no es el dominio del sitio.
-- Panel de moderación: `/moderador` en ese mismo dominio.
+## Información para el ticket
 
-La versión de entrega se prepara desde una copia limpia, sin historial de desarrollo ni
-credenciales. Consultar el estado de publicación y la revisión en [PRIVACIDAD.md](PRIVACIDAD.md).
+| Dato                          | Solicitud                                                                                                                                                       |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Proyecto y objetivo           | Pizarra UdeC: participación en un evento universitario de puertas abiertas mediante notas, mapa del campus y contenido orientador, con moderación y tiempo real |
+| Responsable y fechas          | Completar por el equipo organizador en el ticket                                                                                                                |
+| Repositorio privado           | [Pizarra-UDEC-Giia](https://github.com/ElFeliii/Pizarra-UDEC-Giia); autorizar la cuenta de quien despliega y de la Célula                                       |
+| Versión                       | Identificar el commit publicado aprobado antes de instalar                                                                                                      |
+| Recursos iniciales propuestos | 1 vCPU, 1 GB de RAM y 2 GB de disco para aplicación e imagen; confirmar capacidad y espacio adicional para logs y respaldos con GIIA                            |
+| Directorio                    | `/var/src/pizarra-udec`                                                                                                                                         |
+| Servicios                     | Un contenedor Node sirve la página, la API, Socket.IO/WebSocket y `/moderador`; SQLite persiste en `data/`                                                      |
+| Subdominio solicitado         | Uno dentro de `.giia.udec.cl`; `pizarra.giia.udec.cl` es una propuesta todavía no asignada                                                                      |
+| Documentación                 | Esta guía, [DESPLIEGUE.md](DESPLIEGUE.md), [PRIVACIDAD.md](PRIVACIDAD.md), [SEGURIDAD.md](SEGURIDAD.md) y el resto de `docs/`                                   |
 
-## Requisitos y puertos
+El nombre del repositorio no es el dominio del evento. La URL definitiva será
+`https://<subdominio-asignado>.giia.udec.cl`, con el panel en `/moderador`.
 
-Docker con Compose, un servidor Linux con escritura en la carpeta del proyecto, salida a
-internet para construir la imagen y un proxy HTTPS con WebSocket. Reservar al menos
-1 vCPU, 1 GB de RAM y 2 GB de disco; ensayar la versión actual antes del evento.
+## Puertos y variables
 
-| Puerto   | Uso                                              | Acceso                                               |
-| -------- | ------------------------------------------------ | ---------------------------------------------------- |
-| 443/TCP  | Página, API y WebSocket por HTTPS                | Público, en el proxy de la Universidad               |
-| 80/TCP   | Redirección a HTTPS o validación del certificado | Solo si lo usa el administrador del proxy            |
-| 3000/TCP | Aplicación Docker                                | Solo `127.0.0.1` del servidor; no abrirlo al público |
-| 5173/TCP | Vite de desarrollo                               | No se utiliza en producción                          |
+| Puerto                         | Uso y acceso                                                                                             |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| 443/TCP                        | Página, API y WebSocket públicos por HTTPS, en el proxy administrado por GIIA                            |
+| 80/TCP                         | Opcional, si el proxy lo necesita para redirección o certificados                                        |
+| `PUERTO_PUBLICADO`/TCP         | Puerto del servidor anfitrión que GIIA asigna en `.env`; 3000 por defecto, publicado solo en `127.0.0.1` |
+| 3000/TCP dentro del contenedor | Proceso Node; no se cambia al ajustar el puerto del anfitrión                                            |
+| 5173/TCP                       | Vite de desarrollo; no se utiliza en producción                                                          |
 
-La configuración suministrada supone **un proxy HTTPS en el mismo servidor que Docker**.
-Si el proxy está en otra máquina, el administrador debe adaptar el enlace privado y
-`TRUST_PROXY`; no basta con apuntar al localhost de esa otra máquina.
+La configuración supone un proxy HTTPS en el mismo servidor que Docker. Si el proxy está
+en otra máquina, la Célula debe acordar la interfaz privada, el firewall y `TRUST_PROXY`;
+el localhost de esa otra máquina no apunta al contenedor. No abrir directamente el backend
+al público. Página, API y WebSocket comparten un único puerto de aplicación.
+
+| Variable            | Configuración                                                                             |
+| ------------------- | ----------------------------------------------------------------------------------------- |
+| `PUERTO_PUBLICADO`  | Puerto libre aprobado por GIIA; 3000 por defecto                                          |
+| `MOD_USERS`         | Lista `nombre:clave` con las credenciales individuales entregadas por un canal privado    |
+| `MOD_PASSWORD`      | Llave maestra opcional; dejar vacía si no se necesita. Si se utiliza, mínimo 8 caracteres |
+| `SESSION_SECRET`    | Vacía: se genera en `data/session-secret`; si se fija, mínimo 32 caracteres aleatorios    |
+| `TRUST_PROXY`       | `1` para un único proxy local con el backend en loopback; adaptar a la topología real     |
+| `AUTO_HIDE_REPORTS` | `3` por defecto; `0` desactiva el ocultado automático por reportes                        |
 
 ## Primera instalación
 
+GIIA prepara `/var/src` y los permisos de la cuenta personal autorizada para este proyecto.
+Los siguientes comandos se ejecutan después de la aprobación; no crean usuarios ni
+instalan servicios del sistema:
+
 ```bash
+cd /var/src
 git clone https://github.com/ElFeliii/Pizarra-UDEC-Giia pizarra-udec
-cd pizarra-udec
+cd /var/src/pizarra-udec
 cp .env.example .env
 chmod 600 .env
-# En Linux: el contenedor ejecuta Node con UID/GID 1000.
 mkdir -p data
+```
+
+Editar `.env`, seleccionar `PUERTO_PUBLICADO` y completar `MOD_USERS`. El ejemplo
+`Moderador 1:REEMPLAZAR-CON-CLAVE-DEL-EQUIPO` es un marcador; sustituirlo por una clave propia,
+protegida y distinta de la de desarrollo. No incluir claves en el ticket, GitHub ni capturas.
+La coma separa moderadores: las claves de esa lista no pueden contener comas.
+
+El contenedor usa UID/GID 1000. La Célula asigna los permisos de su carpeta de datos:
+
+```bash
 sudo chown 1000:1000 data
 sudo chmod 700 data
 ```
 
-El administrador debe autorizar esos permisos de `data/`. No cambiar permisos de una
-base existente sin respaldo; al migrarla, conservar o adaptar su propietario para el
-UID 1000 del contenedor.
-
-Editar `.env` antes de continuar:
-
-```dotenv
-MOD_USERS=Moderador 1:REEMPLAZAR-CON-CLAVE-DEL-EQUIPO
-TRUST_PROXY=1
-```
-
-`MOD_USERS` es obligatorio si no se configura la llave maestra opcional `MOD_PASSWORD`.
-El ejemplo no es una clave válida para el evento: sustituirla por las credenciales que el
-organizador entregue por separado. Para claves que contengan coma, elegir otra clave, pues
-la coma separa moderadores. Cada entrada usa `nombre:clave`.
-
-| Variable            | Configuración                                                                            |
-| ------------------- | ---------------------------------------------------------------------------------------- |
-| `MOD_USERS`         | Lista de moderadores y sus claves; completar en el servidor                              |
-| `TRUST_PROXY`       | `1` para un único proxy local y el puerto Docker solo en localhost                       |
-| `MOD_PASSWORD`      | Vacía si no se necesita llave maestra; si se usa, mínimo 8 caracteres                    |
-| `SESSION_SECRET`    | Puede quedar vacía: se genera en `data/session-secret`; si se fija, mínimo 32 caracteres |
-| `AUTO_HIDE_REPORTS` | `3` por defecto; `0` desactiva el ocultado automático por reportes                       |
+Estos permisos requieren autorización de la Célula. Para una instalación existente,
+respaldar y conservar los datos antes de adaptar su propietario.
 
 ```bash
 docker compose up -d --build
 docker compose ps
-curl --fail http://127.0.0.1:3000/api/health
+docker compose port pizarra 3000
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
 
-El servicio debe quedar `healthy`. El administrador configura DNS, certificado y proxy;
-los ejemplos Nginx/Apache están en [DESPLIEGUE.md](DESPLIEGUE.md#3-proxy-con-websocket).
-El proxy debe pasar `Host`, `X-Forwarded-For` y `X-Forwarded-Proto`, además de permitir
-WebSocket. No hace falta un puerto adicional para Socket.IO.
+El servicio debe quedar `healthy`. La consulta descubre el puerto publicado desde Compose,
+por lo que funciona también si GIIA asignó uno diferente de 3000. El contenedor genera y
+conserva el secreto de sesiones automáticamente si no se define por entorno.
+
+La Célula configura DNS, certificado y proxy. Los ejemplos de
+[DESPLIEGUE.md](DESPLIEGUE.md#3-proxy-con-websocket) usan el puerto de ejemplo 3000: sustituirlo
+por `PUERTO_PUBLICADO` y reemplazar el subdominio por el asignado. Pasar `Host`,
+`X-Forwarded-For` y `X-Forwarded-Proto`, y permitir WebSocket.
 
 ## Actualizar
 
-Antes de cambiar la versión, hacer un respaldo de SQLite y conservar `.env` y
-`data/session-secret` por un canal privado (procedimiento en [DESPLIEGUE.md](DESPLIEGUE.md#5-respaldo-y-exportación)).
+Respaldar SQLite y conservar `.env` y `data/session-secret` con acceso protegido;
+ver [respaldo y exportación](DESPLIEGUE.md#5-respaldo-y-exportación).
 
 ```bash
-cd pizarra-udec
+cd /var/src/pizarra-udec
 git pull --ff-only
 docker compose up -d --build
 docker compose ps
-curl --fail http://127.0.0.1:3000/api/health
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
 
-Se necesita `--build` para incorporar el código nuevo. Los datos de `data/` sobreviven;
-las migraciones se aplican al iniciar. Las sesiones de moderación viven en memoria:
-tras reiniciar, los moderadores vuelven a entrar.
-
-Las actualizaciones siguientes conservan el historial de la copia limpia: no publicar el
-historial de desarrollo ni volver a reemplazarlo por un commit raíz.
+`--build` incorpora el código nuevo; los datos persisten y las migraciones se aplican al
+iniciar. Los moderadores vuelven a entrar después de un reinicio porque sus sesiones viven
+en memoria. Las futuras publicaciones deben continuar el historial saneado existente.
+El historial local de desarrollo no se publica ni se instala en el servidor.
 
 ### Una vez: pasar desde la primera publicación a la entrega saneada
 
-La primera publicación tiene un único commit cuyo mensaje contiene metadatos que deben
-retirarse. La entrega saneada reemplaza esa raíz, por lo que una instalación anterior no
-puede pasar a ella con `git pull --ff-only`. Antes de hacerlo, respaldar SQLite, `.env` y
-`data/session-secret` con el procedimiento de respaldo de DESPLIEGUE.md.
+Solo aplica a una instalación antigua anterior al saneamiento del historial, no a nuevos
+clones ni a actualizaciones normales. Si `git pull --ff-only` detecta historiales incompatibles,
+conservar la carpeta anterior y respaldar los datos, `.env` y secreto. La Célula prepara un
+clon nuevo bajo `/var/src`, detiene la instalación anterior y transfiere el respaldo con sus
+permisos antes de levantarlo. No usar `reset --hard`, borrar datos o forzar un nuevo historial.
 
-Con la instalación anterior en `pizarra-udec` y sin usar todavía la carpeta nueva:
+## Pendientes administrativos de GIIA
 
-```bash
-# Desde la carpeta que contiene pizarra-udec.
-git clone https://github.com/ElFeliii/Pizarra-UDEC-Giia pizarra-udec-actual
-docker compose -f pizarra-udec/docker-compose.yml down
-cp -a pizarra-udec/data pizarra-udec-actual/data
-cp -p pizarra-udec/.env pizarra-udec-actual/.env
-cd pizarra-udec-actual
-docker compose up -d --build
-docker compose ps
-curl --fail http://127.0.0.1:3000/api/health
-```
+**Todavía no existe ticket aprobado ni dominio asignado. El código y esta guía no los crean.**
 
-La copia anterior queda disponible como respaldo. Después, ejecutar las actualizaciones
-normales desde `pizarra-udec-actual`; no usar `reset --hard` ni borrar la carpeta de datos.
-
-## Comprobación de entrega
-
-1. Acceso al repositorio privado concedido y versión publicada identificada.
-2. `.env` completado, servicio `healthy` y endpoint de salud disponible.
-3. Dominio asignado dentro de `.giia.udec.cl`, DNS y certificado válidos.
-4. Página y `/moderador` accesibles por HTTPS desde fuera de la Universidad.
-5. Publicar una nota desde un navegador y verla en otro sin recargar.
-6. Comprobar coronita de moderador, filtro, FAQ, mapa y exportación CSV.
-7. Respaldo realizado y restauración ensayada antes del evento.
-
-La asignación del dominio, el acceso al servidor, el certificado y la concesión de acceso
-al repositorio dependen del equipo y del administrador. Esta guía no los crea.
+- Ingresar y aprobar el ticket; obtener la aprobación formal de la Célula Estratégica de Proyectos y del Comité Directivo de GIIA.
+- Aprobar CPU, RAM, disco, puerto y fechas; disponer de Docker y Compose, y de salida a internet para la construcción o autorizar la transferencia de una imagen.
+- Asignar subdominio, DNS, certificado HTTPS y proxy con WebSocket; confirmar su topología.
+- Realizar el levantamiento en `/var/src` y autorizar acceso al repositorio, cuentas SSH personales, permisos Docker y grupos Linux, con acceso de inspección y administración para la Célula.
+- Revisar la seguridad del proyecto, contenedor y servidor; acordar actualizaciones los viernes fuera de horario y respuesta urgente ante vulnerabilidades.
+- Establecer monitoreo externo de CPU, RAM, disco y red. El endpoint de salud y `docker stats` son herramientas auxiliares, no el monitoreo externo continuo.
+- Definir rotación automática de logs en un máximo de 365 días y revisión periódica. Compose ya limita el tamaño a cinco archivos de 10 MB; eso no limita su antigüedad.
+- Programar respaldos al final de cada mes según 3-2-1, incluyendo configuraciones, SQLite, `.env` y secreto persistente, con destinos y acceso protegidos y restauración ensayada.
+- Comprobar la URL pública desde fuera de la universidad, en computador y celular, y el funcionamiento del proxy, moderación y tiempo real antes del evento; notificar el resultado por el ticket.

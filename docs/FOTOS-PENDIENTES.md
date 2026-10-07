@@ -1,19 +1,25 @@
 # Fotos de edificios pendientes
 
-Revisión del 5 de octubre de 2026. Se mantienen **23 edificios con foto y 62 pendientes**.
-No se agregó ninguna foto nueva: no hubo una coincidencia nueva cuya identidad y licencia
-se pudieran validar. Esto no significa que no existan fotos libres de esos edificios.
+Revisión del 6 de octubre de 2026. Hay **32 fotos en 23 edificios; 62 edificios continúan
+sin foto**. Se incorporaron seis vistas nuevas: Farmacia, Ciencias Naturales y Oceanográficas,
+Biblioteca Central, Ciencias Jurídicas y Sociales, y dos del Arco/Ciencias Biológicas.
+Son fotografías de Wikimedia Commons, con atribución y licencia libre verificadas.
+Los archivos nuevos se optimizaron sin conservar metadatos EXIF.
 
-Se consultó la [categoría de la UdeC en Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Universidad_de_Concepci%C3%B3n)
-y se intentaron búsquedas por los 62 nombres. **34 búsquedas quedaron incompletas** por
-respuestas HTTP 429 de Commons. Los resultados recibidos incluyen planos históricos,
-archivos de texto e imágenes de lugares distintos, que no sirven como foto de identificación.
-La imagen de Ciencias Químicas ya está usada en la ficha existente; una antena de TVU
-no identifica por sí sola los dos edificios TVU del plano.
+Se revisó de nuevo la [categoría de la UdeC en Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Universidad_de_Concepci%C3%B3n)
+y se buscaron coincidencias por nombre en Commons y Flickr. Las nuevas búsquedas individuales
+en Commons se detuvieron en la undécima solicitud por HTTP 429; Openverse exigió autenticación.
+El límite de solicitudes deja parte de la búsqueda incompleta: no demuestra que no existan
+fotografías libres. Se descartaron retratos, planos, instrumental, imágenes de otras
+universidades y una vista de cabinas cuyo edificio concreto no pudo identificarse.
 
-Para completar el catálogo hacen falta fotos libres verificables o fotos propias del equipo.
-El procedimiento de incorporación, nombres de archivos y créditos está en [EDIFICIOS.md](EDIFICIOS.md).
-No utilizar prensa, Google Maps, Street View ni imágenes genéricas de otra facultad.
+No se reutilizó una imagen de una facultad para cubrir otra silueta con el mismo nombre.
+Las imágenes de sitios institucionales sin licencia indicada tampoco se publicaron. El equipo
+no dispone de fotos propias adicionales por ahora. El procedimiento y el catálogo están en
+[EDIFICIOS.md](EDIFICIOS.md); las fichas pendientes ya se pueden abrir en el mapa.
+
+La tabla siguiente conserva el detalle de la revisión anterior (5 de octubre). Ninguno de
+estos edificios obtuvo una fotografía nueva validada en la revisión actual.
 
 ## Estado por edificio
 

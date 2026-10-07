@@ -1,4 +1,4 @@
-import { statSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -36,6 +36,8 @@ describe('fichas de edificios', () => {
         const ruta = join(raiz, 'client/public/edificios', foto.archivo);
         expect(() => statSync(ruta), `${id} → ${foto.archivo}`).not.toThrow();
         expect(statSync(ruta).size, `${id} → ${foto.archivo}`).toBeGreaterThan(1024);
+        // Una página de error descargada como JPG también puede pesar más de un KB.
+        expect([...readFileSync(ruta).subarray(0, 2)], ruta).toEqual([0xff, 0xd8]);
       }
     }
   });
@@ -45,7 +47,9 @@ describe('fichas de edificios', () => {
       for (const foto of ficha.fotos) {
         if (!foto.fuente) continue;
         expect(foto.autor, `${id} → ${foto.archivo}`).toBeTruthy();
-        expect(foto.licencia, `${id} → ${foto.archivo}`).toBeTruthy();
+        expect(foto.licencia, `${id} → ${foto.archivo}`).toMatch(
+          /^(CC BY(?:-SA)? [234]\.\d|CC0(?: 1\.0)?|Public domain)$/,
+        );
       }
     }
   });

@@ -27,7 +27,8 @@
     "datos": "tsx server/src/tools/datos.ts",
     "fotos": "tsx scripts/fotos/build.ts",
     "fotos:inventario": "tsx scripts/fotos/inventario.ts",
-    "dev:lan": "concurrently -n server,client -c blue,magenta \"npm run dev:lan -w @pizarra/server\" \"npm run dev:lan -w @pizarra/client\""
+    "dev:lan": "concurrently -n server,client -c blue,magenta \"npm run dev:lan -w @pizarra/server\" \"npm run dev:lan -w @pizarra/client\"",
+    "verificar:despliegue": "node scripts/despliegue/verificar.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -43,9 +44,17 @@
     "vitest": "^5.0.1"
   },
   "allowScripts": {
-    "esbuild@0.27.7": true,
     "esbuild@0.28.2": true,
     "better-sqlite3": false
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "concurrently": {
+      "shell-quote": "1.11.0"
+    },
+    "esbuild": "0.28.2",
+    "tsup": {
+      "esbuild": "0.28.2"
+    }
+  }
 }

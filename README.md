@@ -80,7 +80,12 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-La página, API y WebSocket usan `127.0.0.1:3000` detrás del proxy HTTPS. El dominio público
+La página, API y WebSocket usan `127.0.0.1:<PUERTO_PUBLICADO>` detrás del proxy HTTPS;
+GIIA asigna ese puerto en `.env` (3000 por defecto). El dominio público
 debe terminar en `.giia.udec.cl` y lo asigna la Universidad.
 
-Detalles, proxy con WebSocket y respaldos en [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
+En GIIA el levantamiento lo realiza la Célula de Infraestructura y Seguridad, mediante
+un ticket aprobado, y el proyecto se instala en `/var/src/pizarra-udec`.
+Guía sencilla, recursos y pendientes administrativos: [docs/ENTREGA.md](docs/ENTREGA.md).
+Proxy, operación y respaldos: [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
+Dependencias de construcción y revisión de seguridad: [docs/SEGURIDAD.md](docs/SEGURIDAD.md).

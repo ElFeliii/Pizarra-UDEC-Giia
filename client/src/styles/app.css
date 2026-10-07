@@ -931,7 +931,7 @@ select.input {
   stroke: #c2c8d4;
   stroke-width: 0.5;
 }
-/* Edificios con ficha: se iluminan al pasar el mouse y se pueden abrir. */
+/* Todos los edificios identificados abren su ficha, incluso si falta una foto. */
 .mapa__edificio--activo {
   fill: #dfe5eb;
   stroke: #acb7c5;
@@ -977,6 +977,21 @@ select.input {
   text-anchor: middle;
   font-weight: 500;
   pointer-events: none;
+}
+
+.mapa__rotulo--activo {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.mapa__rotulo--activo:hover,
+.mapa__rotulo--activo:focus-visible {
+  fill: var(--accent);
+  outline: none;
+  text-decoration: underline;
+}
+.ficha__enlace {
+  color: var(--accent);
+  font-size: 13px;
 }
 
 .atribucion {

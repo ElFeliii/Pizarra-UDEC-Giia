@@ -1,7 +1,7 @@
 import { CAMPUS_AREA } from '@pizarra/shared';
 import { memo, useMemo } from 'react';
 import { useStore } from '../state/store';
-import { BUILDING_INFO, campus, type MapFeature } from './campus';
+import { BUILDINGS, campus, type MapFeature } from './campus';
 import { EntornoLayer } from './EntornoLayer';
 import { seleccionarRotulos } from './rotulos';
 import { useState, useEffect } from 'react';
@@ -43,6 +43,7 @@ function Feature({ feature, interactive }: { feature: MapFeature; interactive: b
 function CampusLayerImpl({ k }: Props) {
   const placing = useStore((s) => s.placing !== null);
   const seleccionado = useStore((s) => s.openBuildingId);
+  const abrirEdificio = useStore((s) => s.openBuilding);
   const [compacto, cambiarCompacto] = useState(
     () => window.matchMedia('(max-width: 767px)').matches,
   );
@@ -75,14 +76,36 @@ function CampusLayerImpl({ k }: Props) {
           <Feature
             key={f.id ?? `${f.k}-${i}`}
             feature={f}
-            interactive={!!f.id && f.id in BUILDING_INFO}
+            interactive={!placing && !!f.id && BUILDINGS.has(f.id)}
           />
         ))}
       </g>
       {rotulos.map(({ edificio, lineas }) => (
         <text
           key={edificio.id}
-          className={`mapa__rotulo${edificio.id === seleccionado ? ' mapa__rotulo--seleccionado' : ''}`}
+          className={`mapa__rotulo${placing ? '' : ' mapa__rotulo--activo'}${edificio.id === seleccionado ? ' mapa__rotulo--seleccionado' : ''}`}
+          role={placing ? undefined : 'button'}
+          tabIndex={placing ? undefined : 0}
+          aria-label={placing ? undefined : `Ver información de ${edificio.name}`}
+          onClick={
+            placing
+              ? undefined
+              : (evento) => {
+                  evento.stopPropagation();
+                  abrirEdificio(edificio.id);
+                }
+          }
+          onKeyDown={
+            placing
+              ? undefined
+              : (evento) => {
+                  if (evento.key === 'Enter' || evento.key === ' ') {
+                    evento.preventDefault();
+                    evento.stopPropagation();
+                    abrirEdificio(edificio.id);
+                  }
+                }
+          }
           x={edificio.cx}
           y={edificio.cy}
           fontSize={(compacto ? 11.5 : 12) / k}

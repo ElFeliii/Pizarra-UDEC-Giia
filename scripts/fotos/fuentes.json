@@ -7,7 +7,10 @@
     },
     {
       "id": "edificio-biblioteca-central-luis-david-cruz-ocampo",
-      "titulos": ["Biblioteca Central UdeC.jpg"]
+      "titulos": [
+        "Biblioteca Central UdeC.jpg",
+        "Acceso principal Biblioteca Central Luis David Cruz Ocampo.jpg"
+      ]
     },
     {
       "id": "edificio-casa-del-arte-jose-clemente-orozco",
@@ -18,18 +21,41 @@
     },
     {
       "id": "edificio-facultad-de-ciencias-biologicas-arco",
-      "titulos": ["Acceso A Facultad Ciencias Biológicas UdeC.jpg", "Arco Udec.jpg"]
+      "titulos": [
+        "Acceso A Facultad Ciencias Biológicas UdeC.jpg",
+        "Arco Udec.jpg",
+        "Acceso B Facultad Ciencias Biológicas UdeC.jpg",
+        "Arco UdeC 2026.jpg"
+      ]
     },
-    { "id": "edificio-casa-del-deporte", "titulos": ["Casa del deporte - luchadores.jpg"] },
-    { "id": "edificio-de-aulas-salvador-galvez", "titulos": ["Edificio Salvador Galvez 21.jpg"] },
-    { "id": "edificio-facultad-de-ingenieria", "titulos": ["FI Udec.JPG"] },
-    { "id": "edificio-facultad-de-medicina-udec", "titulos": ["Facultad de medicina udec.jpg"] },
-    { "id": "edificio-facultad-de-odontologia", "titulos": ["Odonto udec.jpg"] },
+    {
+      "id": "edificio-casa-del-deporte",
+      "titulos": ["Casa del deporte - luchadores.jpg"]
+    },
+    {
+      "id": "edificio-de-aulas-salvador-galvez",
+      "titulos": ["Edificio Salvador Galvez 21.jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-ingenieria",
+      "titulos": ["FI Udec.JPG"]
+    },
+    {
+      "id": "edificio-facultad-de-medicina-udec",
+      "titulos": ["Facultad de medicina udec.jpg"]
+    },
+    {
+      "id": "edificio-facultad-de-odontologia",
+      "titulos": ["Odonto udec.jpg"]
+    },
     {
       "id": "edificio-facultad-de-farmacia",
-      "titulos": ["Edificio de Facultad de Farmacia UdeC.jpg"]
+      "titulos": ["Edificio de Facultad de Farmacia UdeC.jpg", "Facultad Farmacia UdeC.JPG"]
     },
-    { "id": "edificio-facultad-de-ciencias-juridicas-y-sociales", "titulos": ["Derecho udec.jpg"] },
+    {
+      "id": "edificio-facultad-de-ciencias-juridicas-y-sociales",
+      "titulos": ["Derecho udec.jpg", "AccesoFacDerechoUdeC.jpg"]
+    },
     {
       "id": "edificio-facultad-de-ciencias-fisicas-y-matematicas",
       "titulos": ["Facultad de Ciencias Físicas y Matemáticas U.de Concepción..jpg"]
@@ -58,7 +84,10 @@
     },
     {
       "id": "edificio-facultad-de-ciencias-naturales-y-oceanograficas",
-      "titulos": ["Edificio Ciencias Naturales y Oceanográficas.jpg"]
+      "titulos": [
+        "Edificio Ciencias Naturales y Oceanográficas.jpg",
+        "Frontis facultad de ciencias naturales udec.jpg"
+      ]
     },
     {
       "id": "edificio-centro-de-biotecnologia",
@@ -68,8 +97,17 @@
       "id": "edificio-departamento-de-astronomia-facultad-de-ciencias-fisicas-y-matematicas",
       "titulos": ["Departamento de Astronomía UdeC.jpg"]
     },
-    { "id": "edificio-centro-de-formacion-y-recursos-didacticos", "titulos": ["CFRD.jpg"] },
-    { "id": "edificio-de-anatomia", "titulos": ["Pabellón de Anatomía Acceso.jpg"] },
-    { "id": "edificio-ingenieria-de-sistemas", "titulos": ["DIICC.JPG"] }
+    {
+      "id": "edificio-centro-de-formacion-y-recursos-didacticos",
+      "titulos": ["CFRD.jpg"]
+    },
+    {
+      "id": "edificio-de-anatomia",
+      "titulos": ["Pabellón de Anatomía Acceso.jpg"]
+    },
+    {
+      "id": "edificio-ingenieria-de-sistemas",
+      "titulos": ["DIICC.JPG"]
+    }
   ]
 }

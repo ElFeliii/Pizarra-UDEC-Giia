@@ -13,6 +13,28 @@ const moderadores = Array.from({ length: 10 }, (_, i) => ({
 const entra = (name: string, password: string, maestra = '') =>
   authenticateModerator(moderadores, maestra, name, password);
 
+/** Detector de claves numéricas incrustadas; no reemplaza la revisión del repositorio. */
+function credencialesNumericas(codigo: string): string[] {
+  return codigo.match(/(['"`])\s*\d{4,}\s*\1/g) ?? [];
+}
+
+describe('detector de credenciales numéricas', () => {
+  it.each(["'", '"', '`'])('detecta una credencial ficticia delimitada por %s', (delimitador) => {
+    const numeroFicticio = String(123_456);
+    const muestra = `const claveFicticia = ${delimitador}${numeroFicticio}${delimitador};`;
+    expect(credencialesNumericas(muestra)).toEqual([
+      `${delimitador}${numeroFicticio}${delimitador}`,
+    ]);
+  });
+
+  it('no confunde números sueltos, cadenas cortas o delimitadores distintos con una clave', () => {
+    const numeroFicticio = String(123_456);
+    expect(credencialesNumericas(`const cantidad = ${numeroFicticio};`)).toEqual([]);
+    expect(credencialesNumericas(`const etiqueta = '${String(123)}';`)).toEqual([]);
+    expect(credencialesNumericas(`const incompleta = '${numeroFicticio}";`)).toEqual([]);
+  });
+});
+
 describe('moderadores', () => {
   it('en desarrollo hay algunos con la clave de desarrollo', () => {
     const dev = devModerators();
@@ -20,10 +42,10 @@ describe('moderadores', () => {
     expect(new Set(dev.map((m) => m.password)).size).toBe(1);
   });
 
-  it('el código no trae ninguna credencial del evento', () => {
-    // Si esto falla, alguien volvió a poner claves reales en el repositorio.
+  it('la configuración no incrusta claves numéricas', () => {
+    // Alerta sobre cadenas numéricas delimitadas; se complementa con la revisión de secretos.
     const codigo = readFileSync(new URL('../src/config.ts', import.meta.url), 'utf8');
-    const claves = codigo.match(/(['"`])\s*\d{4,}\s*/g) ?? [];
+    const claves = credencialesNumericas(codigo);
     expect(claves).toEqual([]);
   });
 });
@@ -102,7 +124,7 @@ describe('secreto de sesión', () => {
     const a = loadConfig(base);
     expect(a.sessionSecret.length).toBeGreaterThanOrEqual(32);
     expect(existsSync(join(carpeta, 'session-secret'))).toBe(true);
-    // Al arrancar de nuevo se reutiliza: las sesiones sobreviven a un reinicio.
+    // El secreto se reutiliza al arrancar; la sesión de moderación en memoria exige entrar de nuevo.
     expect(loadConfig(base).sessionSecret).toBe(a.sessionSecret);
   });
 

@@ -19,8 +19,8 @@ services:
       AUTO_HIDE_REPORTS: ${AUTO_HIDE_REPORTS:-3}
     ports:
       # Solo escucha en localhost: el proxy HTTPS de la universidad reenvía hacia aquí.
-      # Para exponerlo directo en la red, cambiar a "3000:3000".
-      - '127.0.0.1:3000:3000'
+      # GIIA asigna el puerto del servidor en .env; el puerto interno permanece en 3000.
+      - '127.0.0.1:${PUERTO_PUBLICADO:-3000}:3000'
     volumes:
       # Base de datos SQLite persistente (sobrevive a reinicios y actualizaciones).
       - ./data:/app/data

@@ -74,6 +74,17 @@ export function BuildingCard() {
           <p className="ficha__texto ficha__texto--vacio">Descripción pendiente.</p>
         )}
 
+        {info?.fuenteDescripcion && (
+          <a
+            className="ficha__enlace"
+            href={info.fuenteDescripcion}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Más información en el sitio oficial
+          </a>
+        )}
+
         {otras.map((foto) => (
           <FotoConCredito key={foto.archivo} foto={foto} nombre={building.name} />
         ))}

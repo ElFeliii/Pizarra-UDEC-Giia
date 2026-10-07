@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { api } from '../api/http';
 import { camera } from '../board/camera';
 import { buscarEdificios } from '../map/buscar';
-import { BUILDING_INFO, type Building } from '../map/campus';
+import { type Building } from '../map/campus';
 import { useStore } from '../state/store';
 import { IconSearch, IconX } from '../ui/icons';
 
@@ -87,8 +87,7 @@ export function SearchBar({ autoFocus, onPick }: { autoFocus?: boolean; onPick?(
 
   function pickBuilding(b: Building) {
     camera.flyTo(b.cx, b.cy, 2.2);
-    // La ficha solo se abre si hay algo que mostrar, igual que al tocar el edificio en el mapa.
-    if (b.id in BUILDING_INFO) openBuilding(b.id);
+    openBuilding(b.id);
     setOpen(false);
     onPick?.();
   }
@@ -143,9 +142,7 @@ export function SearchBar({ autoFocus, onPick }: { autoFocus?: boolean; onPick?(
                       onClick={() => pickBuilding(b)}
                     >
                       <span className="search__snippet">{b.name}</span>
-                      <span className="search__meta">
-                        {b.id in BUILDING_INFO ? 'Ver ficha del edificio' : 'Ir al edificio'}
-                      </span>
+                      <span className="search__meta">Ver ficha del edificio</span>
                     </button>
                   </li>
                 ))}

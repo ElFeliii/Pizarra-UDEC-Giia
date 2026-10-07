@@ -7,30 +7,35 @@ el tiempo real (WebSocket). Los datos quedan en un archivo SQLite dentro de la c
 > subdominio, configurar DNS y emitir el certificado; esta URL todavía no está asignada.
 > Resumen para la entrega: [ENTREGA.md](ENTREGA.md).
 
+En GIIA, solicitar el levantamiento exclusivamente por la plataforma de tickets. La Célula
+aprueba recursos y accesos, instala bajo `/var/src` y configura el proxy. Docker y Compose
+son obligatorios; los ejemplos Node de la sección 8 solo corresponden a otros entornos.
+
 ## Requisitos
 
 - Docker con el plugin `docker compose`.
-- Mínimo recomendado: **1 vCPU y 1 GB de RAM**, y sobra. Con 600 personas conectadas y una
-  ráfaga de notas, el contenedor midió **80 MB de RAM y picos de 0,3 de un núcleo**; en reposo,
-  51 MB y prácticamente nada de CPU. La imagen pesa **428 MB**.
+- Propuesta inicial: **1 vCPU y 1 GB de RAM**, sujeta a aprobación y ensayo del evento.
+  La medición histórica con 600 personas alcanzó 80 MB y picos de 0,3 de un núcleo; no
+  reemplaza un ensayo de la versión actual. La imagen ronda los 430 MB.
 - Unos 2 GB de disco para la imagen y la base de datos.
 - Un subdominio con HTTPS (por ejemplo `pizarra.giia.udec.cl`) apuntando a un proxy (Nginx/Apache)
   que reenvíe al contenedor. El proxy **debe permitir WebSocket** (ver abajo).
 
 ### Qué pedirle a quien administra el servidor
 
-Lista corta para mandar por correo:
+Incluir en el ticket oficial de GIIA:
 
-1. **Docker y `docker compose`** disponibles para el usuario que va a desplegar (`docker ps`
-   tiene que funcionar sin `sudo`, o bien dar acceso `sudo` para esos comandos).
+1. **Docker y `docker compose`** disponibles para la cuenta personal autorizada, con los
+   permisos que la Célula asigne para proyectos aprobados; no compartir cuentas o claves SSH.
 2. **Salida a internet durante la construcción de la imagen**: `docker build` descarga la
    imagen base `node:22-slim` y las dependencias desde npm. Si el servidor está aislado, ver la
    sección 9.
 3. **Un subdominio con certificado** y una entrada en el proxy que ya tengan (Nginx o Apache),
    con WebSocket habilitado. El contenedor no termina TLS: eso lo hace el proxy.
-4. **Una carpeta con escritura** para el proyecto, unos **2 GB de disco** (la imagen pesa
-   428 MB; la base de datos de un evento, unos pocos MB).
-5. **Puerto 3000 libre en localhost** (o decirnos cuál usar; se cambia en `docker-compose.yml`).
+4. **Instalación en `/var/src/pizarra-udec`** y permisos acordados por la Célula, unos
+   **2 GB de disco** iniciales más la capacidad necesaria para logs y respaldos.
+5. **Un puerto libre de aplicación en localhost**, asignado mediante `PUERTO_PUBLICADO`
+   en `.env` (3000 por defecto); no requiere editar `docker-compose.yml`.
 6. Que el proxy pase `X-Forwarded-For`. Sin eso, todos los asistentes se ven como una sola IP
    y los límites anti-spam los tratan como si fueran la misma persona.
 
@@ -45,18 +50,19 @@ Lista corta para mandar por correo:
 ## 1. Levantar
 
 ```bash
+# Después del ticket aprobado y de preparar los permisos de /var/src.
+cd /var/src
 git clone https://github.com/ElFeliii/Pizarra-UDEC-Giia pizarra-udec
-cd pizarra-udec
+cd /var/src/pizarra-udec
 ```
 
 Crear el archivo `.env` con **quiénes moderan**. Es lo único obligatorio, porque las claves no
 están en el código: el repositorio es privado y las claves se entregan por un canal separado.
 
 ```bash
-cat > .env <<'FIN'
-MOD_USERS=Moderador 1:REEMPLAZAR-CON-CLAVE-DEL-EQUIPO
-TRUST_PROXY=1
-FIN
+cp .env.example .env
+chmod 600 .env
+# Editar MOD_USERS, PUERTO_PUBLICADO y TRUST_PROXY antes de iniciar.
 ```
 
 Las claves del evento las reparte el equipo organizador. En Linux, preparar una carpeta
@@ -84,19 +90,20 @@ Reemplazar la clave de ejemplo antes de iniciar. No usarla como credencial del e
 
 Si falta el `.env`, el contenedor no arranca y el registro dice exactamente qué poner.
 
-Lo único que falta después es apuntarle el proxy HTTPS (sección 3).
+La Célula configura el proxy HTTPS (sección 3) y las tareas administrativas de
+[ENTREGA.md](ENTREGA.md#pendientes-administrativos-de-giia).
 
 ### Comprobar que quedó arriba
 
 ```bash
 docker compose ps          # debe decir "healthy"
 docker compose logs -f     # ver registros
-curl http://127.0.0.1:3000/api/health
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
 
-El contenedor escucha en `127.0.0.1:3000` (solo accesible desde el propio servidor, a través
-del proxy). Para probar sin proxy en la red interna, cambiar el puerto en `docker-compose.yml`
-a `"3000:3000"` y usar `TRUST_PROXY=false`.
+Docker publica en `127.0.0.1:<PUERTO_PUBLICADO>`; dentro del contenedor Node escucha en 3000. `docker compose port pizarra 3000` muestra el puerto real del servidor. Para una prueba
+local sin proxy usar `TRUST_PROXY=false`. Cualquier exposición a otra interfaz en GIIA requiere
+la aprobación y configuración de la Célula.
 
 ## 2. Ajustes opcionales
 
@@ -105,6 +112,7 @@ corresponda y `docker compose up -d`.
 
 | Variable            | Qué poner                                                                                                                                                                                                                             |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUERTO_PUBLICADO`  | Puerto del servidor asignado por GIIA, publicado solo en localhost; por defecto `3000`.                                                                                                                                               |
 | `MOD_USERS`         | **Obligatoria.** Moderadores del panel `/moderador`, como `nombre:clave` separados por coma. Sin esto (o sin `MOD_PASSWORD`) el servidor no arranca.                                                                                  |
 | `MOD_PASSWORD`      | Llave maestra opcional: sirve con cualquier nombre (mínimo 8 caracteres). Déjala vacía si no la necesitas.                                                                                                                            |
 | `SESSION_SECRET`    | Solo si prefieres fijarlo tú (32+ caracteres aleatorios). Si se deja vacía, el servidor genera uno y lo guarda en `data/session-secret`.                                                                                              |
@@ -134,6 +142,9 @@ Editar la lista de colegios y universidades en `server/data/instituciones.json`:
 - El archivo se monta en el contenedor: tras editarlo basta `docker compose restart`.
 
 ## 3. Proxy con WebSocket
+
+Estos ejemplos usan el puerto de ejemplo 3000 y un subdominio no asignado. La Célula
+debe reemplazarlos por el valor de `PUERTO_PUBLICADO` y el dominio aprobado.
 
 ### Nginx
 
@@ -186,11 +197,16 @@ con más carga para el servidor.
   - _Palabras:_ agregar/quitar palabras prohibidas (se aplican al instante) y ocultar lo ya publicado que las contenga.
   - _Usuarios:_ silenciar (pueden leer, no publicar).
   - Con la sesión de moderador abierta, en la propia pizarra aparecen botones de ocultar/silenciar en cada hilo.
-- **Estado:** `docker compose ps`, `docker stats pizarra-udec`, `curl http://127.0.0.1:3000/api/health`.
+- **Estado:** `docker compose ps`, `docker stats pizarra-udec`, `curl --fail "http://$(docker compose port pizarra 3000)/api/health"`.
 - Si el contenedor se reinicia, **los moderadores tienen que volver a entrar**: las sesiones
   viven en memoria. Los datos y el contenido oculto no se pierden.
 
 ## 5. Respaldo y exportación
+
+En GIIA, la Célula programa respaldos al final de cada mes según la regla 3-2-1, incluyendo
+configuraciones y volúmenes. Proteger también `.env` y `data/session-secret`. Los comandos
+siguientes permiten obtener una copia de SQLite; no crean por sí solos la programación
+mensual, los destinos externos ni las tres copias requeridas. Ensayar la restauración.
 
 - **Exportar a Excel:** panel de moderación → _Exportar_ (pines, respuestas y asistentes en CSV).
 - **Respaldo completo** (en caliente, sin detener):
@@ -208,7 +224,7 @@ con más carga para el servidor.
 git pull --ff-only
 docker compose up -d --build
 docker compose ps
-curl --fail http://127.0.0.1:3000/api/health
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
 
 Tras la sustitución inicial del historial publicado por la entrega saneada (ver
@@ -235,10 +251,11 @@ mkdir -p ~/respaldos && mv data/pizarra.db* ~/respaldos/
 docker compose start
 ```
 
-## 8. Plan B: sin Docker, con Node directo
+## 8. Otros entornos: Node directo
 
-Si el día del despliegue Docker no está disponible, el mismo servidor sirve con **Node 22 o
-superior**:
+**Esta opción no se admite para el levantamiento en GIIA**, donde Docker y Compose son
+obligatorios. En otro entorno autorizado, el mismo servidor puede ejecutarse con **Node 22
+o superior**:
 
 ```bash
 npm ci
@@ -321,6 +338,10 @@ Estas operaciones no están en el panel web a propósito. Las claves de los mode
 cortas, y un panel con un botón de "borrar todo" es demasiado riesgo para lo que aporta.
 
 ## 11. Revisión antes del evento
+
+Confirmar con la Célula las actualizaciones semanales y urgentes, el monitoreo externo
+de CPU/RAM/disco/red y la rotación de logs en un máximo de 365 días. El límite Docker
+de cinco archivos de 10 MB evita crecimiento sin límite, pero no fija una antigüedad máxima.
 
 - [ ] `docker compose ps` dice **healthy**.
 - [ ] La página abre por HTTPS desde fuera de la universidad, en computador y en celular.

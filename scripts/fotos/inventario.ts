@@ -50,8 +50,9 @@ const doc = `# Edificios del mapa
 ${edificios.length} edificios con nombre, tomados de OpenStreetMap. **Con foto: ${conFoto.length}.
 Con descripción: ${conTexto.length}.**
 
-Solo los edificios que aparecen en \`client/src/map/edificios.json\` se iluminan y se pueden
-abrir en el mapa: mientras no tengan ficha, son parte del dibujo y nada más.
+Todos los edificios identificados se pueden abrir desde su silueta, su nombre o el buscador,
+incluso si falta contenido. Las fotos y descripciones disponibles viven en
+\`client/src/map/edificios.json\`; los campos pendientes se indican en la ficha.
 
 ## Cómo agregar una foto propia
 
