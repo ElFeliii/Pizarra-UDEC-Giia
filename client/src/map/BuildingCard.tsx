@@ -81,7 +81,7 @@ export function BuildingCard() {
             target="_blank"
             rel="noreferrer noopener"
           >
-            Más información en el sitio oficial
+            Ver fuente de la descripción
           </a>
         )}
 

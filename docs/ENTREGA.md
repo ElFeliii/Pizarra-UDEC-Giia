@@ -6,17 +6,17 @@ aprobación por su plataforma de tickets. Esta guía sigue el Manual de Trabajo 
 
 ## Información para el ticket
 
-| Dato                          | Solicitud                                                                                                                                                       |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Proyecto y objetivo           | Pizarra UdeC: participación en un evento universitario de puertas abiertas mediante notas, mapa del campus y contenido orientador, con moderación y tiempo real |
-| Responsable y fechas          | Completar por el equipo organizador en el ticket                                                                                                                |
-| Repositorio privado           | [Pizarra-UDEC-Giia](https://github.com/ElFeliii/Pizarra-UDEC-Giia); autorizar la cuenta de quien despliega y de la Célula                                       |
-| Versión                       | Identificar el commit publicado aprobado antes de instalar                                                                                                      |
-| Recursos iniciales propuestos | 1 vCPU, 1 GB de RAM y 2 GB de disco para aplicación e imagen; confirmar capacidad y espacio adicional para logs y respaldos con GIIA                            |
-| Directorio                    | `/var/src/pizarra-udec`                                                                                                                                         |
-| Servicios                     | Un contenedor Node sirve la página, la API, Socket.IO/WebSocket y `/moderador`; SQLite persiste en `data/`                                                      |
-| Subdominio solicitado         | Uno dentro de `.giia.udec.cl`; `pizarra.giia.udec.cl` es una propuesta todavía no asignada                                                                      |
-| Documentación                 | Esta guía, [DESPLIEGUE.md](DESPLIEGUE.md), [PRIVACIDAD.md](PRIVACIDAD.md), [SEGURIDAD.md](SEGURIDAD.md) y el resto de `docs/`                                   |
+| Dato                          | Solicitud                                                                                                                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Proyecto y objetivo           | Pizarra UdeC: participación en un evento universitario de puertas abiertas mediante notas, mapa del campus y contenido orientador, con moderación y tiempo real               |
+| Responsable y fechas          | Completar por el equipo organizador en el ticket                                                                                                                              |
+| Repositorio privado           | [Pizarra-UDEC-Giia](https://github.com/ElFeliii/Pizarra-UDEC-Giia); autorizar la cuenta de quien despliega y de la Célula                                                     |
+| Versión                       | Identificar el commit publicado aprobado antes de instalar                                                                                                                    |
+| Recursos iniciales propuestos | 1 vCPU, 1 GB de RAM y 2 GB de disco para aplicación e imagen; confirmar capacidad y espacio adicional para logs y respaldos con GIIA                                          |
+| Directorio                    | `/var/src/pizarra-udec`                                                                                                                                                       |
+| Servicios                     | Un contenedor Node sirve la página, la API, Socket.IO/WebSocket y `/moderador`; SQLite persiste en `data/`                                                                    |
+| Subdominio solicitado         | Uno dentro de `.giia.udec.cl`; `pizarra.giia.udec.cl` es una propuesta todavía no asignada                                                                                    |
+| Documentación                 | [Verificación actual](ENTREGA-VERIFICACION.md), esta guía, [DESPLIEGUE.md](DESPLIEGUE.md), [PRIVACIDAD.md](PRIVACIDAD.md), [SEGURIDAD.md](SEGURIDAD.md) y el resto de `docs/` |
 
 El nombre del repositorio no es el dominio del evento. La URL definitiva será
 `https://<subdominio-asignado>.giia.udec.cl`, con el panel en `/moderador`.
@@ -125,7 +125,7 @@ permisos antes de levantarlo. No usar `reset --hard`, borrar datos o forzar un n
 - Aprobar CPU, RAM, disco, puerto y fechas; disponer de Docker y Compose, y de salida a internet para la construcción o autorizar la transferencia de una imagen.
 - Asignar subdominio, DNS, certificado HTTPS y proxy con WebSocket; confirmar su topología.
 - Realizar el levantamiento en `/var/src` y autorizar acceso al repositorio, cuentas SSH personales, permisos Docker y grupos Linux, con acceso de inspección y administración para la Célula.
-- Revisar la seguridad del proyecto, contenedor y servidor; acordar actualizaciones los viernes fuera de horario y respuesta urgente ante vulnerabilidades.
+- Revisar la seguridad del proyecto, contenedor y servidor, incluida la aplicabilidad de los avisos Debian documentados en [SEGURIDAD.md](SEGURIDAD.md); acordar actualizaciones los viernes fuera de horario y respuesta urgente ante vulnerabilidades.
 - Establecer monitoreo externo de CPU, RAM, disco y red. El endpoint de salud y `docker stats` son herramientas auxiliares, no el monitoreo externo continuo.
 - Definir rotación automática de logs en un máximo de 365 días y revisión periódica. Compose ya limita el tamaño a cinco archivos de 10 MB; eso no limita su antigüedad.
 - Programar respaldos al final de cada mes según 3-2-1, incluyendo configuraciones, SQLite, `.env` y secreto persistente, con destinos y acceso protegidos y restauración ensayada.

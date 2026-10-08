@@ -49,10 +49,17 @@ describe('selección de edificios en el mapa', () => {
 describe('ficha del edificio', () => {
   it('abre un edificio sin contenido y señala lo que falta', () => {
     estado.openBuildingId = 'edificio-block-3-plaza-peru';
-    const marcado = renderToStaticMarkup(createElement(BuildingCard));
-    expect(marcado).toContain('Información de Block 3 Plaza Perú');
-    expect(marcado).toContain('Foto pendiente');
-    expect(marcado).toContain('Descripción pendiente.');
+    // El catálogo está completo; simular una ficha ausente conserva la cobertura del fallback.
+    const ficha = BUILDING_INFO[estado.openBuildingId]!;
+    delete BUILDING_INFO[estado.openBuildingId];
+    try {
+      const marcado = renderToStaticMarkup(createElement(BuildingCard));
+      expect(marcado).toContain('Información de Block 3 Plaza Perú');
+      expect(marcado).toContain('Foto pendiente');
+      expect(marcado).toContain('Descripción pendiente.');
+    } finally {
+      BUILDING_INFO[estado.openBuildingId] = ficha;
+    }
   });
 
   it('muestra el texto y el enlace oficial de una ficha nueva aunque falte la foto', () => {

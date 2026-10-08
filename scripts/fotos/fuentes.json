@@ -108,6 +108,14 @@
     {
       "id": "edificio-ingenieria-de-sistemas",
       "titulos": ["DIICC.JPG"]
+    },
+    {
+      "id": "edificio-casa-enrique-molina",
+      "titulos": ["Rectoria Udec.JPG"]
+    },
+    {
+      "id": "edificio-tvu",
+      "titulos": ["Octava Comunicaciones (sede).jpg"]
     }
   ]
 }

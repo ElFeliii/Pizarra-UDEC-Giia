@@ -32,8 +32,14 @@ COPY shared/package.json shared/
 COPY server/package.json server/
 COPY client/package.json client/
 # better-sqlite3 trae binarios precompilados para Linux: no hace falta compilar nada.
+RUN apt-get update \
+  && apt-get upgrade -y \
+  && rm -rf /var/lib/apt/lists/*
+
 RUN npm ci --omit=dev --ignore-scripts --workspace @pizarra/server \
-  && npm cache clean --force
+  && npm cache clean --force \
+  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+  && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/pnpm /usr/local/bin/pnpx
 
 COPY --from=build /app/server/dist server/dist
 COPY --from=build /app/client/dist client/dist

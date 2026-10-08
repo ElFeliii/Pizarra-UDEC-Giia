@@ -15,8 +15,9 @@ son obligatorios; los ejemplos Node de la sección 8 solo corresponden a otros e
 
 - Docker con el plugin `docker compose`.
 - Propuesta inicial: **1 vCPU y 1 GB de RAM**, sujeta a aprobación y ensayo del evento.
-  La medición histórica con 600 personas alcanzó 80 MB y picos de 0,3 de un núcleo; no
-  reemplaza un ensayo de la versión actual. La imagen ronda los 430 MB.
+  El ensayo local actual difundió 40 pines a 600 lectores, sin rechazos. La muestra
+  posterior fue de 92,88 MiB; no mide el pico ni garantiza capacidad del servidor real.
+  La imagen actual ocupa unos 444 MB. Ver [evidencia y límites](ENTREGA-VERIFICACION.md).
 - Unos 2 GB de disco para la imagen y la base de datos.
 - Un subdominio con HTTPS (por ejemplo `pizarra.giia.udec.cl`) apuntando a un proxy (Nginx/Apache)
   que reenvíe al contenedor. El proxy **debe permitir WebSocket** (ver abajo).
@@ -28,7 +29,7 @@ Incluir en el ticket oficial de GIIA:
 1. **Docker y `docker compose`** disponibles para la cuenta personal autorizada, con los
    permisos que la Célula asigne para proyectos aprobados; no compartir cuentas o claves SSH.
 2. **Salida a internet durante la construcción de la imagen**: `docker build` descarga la
-   imagen base `node:22-slim` y las dependencias desde npm. Si el servidor está aislado, ver la
+   imagen base `node:22-slim`, las actualizaciones de Debian y las dependencias desde npm. Si el servidor está aislado, ver la
    sección 9.
 3. **Un subdominio con certificado** y una entrada en el proxy que ya tengan (Nginx o Apache),
    con WebSocket habilitado. El contenedor no termina TLS: eso lo hace el proxy.

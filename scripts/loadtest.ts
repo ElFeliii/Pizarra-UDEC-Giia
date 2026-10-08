@@ -9,6 +9,7 @@
  */
 import type { ClientToServerEvents, PinSummary, ServerToClientEvents } from '@pizarra/shared';
 import { io, type Socket } from 'socket.io-client';
+import { cargaCompleta } from './carga/resultado';
 
 type S = Socket<ServerToClientEvents, ClientToServerEvents>;
 
@@ -91,7 +92,7 @@ async function main() {
     writers.map(async (w, i) => {
       for (let k = 0; k < PINS_PER_WRITER; k++) {
         // Sin números largos: el filtro de datos personales los bloquea (parecen teléfonos o RUT).
-        const text = `Pin de carga ${i}-${k} ${Math.random().toString(36).slice(2, 7)}`;
+        const text = `Pin de carga escritor ${i} mensaje ${k}`;
         sentAt.set(text, performance.now());
         const res = await w.emitWithAck('pin:create', {
           surface: 'board',
@@ -113,7 +114,7 @@ async function main() {
   await new Promise((r) => setTimeout(r, 2000));
 
   const sorted = latencies.sort((a, b) => a - b);
-  const expected = (WRITERS * PINS_PER_WRITER - rejected) * READERS;
+  const expected = WRITERS * PINS_PER_WRITER * READERS;
   console.log('\nResultados');
   console.log(
     `  entregas: ${sorted.length} de ${expected} esperadas (${rejected} pines rechazados)`,
@@ -124,7 +125,7 @@ async function main() {
   console.log(`  latencia máx: ${(sorted[sorted.length - 1] ?? NaN).toFixed(0)} ms`);
 
   for (const s of [...readers, ...writers]) s.disconnect();
-  process.exit(sorted.length >= expected ? 0 : 1);
+  process.exit(cargaCompleta(READERS, WRITERS * PINS_PER_WRITER, rejected, sorted.length) ? 0 : 1);
 }
 
 main().catch((err) => {

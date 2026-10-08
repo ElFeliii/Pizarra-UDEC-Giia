@@ -1,6 +1,6 @@
 {
   "edificio-biblioteca-central-luis-david-cruz-ocampo": {
-    "descripcion": "La biblioteca principal del campus: cinco pisos y más de cien mil volúmenes frente al Foro. Lleva el nombre de su primer director y el edificio, obra de Emilio Duhart y Roberto Goycoolea, se inauguró en 1972 como parte de la reconstrucción posterior al terremoto de 1960.",
+    "descripcion": "Biblioteca central del campus, con espacios de estudio y servicios de préstamo. Forma parte de Bibliotecas UdeC, que ofrece recursos para el aprendizaje y la investigación.",
     "fotos": [
       {
         "archivo": "biblioteca-central-luis-david-cruz-ocampo.jpg",
@@ -14,10 +14,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Acceso_principal_Biblioteca_Central_Luis_David_Cruz_Ocampo.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://bibliotecas.udec.cl/"
   },
   "edificio-campanil": {
-    "descripcion": "Torre de 42,5 metros levantada en 1943 e inaugurada al año siguiente, símbolo de la Universidad y de la ciudad. Su reloj marca la hora del campus y es el punto de encuentro por excelencia del Barrio Universitario.",
+    "descripcion": "Torre del reloj y símbolo de la Universidad de Concepción. Es uno de los hitos más reconocibles del campus y una referencia para orientarse en el Foro.",
     "fotos": [
       {
         "archivo": "campanil.jpg",
@@ -31,7 +32,8 @@
         "licencia": "CC BY 2.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Campanil_UdeC.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/sobre-la-udec/historia/campanil/"
   },
   "edificio-capsiudec": {
     "descripcion": "Centro clínico docente de atención psicológica de la Universidad. Ofrece atención a la comunidad y servicios con arancel diferenciado para estudiantes.",
@@ -39,7 +41,7 @@
     "fuenteDescripcion": "https://educacion.udec.cl/saludmental/"
   },
   "edificio-casa-del-arte-jose-clemente-orozco": {
-    "descripcion": "Alberga la Pinacoteca de la Universidad, una de las colecciones de pintura chilena más completas del país. En su hall está el mural «Presencia de América Latina», pintado por el mexicano Jorge González Camarena entre 1964 y 1965 y declarado Monumento Nacional.",
+    "descripcion": "Museo universitario que alberga la Pinacoteca y exposiciones de arte. En su hall se encuentra el mural «Presencia de América Latina», obra de Jorge González Camarena y su equipo.",
     "fotos": [
       {
         "archivo": "casa-del-arte-jose-clemente-orozco.jpg",
@@ -53,10 +55,11 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Mural_%22Presencia_de_Am%C3%A9rica_Latina%22_de_Jorge_Gonz%C3%A1lez_Camarena_-_Vista_Panor%C3%A1mica.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://pinacoteca.udec.cl/"
   },
   "edificio-casa-del-deporte": {
-    "descripcion": "El gimnasio techado más antiguo del campus, inaugurado a comienzos de 1944 junto con el Campanil. Es la casa del básquetbol universitario y se reconoce por las dos esculturas de atletas que flanquean su entrada.",
+    "descripcion": "Complejo deportivo universitario con los gimnasios A y B, espacios de entrenamiento y una sala multiuso. Aquí se realizan actividades deportivas y talleres para la comunidad estudiantil.",
     "fotos": [
       {
         "archivo": "casa-del-deporte.jpg",
@@ -64,10 +67,11 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Casa_del_deporte_-_luchadores.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://dise.udec.cl/node/406?q=node%2F9"
   },
   "edificio-centro-de-biotecnologia": {
-    "descripcion": "Centro de investigación de la Universidad dedicado a la biotecnología, con laboratorios equipados para trabajo con microorganismos, plantas y procesos industriales.",
+    "descripcion": "Centro universitario de investigación y transferencia tecnológica. Sus equipos estudian aplicaciones de la biotecnología en materiales, recursos biológicos y procesos productivos.",
     "fotos": [
       {
         "archivo": "centro-de-biotecnologia.jpg",
@@ -75,10 +79,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Centro_de_Biotecnolog%C3%ADa_de_la_Universidad_de_Concepci%C3%B3n.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.centrodebiotecnologia.udec.cl/"
   },
   "edificio-centro-de-formacion-y-recursos-didacticos": {
-    "descripcion": "Apoya la docencia de toda la Universidad: produce material didáctico y audiovisual y acompaña a los profesores en el uso de tecnología para enseñar.",
+    "descripcion": "El CFRD apoya la formación mediante recursos didácticos y herramientas tecnológicas. Es parte de las unidades de la Universidad vinculadas a transferencia e innovación.",
     "fotos": [
       {
         "archivo": "centro-de-formacion-y-recursos-didacticos.jpg",
@@ -86,7 +91,8 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:CFRD.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/investigacion/"
   },
   "edificio-centro-de-investigacion-en-ingenieria-matematica-ci-ma": {
     "descripcion": "El CI²MA desarrolla investigación en matemáticas aplicadas. Reúne investigadores, estudiantes de postgrado y visitantes que trabajan en modelos y métodos para resolver problemas científicos.",
@@ -94,7 +100,7 @@
     "fuenteDescripcion": "https://www.ci2ma.udec.cl/"
   },
   "edificio-de-anatomia": {
-    "descripcion": "El antiguo Pabellón de Anatomía, uno de los edificios históricos del campus. Aquí se hacen las clases prácticas de anatomía de las carreras de la salud.",
+    "descripcion": "Pabellón universitario destinado al estudio de la anatomía. Forma parte de los espacios de formación de las ciencias biológicas y de la salud.",
     "fotos": [
       {
         "archivo": "de-anatomia.jpg",
@@ -102,10 +108,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Pabell%C3%B3n_de_Anatom%C3%ADa_Acceso.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
   },
   "edificio-de-aulas-salvador-galvez": {
-    "descripcion": "Todos lo conocen como «el Plato» por su forma circular. Proyectado por Gonzalo Rudolphy y construido entre 1968 y 1971, reúne ocho aulas repartidas en dos pisos y un casino en el primer nivel: por aquí pasan casi todas las carreras en algún momento.",
+    "descripcion": "Edificio de aulas conocido como «el Plato» por su forma circular. Es un punto de referencia junto al sector deportivo.",
     "fotos": [
       {
         "archivo": "de-aulas-salvador-galvez.jpg",
@@ -113,7 +120,8 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Edificio_Salvador_Galvez_21.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www3.udec.cl/Agenda2026.pdf"
   },
   "edificio-de-ingenieria-civil-e-ingenieria-civil-aeroespacial": {
     "descripcion": "Ubicado en el extremo sur del campus, alberga salas de clases y laboratorios de Ingeniería Civil e Ingeniería Civil Aeroespacial.",
@@ -121,7 +129,7 @@
     "fuenteDescripcion": "https://fi.udec.cl/facultad/infraestructura/edificios/"
   },
   "edificio-departamento-de-astronomia-facultad-de-ciencias-fisicas-y-matematicas": {
-    "descripcion": "Parte de la Facultad de Ciencias Físicas y Matemáticas. Aquí trabajan los astrónomos de la Universidad, que observan con telescopios instalados en el norte de Chile y participan en colaboraciones internacionales.",
+    "descripcion": "Departamento de la Facultad de Ciencias Físicas y Matemáticas dedicado al estudio del universo. Desarrolla investigación y formación en astronomía.",
     "fotos": [
       {
         "archivo": "departamento-de-astronomia-facultad-de-ciencias-fisicas-y-matematicas.jpg",
@@ -129,7 +137,8 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Departamento_de_Astronom%C3%ADa_UdeC.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-fisicas-y-matematicas/"
   },
   "edificio-direccion-de-docencia": {
     "descripcion": "Esta dirección impulsa la política de docencia de pregrado y su mejoramiento continuo. Sus unidades apoyan la enseñanza y la formación universitaria.",
@@ -162,7 +171,7 @@
     "fuenteDescripcion": "https://faug.udec.cl/quienes-somos/"
   },
   "edificio-facultad-de-ciencias-biologicas-arco": {
-    "descripcion": "El Arco es la entrada histórica del campus y hoy el edificio de la Facultad de Ciencias Biológicas, con salas, auditorios, laboratorios y biblioteca. Se le sigue llamando «Arco de Medicina» porque esa fue su primera ocupante; el relieve que corona el paso es obra del escultor Ormezzano.",
+    "descripcion": "El Arco es uno de los accesos emblemáticos de la Universidad. Su edificio alberga dependencias de la Facultad de Ciencias Biológicas.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-biologicas-arco.jpg",
@@ -188,10 +197,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Arco_UdeC_2026.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-biologicas/"
   },
   "edificio-facultad-de-ciencias-economicas-y-administrativas": {
-    "descripcion": "Ingeniería comercial, auditoría y los programas de economía y administración de la Universidad, con sus salas, biblioteca y oficinas de profesores.",
+    "descripcion": "Forma profesionales de Ingeniería Comercial y Auditoría. Sus áreas académicas estudian la economía, la administración y la gestión de organizaciones.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-economicas-y-administrativas.jpg",
@@ -199,10 +209,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Universidad_de_Concepci%C3%B3n_%E2%80%93_Facultad_de_Ciencias_Econ%C3%B3micas_y_Administrativas.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-economicas-y-administrativas/"
   },
   "edificio-facultad-de-ciencias-fisicas-y-matematicas": {
-    "descripcion": "Física, matemáticas, estadística y geofísica. De aquí salen las carreras científicas base y también los cursos de cálculo y física que cursan casi todas las ingenierías.",
+    "descripcion": "Reúne el estudio de las matemáticas, la física, la estadística, la geofísica y la astronomía. Desarrolla formación científica e investigación sobre fenómenos naturales y modelos matemáticos.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-fisicas-y-matematicas.jpg",
@@ -210,10 +221,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Facultad_de_Ciencias_F%C3%ADsicas_y_Matem%C3%A1ticas_U.de_Concepci%C3%B3n..jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-fisicas-y-matematicas/"
   },
   "edificio-facultad-de-ciencias-forestales": {
-    "descripcion": "Forma ingenieros forestales y concentra la investigación de la Universidad sobre bosques, madera y manejo del territorio, un área clave para la región del Biobío.",
+    "descripcion": "Desarrolla formación e investigación sobre bosques, conservación y recursos forestales. Sus laboratorios estudian también la madera y su aprovechamiento.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-forestales.jpg",
@@ -221,10 +233,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Facultadcienciasforestalesudec.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-forestales/"
   },
   "edificio-facultad-de-ciencias-juridicas-y-sociales": {
-    "descripcion": "La facultad de Derecho de la Universidad. Tiene salas de clases, biblioteca especializada y una sala de audiencias donde los estudiantes practican litigación antes de salir a tribunales.",
+    "descripcion": "Forma profesionales de Derecho y desarrolla investigación jurídica. Es una de las unidades académicas que participan en la formación de la Universidad en Concepción y Chillán.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-juridicas-y-sociales.jpg",
@@ -238,10 +251,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:AccesoFacDerechoUdeC.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-juridicas/"
   },
   "edificio-facultad-de-ciencias-naturales-y-oceanograficas": {
-    "descripcion": "Biología, biología marina y oceanografía. Desde acá salen las campañas de terreno y los embarques que estudian el mar frente a la región.",
+    "descripcion": "Estudia la biodiversidad, los seres vivos y los océanos. Sus departamentos desarrollan docencia e investigación en ciencias naturales y oceanografía.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-naturales-y-oceanograficas.jpg",
@@ -255,10 +269,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Frontis_facultad_de_ciencias_naturales_udec.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-naturales-y-oceanograficas/"
   },
   "edificio-facultad-de-ciencias-quimicas": {
-    "descripcion": "Química, laboratorios de docencia e investigación y los cursos de química general que toman muchas carreras del área científica y de la salud en sus primeros años.",
+    "descripcion": "La facultad desarrolla docencia e investigación en química y ciencias de la Tierra. Aquí se encuentran espacios académicos vinculados al estudio de la materia y sus transformaciones.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-quimicas.jpg",
@@ -266,7 +281,8 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Universidad_de_Concepci%C3%B3n_%E2%80%93_Facultad_de_Ciencias_Qu%C3%ADmicas_(2023).jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-quimicas/"
   },
   "edificio-facultad-de-ciencias-sociales": {
     "descripcion": "Reúne Antropología, Periodismo, Psicología, Trabajo Social y Sociología. Su docencia e investigación ayudan a comprender la sociedad y sus vínculos con las comunidades.",
@@ -274,7 +290,7 @@
     "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-sociales/"
   },
   "edificio-facultad-de-ciencias-veterinarias": {
-    "descripcion": "Sede en Concepción de la Facultad de Ciencias Veterinarias, cuya escuela principal está en el Campus Chillán. La carrera de Medicina Veterinaria nació justamente acá, en 1972, antes de trasladarse al año siguiente.",
+    "descripcion": "Unidad académica dedicada a la formación en Medicina Veterinaria y al estudio de la salud animal. La facultad tiene presencia en los campus Concepción y Chillán.",
     "fotos": [
       {
         "archivo": "facultad-de-ciencias-veterinarias.jpg",
@@ -282,7 +298,8 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Facultadcienciasveterinariasudec.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-veterinarias/"
   },
   "edificio-facultad-de-educacion": {
     "descripcion": "Forma docentes para educación parvularia, básica, diferencial y enseñanza media. Sus pedagogías abarcan ciencias, humanidades, artes y educación física.",
@@ -290,7 +307,7 @@
     "fuenteDescripcion": "https://educacion.udec.cl/carreras/"
   },
   "edificio-facultad-de-farmacia": {
-    "descripcion": "Forma químicos farmacéuticos y bioquímicos. Sus laboratorios de síntesis, análisis y control de calidad ocupan buena parte del edificio.",
+    "descripcion": "Reúne Bioquímica, Química y Farmacia, y Nutrición y Dietética. Sus actividades abarcan medicamentos, análisis, alimentos y nutrición humana.",
     "fotos": [
       {
         "archivo": "facultad-de-farmacia.jpg",
@@ -304,10 +321,11 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Facultad_Farmacia_UdeC.JPG"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-farmacia/"
   },
   "edificio-facultad-de-humanidades-y-arte": {
-    "descripcion": "Historia, filosofía, literatura, periodismo, música y artes visuales conviven en este edificio, uno de los más antiguos del sector central del campus.",
+    "descripcion": "Reúne historia, filosofía, español, idiomas extranjeros, música y artes plásticas. Sus actividades promueven el estudio de las humanidades y la creación cultural.",
     "fotos": [
       {
         "archivo": "facultad-de-humanidades-y-arte.jpg",
@@ -315,10 +333,11 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Facultad_de_Humanidades_y_Arte_UdeC.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-humanidades-y-arte/"
   },
   "edificio-facultad-de-ingenieria": {
-    "descripcion": "Reúne las carreras de ingeniería civil de la Universidad, desde la eléctrica y la mecánica hasta la industrial y la informática, con sus departamentos y laboratorios repartidos en el sector poniente del campus.",
+    "descripcion": "Reúne departamentos de distintas especialidades de la ingeniería. Sus edificios albergan aulas, oficinas y laboratorios para la formación y la investigación aplicada.",
     "fotos": [
       {
         "archivo": "facultad-de-ingenieria.jpg",
@@ -326,10 +345,11 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:FI_Udec.JPG"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://fi.udec.cl/facultad/infraestructura/edificios/"
   },
   "edificio-facultad-de-medicina-udec": {
-    "descripcion": "Aquí se forman médicos, enfermeras, matronas, kinesiólogos, tecnólogos médicos, fonoaudiólogos y nutricionistas. Está sobre la calle Chacabuco, al lado del hospital, para que la formación clínica ocurra a pasos de la sala de clases.",
+    "descripcion": "La facultad reúne Medicina, Obstetricia y Puericultura, Kinesiología, Tecnología Médica y Fonoaudiología. Su formación integra ciencias de la salud, investigación y práctica clínica.",
     "fotos": [
       {
         "archivo": "facultad-de-medicina-udec.jpg",
@@ -337,10 +357,11 @@
         "licencia": "CC BY-SA 3.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Facultad_de_medicina_udec.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-medicina/"
   },
   "edificio-facultad-de-odontologia": {
-    "descripcion": "La primera facultad de odontología del país: nació como curso de Dentística en 1919 y se constituyó como facultad en 1927. Además de las salas y los laboratorios, atiende pacientes en sus clínicas docentes.",
+    "descripcion": "Forma profesionales de Odontología y desarrolla docencia e investigación en salud bucal. Sus clínicas universitarias también vinculan la formación con la atención de pacientes.",
     "fotos": [
       {
         "archivo": "facultad-de-odontologia.jpg",
@@ -348,7 +369,8 @@
         "licencia": "CC BY-SA 4.0",
         "fuente": "https://commons.wikimedia.org/wiki/File:Odonto_udec.jpg"
       }
-    ]
+    ],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-odontologia/"
   },
   "edificio-ingenieria-de-sistemas": {
     "descripcion": "Alberga laboratorios de Ingeniería Civil Biomédica, aulas, espacios de estudio y salas de computación. Se conecta con oficinas de Biomédica y Telecomunicaciones.",
@@ -381,5 +403,254 @@
     "descripcion": "Este antiguo hogar universitario, inaugurado en 1952, forma parte de la historia del campus. En su primer piso funciona el Archivo Central de la Universidad.",
     "fotos": [],
     "fuenteDescripcion": "https://fp.udec.cl/index.php/archivo-central-de-la-universidad-de-concepcion-chile"
+  },
+  "edificio-facultad-de-ciencias-quimicas-2": {
+    "descripcion": "Otro edificio de la Facultad de Ciencias Químicas dentro del campus. Forma parte de sus dependencias para la docencia y la investigación.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-quimicas/"
+  },
+  "edificio-facultad-de-agronomia": {
+    "descripcion": "La facultad desarrolla formación e investigación en producción agropecuaria y ciencias agrarias. Este edificio corresponde a sus dependencias en el campus Concepción.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-agronomia/"
+  },
+  "edificio-mozatschule-concepcion": {
+    "descripcion": "El Colegio Mozart Concepción es un establecimiento educativo cercano al campus. Sus dependencias están en el sector de Las Vegas y Beltrán Mathieu.",
+    "fotos": [],
+    "fuenteDescripcion": "https://mozartschuleconcepcion.cl/"
+  },
+  "edificio-block-3-plaza-peru": {
+    "descripcion": "Bloque situado en el entorno de Plaza Perú, junto al acceso norte del campus. Sirve como referencia para orientarse entre la plaza y el Barrio Universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/122615547"
+  },
+  "edificio-block-4-plaza-peru": {
+    "descripcion": "Bloque del entorno de Plaza Perú, cercano al acceso norte del campus. Forma parte de las construcciones que bordean este espacio urbano.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/136246036"
+  },
+  "edificio-central-termica": {
+    "descripcion": "Instalación que abastece de calefacción a edificios de la Universidad. Forma parte de la infraestructura de servicios del campus.",
+    "fotos": [],
+    "fuenteDescripcion": "https://revistaidi.udec.cl/campus-sostenible/"
+  },
+  "edificio-de-aulas-n-1": {
+    "descripcion": "Edificio de salas de clases identificado como Aulas N° 1 en el plano universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-de-aulas-n-2": {
+    "descripcion": "Edificio de salas de clases identificado como Aulas N° 2 en el plano universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-de-aulas-n-3": {
+    "descripcion": "Edificio de salas de clases identificado como Aulas N° 3 en el plano universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-de-aulas-n-4": {
+    "descripcion": "Edificio de salas de clases identificado como Aulas N° 4 en el plano universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-de-aulas-n-5": {
+    "descripcion": "Edificio de salas de clases identificado como Aulas N° 5 en el plano universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-aula-9": {
+    "descripcion": "Espacio de salas de clases identificado como Aulas N° 9 en el plano universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-gimnasio-c": {
+    "descripcion": "Recinto deportivo del campus, ubicado junto al Departamento de Educación Física.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-gimnasio-d": {
+    "descripcion": "Recinto deportivo del campus, ubicado junto al Departamento de Educación Física.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-gimnasio-e": {
+    "descripcion": "Recinto deportivo del campus, ubicado junto al Departamento de Educación Física.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-emprendo-incuba": {
+    "descripcion": "Edificio asociado a los espacios de emprendimiento e incubación del campus. IncubaUdeC acompaña iniciativas de base científica y tecnológica.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.incubaudec.cl/"
+  },
+  "edificio-departamento-de-oceanografia": {
+    "descripcion": "Departamento de la Facultad de Ciencias Naturales y Oceanográficas. Desarrolla docencia e investigación sobre los océanos y sus procesos.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-ciencias-naturales-y-oceanograficas/"
+  },
+  "edificio-empreudec": {
+    "descripcion": "Edificio identificado como EmpreUdeC en el plano institucional, junto a las dependencias de la Vicerrectoría de Investigación y Desarrollo.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-iglesia-santa-monica-agustinos": {
+    "descripcion": "Templo del sector universitario identificado como Iglesia Santa Mónica (Agustinos). Es una referencia del entorno para quienes recorren el barrio.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/802029856"
+  },
+  "edificio-departamento-de-educacion-fisica": {
+    "descripcion": "Departamento de la Facultad de Educación dedicado al movimiento humano, la actividad física y el deporte. Sus oficinas se ubican en el edificio que une los gimnasios C y D.",
+    "fotos": [],
+    "fuenteDescripcion": "https://educacion.udec.cl/departamentos/depto-educacion-fisica/"
+  },
+  "edificio-victor-lamas": {
+    "descripcion": "Edificio residencial ubicado en Víctor Lamas 1265, en el entorno del campus. Es una referencia urbana del Barrio Universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/125109939"
+  },
+  "edificio-clinica-veterinaria": {
+    "descripcion": "Centro clínico de la Facultad de Ciencias Veterinarias en Concepción. Vincula la atención de animales con la formación y el trabajo de profesionales de distintas especialidades.",
+    "fotos": [],
+    "fuenteDescripcion": "https://clinicaveterinaria.udec.cl/home/"
+  },
+  "edificio-enlaces": {
+    "descripcion": "Dependencia conocida como Edificio Enlaces. El plano institucional actual identifica este espacio con la Dirección de Estudios Estratégicos.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-planta-piloto-igor-wilkomirsky": {
+    "descripcion": "Planta experimental del Departamento de Ingeniería Metalúrgica. Permite desarrollar y evaluar procesos a escala piloto para la investigación y la innovación minera.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fi.udec.cl/ministro-de-mineria-inauguro-planta-piloto-igor-wilkomirsky-con-tecnologia-de-alto-nivel/"
+  },
+  "edificio-estudio-tvu": {
+    "descripcion": "Estudio de Televisión Universidad de Concepción, identificado en el plano del campus. Forma parte de sus espacios de producción audiovisual.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-incubadora-idea": {
+    "descripcion": "Dependencia identificada como Incubadora Idea en el plano del campus, junto al edificio Emprendo Incuba.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-docente-biologia-molecular": {
+    "descripcion": "Edificio dedicado a la docencia en biología molecular, identificado en el sector de las ciencias biológicas del campus.",
+    "fotos": [],
+    "fuenteDescripcion": "https://vraeaweb.udec.cl/wp-content/uploads/2026/03/CAMPUS_UDEC_Mapa-de-Riesgo.pdf"
+  },
+  "edificio-departamento-de-filosofia-udec": {
+    "descripcion": "Departamento de la Facultad de Humanidades y Arte. Desarrolla docencia e investigación en filosofía y participa en la formación humanística de la Universidad.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.udec.cl/facultades/facultad-de-humanidades-y-arte/"
+  },
+  "edificio-departamento-de-ciencias-de-la-tierra": {
+    "descripcion": "Departamento de la Facultad de Ciencias Químicas que forma geólogos y desarrolla investigación en ciencias geológicas. Su trabajo integra laboratorio y estudios de terreno.",
+    "fotos": [],
+    "fuenteDescripcion": "https://geologia.udec.cl/dct"
+  },
+  "edificio-centro-medico-emsa": {
+    "descripcion": "Centro de atención de salud ubicado en San Martín 1350, en las cercanías del campus. Es un servicio del entorno urbano del Barrio Universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/368293261"
+  },
+  "edificio-tvu": {
+    "descripcion": "Dependencias de Televisión Universidad de Concepción en Victoria 541. Este medio universitario produce contenidos audiovisuales e información para la comunidad regional.",
+    "fotos": [
+      {
+        "archivo": "tvu.jpg",
+        "autor": "Yordan Garrido González",
+        "licencia": "CC BY-SA 4.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Octava_Comunicaciones_(sede).jpg"
+      }
+    ],
+    "fuenteDescripcion": "https://www.tvu.cl/"
+  },
+  "edificio-laboratorio-silvotecnologico-de-la-madera": {
+    "descripcion": "Laboratorio de la Facultad de Ciencias Forestales que estudia propiedades físicas, mecánicas y anatómicas de la madera. Desarrolla investigación y asistencia técnica.",
+    "fotos": [],
+    "fuenteDescripcion": "https://forestal2.udec.cl/laboratorios/laboratorio-silvotecnologico-de-la-madera/"
+  },
+  "edificio-casa-enrique-molina": {
+    "descripcion": "Antigua casa de Enrique Molina Garmendia, fundador de la Universidad. Sus dependencias en Víctor Lamas 1290 están vinculadas a Rectoría y a actividades institucionales.",
+    "fotos": [
+      {
+        "archivo": "casa-enrique-molina.jpg",
+        "autor": "Farisori",
+        "licencia": "CC BY-SA 3.0",
+        "fuente": "https://commons.wikimedia.org/wiki/File:Rectoria_Udec.JPG"
+      }
+    ],
+    "fuenteDescripcion": "https://www3.udec.cl/Agenda2026.pdf"
+  },
+  "edificio-parroquia-universitaria-concepcion": {
+    "descripcion": "Templo del Barrio Universitario ubicado en Los Olmos 1255. Es un espacio de encuentro religioso cercano a las dependencias del campus.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/1223628052"
+  },
+  "edificio-programa-de-estudios-sobre-la-responsabilidad-social-y-programa-talentos-udec": {
+    "descripcion": "Espacio vinculado al estudio de la responsabilidad social universitaria y a Talentos UdeC. Este programa ofrece enriquecimiento educativo a niños y jóvenes con altas capacidades académicas.",
+    "fotos": [],
+    "fuenteDescripcion": "https://talentos.udec.cl/preguntas-frecuentes/"
+  },
+  "edificio-casa-del-donante": {
+    "descripcion": "Espacio de la red de salud de Concepción destinado a la donación de sangre. La comunidad universitaria participa en campañas que apoyan este servicio.",
+    "fotos": [],
+    "fuenteDescripcion": "https://noticias.udec.cl/donacion-de-sangre-en-concepcion-comunidad-udec-genero-el-20-de-los-aportes-en-2023/"
+  },
+  "edificio-asociacion-del-personal-docente-y-administrativo-udec": {
+    "descripcion": "Sede de la APDA en Edmundo Larenas 220. La asociación reúne a personal de la Universidad y ofrece beneficios y apoyo a sus integrantes.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.apda.cl/"
+  },
+  "edificio-secretaria-acedemica-facultad-de-ingenieria-udec": {
+    "descripcion": "Unidad de la Facultad de Ingeniería que gestiona registros y trámites académicos de sus estudiantes. Su oficina atiende asuntos de la trayectoria universitaria.",
+    "fotos": [],
+    "fuenteDescripcion": "https://fi.udec.cl/facultad/secretaria-academica/"
+  },
+  "edificio-centro-mandala": {
+    "descripcion": "Centro educativo del entorno del campus, registrado con ese uso en OpenStreetMap. Es una referencia para orientarse en el Barrio Universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/169133635"
+  },
+  "edificio-udec-capacita": {
+    "descripcion": "Organización de la Corporación Universidad de Concepción dedicada a la capacitación de personas, empresas e instituciones. Sus oficinas se ubican en Los Tilos 1134.",
+    "fotos": [],
+    "fuenteDescripcion": "https://udeccapacita.cl/"
+  },
+  "edificio-residencia-universitaria-valentin-letelier": {
+    "descripcion": "Residencia para estudiantes ubicada en Los Tilos 1208, en el Barrio Universitario. Su cercanía al campus la convierte en una referencia del sector residencial.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/1518984385"
+  },
+  "edificio-barrio-lola": {
+    "descripcion": "Local de comida ubicado en Victoria 1273, en el Barrio Universitario. Forma parte de los servicios del entorno cercano al campus.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/1518984397"
+  },
+  "edificio-casa-minga": {
+    "descripcion": "Espacio cultural y galería ubicado en Beltrán Mathieu 75. Forma parte de los lugares de actividad cultural del entorno universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/1409685923"
+  },
+  "edificio-completex": {
+    "descripcion": "Local de comida situado en calle Victoria, en el entorno del campus. Es una referencia entre los servicios del Barrio Universitario.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.openstreetmap.org/way/562931173"
+  },
+  "edificio-instituto-de-investigaciones-tecnologicas-udec": {
+    "descripcion": "Instituto universitario vinculado a la transferencia y la innovación tecnológica. Forma parte de las unidades que conectan las capacidades de investigación con necesidades del entorno.",
+    "fotos": [],
+    "fuenteDescripcion": "https://www.udec.cl/investigacion/"
+  },
+  "edificio-mediacion-universitaria-udec": {
+    "descripcion": "Unidad que facilita el diálogo y la resolución de conflictos en la comunidad universitaria. Su trabajo de mediación se basa en la neutralidad y la confidencialidad.",
+    "fotos": [],
+    "fuenteDescripcion": "https://mediacionuniversitaria.udec.cl/quienes-somos/"
+  },
+  "edificio-centro-de-extensionismo-tecnologico-en-manufactura": {
+    "descripcion": "El CETMA ha desarrollado asesoría y asistencia técnica para pequeñas y medianas empresas manufactureras. Su labor vincula capacidades universitarias con desafíos productivos.",
+    "fotos": [],
+    "fuenteDescripcion": "https://noticias.udec.cl/el-desafio-pyme-en-biobio-y-nuble-frente-al-covid-19/"
   }
 }

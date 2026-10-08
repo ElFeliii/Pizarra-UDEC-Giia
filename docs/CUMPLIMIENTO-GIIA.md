@@ -1,0 +1,44 @@
+# Contraste de la entrega con el manual de GIIA
+
+Revisión del 7 de octubre de 2026, según Manual de Trabajo 1.0 del 15 de junio de 2026.
+La verificación local no constituye autorización de producción ni certificación integral de seguridad.
+La evidencia y sus límites están en [ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md).
+
+| Apartado | Requisito                                                          | Estado                                                        | Evidencia o gestión necesaria                                                                                      |
+| -------- | ------------------------------------------------------------------ | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| §1       | Levantamiento exclusivamente por la Célula                         | Pendiente GIIA                                                | No se intervino su servidor; guía en ENTREGA.md.                                                                   |
+| §1       | Inspección previa de seguridad y restricción de acceso             | Parte local verificada; aprobación pendiente                  | Pruebas de acceso, revisión de privacidad y escaneo sin red. Avisos Debian pendientes de evaluación; SEGURIDAD.md. |
+| §1       | Mantenimiento y revisiones continuas                               | Pendiente GIIA                                                | Ventanas y responsables solicitados al final de ENTREGA.md.                                                        |
+| §2       | Finalidad académica y respeto por recursos                         | Compatible; recursos pendientes de aprobación                 | Evento universitario y propuesta de recursos, ensayo local actual documentado.                                     |
+| §2       | Experimentos aislados                                              | Verificado localmente                                         | Docker, puerto 3189 en loopback, credenciales ficticias y volumen separado.                                        |
+| §2       | Aprobación de Proyectos y Comité                                   | Pendiente GIIA                                                | Todavía no existe ticket ni aprobación formal.                                                                     |
+| §2       | No compartir cuentas o claves SSH                                  | Gestión de accesos pendiente                                  | No se revisaron credenciales reales ni se crearon cuentas del servidor.                                            |
+| §2       | No intervenir otros proyectos ni realizar seguridad ofensiva       | Respetado en esta revisión                                    | Solo datos de prueba y análisis defensivo de la imagen local.                                                      |
+| §2       | Retirar procesos de prueba innecesarios                            | Verificado localmente                                         | Contenedor, volumen y red de validación retirados; se conserva la imagen verificada.                               |
+| §3       | Mínimo privilegio                                                  | Verificado en el contenedor; host pendiente                   | Usuario node, sin modo privilegiado; secreto persistente con permisos 600.                                         |
+| §3       | Roles, cuentas personales y revocación                             | Pendiente GIIA                                                | Acceso al host y permisos SSH/Docker aprobados por la Célula.                                                      |
+| §3       | Documentar cambios y autorización de cambios de sistema            | Parte local documentada                                       | Guías y evidencia actualizadas; no se cambió infraestructura GIIA.                                                 |
+| §3       | Servicios permanentes, subdominios y privilegios aprobados         | Pendiente GIIA                                                | La entrega no activa servicios en el servidor institucional.                                                       |
+| §4       | Solicitud, evaluación, integración y notificación mediante tickets | Pendiente equipo/GIIA                                         | Se preparó la información para el ticket; ENTREGA.md.                                                              |
+| §5       | Objetivo, CPU, RAM, disco, GitHub, documentación y guía            | Información técnica preparada; ticket pendiente               | Propuesta 1 vCPU, 1 GB y 2 GB más logs y respaldos; requiere aprobación.                                           |
+| §5       | Subdominios y procesos asociados                                   | Documentado; nombre pendiente                                 | Un subdominio para página, API, WebSocket y moderación.                                                            |
+| §5       | Docker y Compose                                                   | Verificado localmente                                         | Construcción Linux, servicio healthy, HTTP, WebSocket y persistencia.                                              |
+| §5       | Puerto publicado configurable mediante .env                        | Verificado                                                    | Cuatro casos de Compose; arranque real en 3189 sin sobrescribir ports.                                             |
+| §5       | Lenguajes y frameworks permitidos                                  | Compatible                                                    | Se conserva la arquitectura existente.                                                                             |
+| §5       | Uso eficiente y acordado de recursos                               | Ensayo local realizado; asignación pendiente                  | 600 lectores, 20 escritores y 24.000 entregas sin rechazos. Límites en ENTREGA-VERIFICACION.md.                    |
+| §5       | Instalación en /var/src y actualización con Git                    | Guía preparada; instalación real pendiente                    | /var/src/pizarra-udec; git pull --ff-only y docker compose up -d --build.                                          |
+| §5       | Acceso al código y administración para la Célula                   | Pendiente equipo/GIIA                                         | Autorizar cuentas para el repositorio privado y accesos al host.                                                   |
+| §5       | Protección de información e inspección de código                   | Parte local verificada; aprobación pendiente                  | Paquete sin datos ni secretos reales, historial separado y revisión limitada por patrones; PRIVACIDAD.md.          |
+| §6       | Actualizaciones semanales y urgentes por CVE                       | Pendiente GIIA                                                | Guía para reconstruir sin caché y revisar avisos antes de activar.                                                 |
+| §6       | Rotación de logs hasta 365 días y revisión                         | Tamaño limitado; antigüedad pendiente GIIA                    | Compose limita 5 archivos de 10 MB; no equivale a retención por edad.                                              |
+| §6       | Monitoreo externo de CPU, RAM, disco y red                         | Pendiente GIIA                                                | Healthcheck y docker stats no constituyen monitoreo externo continuo.                                              |
+| §6       | Respaldos mensuales de configuraciones y volúmenes 3-2-1           | Copia y restauración locales verificadas; operación pendiente | SQLite v5 íntegra y persistencia; faltan destinos externos, calendario y configuración real.                       |
+
+**Pendientes externos de GIIA y del equipo:** ticket, aprobaciones, recursos, accesos,
+instalación institucional, dominio, DNS, HTTPS/proxy, revisión de avisos y host, mantenimiento,
+monitoreo, retención de logs y respaldos 3-2-1. Lista remitible al final de
+[ENTREGA.md](ENTREGA.md#pendientes-administrativos-de-giia).
+
+El mapa queda con 85 descripciones y 25 edificios con fotografías libres. Las 60 fotografías
+sin identidad y licencia comprobadas siguen pendientes de contenido; son distintas de los
+trámites de GIIA. Ver [FOTOS-PENDIENTES.md](FOTOS-PENDIENTES.md).

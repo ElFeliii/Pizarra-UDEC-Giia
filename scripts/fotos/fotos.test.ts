@@ -16,15 +16,31 @@ interface Foto {
 const leer = async <T>(ruta: string): Promise<T> =>
   JSON.parse(await readFile(join(raiz, ruta), 'utf8')) as T;
 
-const fichas = await leer<Record<string, { descripcion: string; fotos: Foto[] }>>(
-  'client/src/map/edificios.json',
-);
+const fichas = await leer<
+  Record<string, { descripcion: string; fuenteDescripcion?: string; fotos: Foto[] }>
+>('client/src/map/edificios.json');
 const campus = await leer<{ buildings: { id: string }[] }>('client/src/map/campus.json');
 const fuentes = await leer<{ edificios: { id: string; titulos: string[] }[] }>(
   'scripts/fotos/fuentes.json',
 );
 
 describe('fichas de edificios', () => {
+  it('cada edificio del mapa tiene una descripción para visitantes', () => {
+    for (const edificio of campus.buildings) {
+      expect(fichas[edificio.id]?.descripcion.trim(), edificio.id).toBeTruthy();
+    }
+  });
+
+  it('todas las descripciones tienen una fuente HTTPS consultable', () => {
+    for (const edificio of campus.buildings) {
+      const fuente = fichas[edificio.id]?.fuenteDescripcion;
+      expect(fuente, edificio.id).toBeTruthy();
+      const url = new URL(fuente!);
+      expect(url.protocol, edificio.id).toBe('https:');
+      expect(url.username + url.password, edificio.id).toBe('');
+    }
+  });
+
   it('solo describe edificios que existen en el mapa', () => {
     const conocidos = new Set(campus.buildings.map((b) => b.id));
     for (const id of Object.keys(fichas)) expect(conocidos, id).toContain(id);

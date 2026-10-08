@@ -1,8 +1,7 @@
 # Revisión del repositorio de entrega
 
 Revisión del 7 de octubre de 2026, aplicada a los archivos actuales de entrega, al paquete
-y al historial vigente de la copia de publicación. La actualización queda preparada
-localmente y todavía no se ha enviado a GitHub. El repositorio de desarrollo permanece
+y al historial vigente de la copia de publicación. La actualización conserva el historial saneado de publicación. El repositorio de desarrollo permanece
 separado: su historial antiguo no forma parte de la entrega.
 
 ## Alcance de la revisión
@@ -10,7 +9,7 @@ separado: su historial antiguo no forma parte de la entrega.
 - Código, pruebas, catálogos, documentación y configuración versionados.
 - Nombres de archivos y metadatos de autoría y mensajes de los commits de publicación.
 - Patrones de rutas personales, correos privados, tokens, claves privadas y direcciones IPv4.
-- Las 32 fotografías JPEG de la entrega: sin coordenadas GPS en EXIF. Se conservan los créditos de sus fuentes libres.
+- Las 34 fotografías JPEG de la entrega: sin coordenadas GPS en EXIF. Se conservan los créditos de sus fuentes libres.
 - Ausencia de `.env` real, bases SQLite, registros, conversaciones, carpetas de herramientas y archivos de configuración privados en el paquete.
 
 Los correos de las pruebas usan `example.invalid` y las IP de ejemplo usan rangos reservados
@@ -24,7 +23,7 @@ La raíz saneada vigente de publicación es
 `d205b6df01b4aab0414aa48b47dcb6ffedc7c8a1`. La actualización local continúa esa raíz,
 con autoría pública y mensaje revisado, sin copiar el historial de desarrollo ni generar
 otra raíz. Las instalaciones que ya usan ese historial podrán actualizar con `git pull --ff-only`
-cuando se publique el nuevo commit aprobado.
+al instalar el nuevo commit publicado.
 
 Una instalación anterior al saneamiento puede necesitar un clon nuevo conservando los datos;
 ver [ENTREGA.md](ENTREGA.md#una-vez-pasar-desde-la-primera-publicación-a-la-entrega-saneada).

@@ -46,7 +46,7 @@ export interface Foto {
 export interface BuildingInfo {
   /** Texto para la ventana del edificio. Vacío mientras no lo entreguen. */
   descripcion: string;
-  /** Página institucional que respalda el texto y permite conocer más de la unidad. */
+  /** Fuente institucional o cartográfica que respalda el texto de la ficha. */
   fuenteDescripcion?: string;
   fotos: Foto[];
 }
