@@ -115,7 +115,7 @@ const SECRET_FILE = 'session-secret';
 /**
  * Secreto que firma las cookies de moderador. Si no viene por variable de entorno, se genera
  * uno y se guarda junto a la base de datos: así el despliegue no exige preparar nada a mano y
- * las sesiones sobreviven a un reinicio del contenedor.
+ * el secreto sobrevive a un reinicio; los moderadores deben iniciar sesión nuevamente.
  */
 function resolveSessionSecret(
   explicito: string | undefined,
@@ -179,6 +179,22 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
 
   if (prod && maestra.length > 0 && maestra.length < 8) {
     throw new Error('MOD_PASSWORD debe tener al menos 8 caracteres.');
+  }
+  if (prod) {
+    const esMarcador = (clave: string) =>
+      clave === DEV_MOD_PASSWORD || clave === 'REEMPLAZAR-CON-CLAVE-DEL-EQUIPO';
+    if (
+      moderators.some(
+        (moderador) => moderador.password.length < 12 || esMarcador(moderador.password),
+      )
+    ) {
+      throw new Error(
+        'Cada clave de MOD_USERS debe tener al menos 12 caracteres y no ser una clave de desarrollo o de ejemplo.',
+      );
+    }
+    if (esMarcador(maestra)) {
+      throw new Error('MOD_PASSWORD no puede ser una clave de desarrollo o de ejemplo.');
+    }
   }
   if (prod && maestra.length === 0 && moderators.length === 0) {
     throw new Error(

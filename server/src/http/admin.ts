@@ -165,8 +165,10 @@ export async function adminRoutes(app: FastifyInstance, { ctx, modSessions }: Ad
 
     admin.get('/api/admin/reports', async () => ctx.repos.reports.queue());
 
-    admin.get('/api/admin/feed', async (req) => {
-      const { limit } = feedQuery.parse(req.query);
+    admin.get('/api/admin/feed', async (req, reply) => {
+      const consulta = feedQuery.safeParse(req.query);
+      if (!consulta.success) return sendError(reply, 'VALIDATION', 'Límite no válido.');
+      const { limit } = consulta.data;
       return ctx.repos.mod.feed(limit);
     });
 
@@ -188,8 +190,10 @@ export async function adminRoutes(app: FastifyInstance, { ctx, modSessions }: Ad
       }
     });
 
-    admin.get('/api/admin/users', async (req) => {
-      const q = usersQuery.parse(req.query);
+    admin.get('/api/admin/users', async (req, reply) => {
+      const consulta = usersQuery.safeParse(req.query);
+      if (!consulta.success) return sendError(reply, 'VALIDATION', 'Parámetros no válidos.');
+      const q = consulta.data;
       return ctx.repos.users.list({
         q: q.q?.trim() || undefined,
         silencedOnly: q.silenced === '1',

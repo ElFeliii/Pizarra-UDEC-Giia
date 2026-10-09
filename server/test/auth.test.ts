@@ -142,3 +142,34 @@ describe('secreto de sesión', () => {
     expect(loadConfig({ ...base, TRUST_PROXY: 'false' }).trustProxy).toBe(false);
   });
 });
+
+describe('credenciales de producción', () => {
+  const base = {
+    NODE_ENV: 'production',
+    DB_PATH: ':memory:',
+    CLIENT_DIST: '/no-existe',
+    SESSION_SECRET: 's'.repeat(40),
+  };
+
+  it.each([String(123_456), 'x'.repeat(11), 'moderador-dev', 'REEMPLAZAR-CON-CLAVE-DEL-EQUIPO'])(
+    'rechaza una clave individual corta o de ejemplo: %s',
+    (claveFicticia) => {
+      expect(() => loadConfig({ ...base, MOD_USERS: `Moderación:${claveFicticia}` })).toThrow(
+        /MOD_USERS/,
+      );
+    },
+  );
+
+  it('acepta claves individuales largas sin imponer el mínimo al entorno de pruebas', () => {
+    expect(
+      loadConfig({ ...base, MOD_USERS: 'Moderación:clave-larga-ficticia' }).moderators,
+    ).toHaveLength(1);
+    expect(
+      loadConfig({ ...base, NODE_ENV: 'test', MOD_USERS: 'Moderación:corta' }).moderators,
+    ).toHaveLength(1);
+  });
+
+  it('rechaza la llave maestra de desarrollo en producción', () => {
+    expect(() => loadConfig({ ...base, MOD_PASSWORD: 'moderador-dev' })).toThrow(/desarrollo/);
+  });
+});

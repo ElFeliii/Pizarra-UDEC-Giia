@@ -1,14 +1,23 @@
 {
-  "fecha": "2026-10-07",
+  "fecha": "2026-10-08",
   "analizador": "Trivy 0.75.0",
   "escaneoSinRed": true,
-  "imagen": "pizarra-udec:entrega-final-20261007",
-  "identificadorImagen": "sha256:c9785f7f4502fe6dcced32b1243566ee755e4942b6bfc94d01ba6ccd16b84936",
+  "imagen": "pizarra-udec:revision-20261008",
+  "identificadorImagen": "sha256:48053127d6e3a276603365848b7add1f5701a590a001e8690ebfc12481668a4a",
   "sistema": "Debian 12.15",
+  "baseActualizadaUTC": "2026-10-08T19:05:21.721409049Z",
+  "baseDescargadaUTC": "2026-10-09T00:32:36.974356821Z",
   "avisosPorPaquete": 222,
   "avisosUnicos": 93,
   "avisosNode": 0,
   "corregiblesDetectados": 0,
+  "severidadesPorPaquete": {
+    "LOW": 77,
+    "HIGH": 48,
+    "MEDIUM": 95,
+    "UNKNOWN": 1,
+    "CRITICAL": 1
+  },
   "hallazgos": [
     {
       "id": "CVE-2005-2541",
@@ -698,7 +707,7 @@
     {
       "id": "CVE-2026-102010",
       "severidad": "MEDIUM",
-      "estado": "affected",
+      "estado": "will_not_fix",
       "titulo": "gcc-toolset-15-gcc: gcc: gcc-toolset-16: gcc: Denial of Service via use-after-free in binary heap erase_if",
       "paquetes": [
         {
@@ -750,7 +759,7 @@
     {
       "id": "CVE-2026-105712",
       "severidad": "LOW",
-      "estado": "affected",
+      "estado": "fix_deferred",
       "titulo": "gnupg2: gnupg: Arbitrary file overwrite via symlink traversal in gpgtar",
       "paquetes": [
         {
@@ -1250,7 +1259,7 @@
       "id": "CVE-2026-53910",
       "severidad": "LOW",
       "estado": "affected",
-      "titulo": "diffutils: heapâ€‘based buffer overflow due to multiple signed integer overflows in lineâ€‘mapping calculations",
+      "titulo": "diffutils: heap‑based buffer overflow due to multiple signed integer overflows in line‑mapping calculations",
       "paquetes": [
         {
           "nombre": "diffutils",

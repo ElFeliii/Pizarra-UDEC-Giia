@@ -45,9 +45,23 @@ el proxy y las configuraciones reales antes de aprobar el levantamiento. Los per
 actualizaciones, monitoreo, logs y respaldos siguen el manual y la lista final de
 [ENTREGA.md](ENTREGA.md#pendientes-administrativos-de-giia).
 
-## Imagen de ejecución: revisión del 7 de octubre de 2026
+## Controles de acceso revisados el 9 de octubre de 2026
 
-Se construyó de nuevo con `docker build --pull`. La etapa final aplica las actualizaciones
+Las nuevas regresiones comprueban la revocación inmediata de sesiones de moderación en
+tiempo real, el origen de WebSocket y la visibilidad de notas, respuestas y metadatos.
+El ranking público excluye contenido oculto y repara los contadores previos al arrancar.
+Las consultas administrativas inválidas devuelven 400. Las claves individuales de producción
+requieren un mínimo de 12 caracteres y se rechazan valores conocidos de desarrollo/ejemplo;
+se recomienda generarlas con 24 bytes aleatorios, como explica [DESPLIEGUE.md](DESPLIEGUE.md).
+Rotar las claves antiguas que no cumplan antes de actualizar, por un canal protegido.
+
+Se conservaron la arquitectura y las migraciones publicadas. Las 33 pruebas adicionales
+acompañan las correcciones. La suite completa tiene 394 casos y se ejecutó nuevamente;
+evidencia y alcance en [ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md).
+
+## Imagen de ejecución: revisión del 8 de octubre de 2026
+
+Se construyó de nuevo con `docker build --pull --no-cache`. La etapa final aplica las actualizaciones
 APT disponibles y retira npm, npx y Corepack después de instalar las dependencias de producción.
 La aplicación sigue ejecutándose con Node 22, como usuario `node`, sin modo privilegiado.
 Se confirmó que el servidor, SQLite, WebSocket, respaldo y reinicio funcionan sin instaladores.
@@ -87,7 +101,7 @@ la capa APT antigua, escanear y repetir las comprobaciones antes de activar la i
 
 ```bash
 docker compose build --pull --no-cache
-docker compose up -d
+docker compose up -d --wait --wait-timeout 120
 docker compose ps
 curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```

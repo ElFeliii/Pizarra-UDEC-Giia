@@ -4,6 +4,8 @@ La Célula de Infraestructura y Seguridad realiza el levantamiento, previa solic
 aprobación por su plataforma de tickets. Esta guía sigue el Manual de Trabajo 1.0 del
 15 de junio de 2026. No se necesita modificar el código para escoger el puerto del servidor.
 
+Documento principal con instalación, funcionamiento y precauciones: [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md).
+
 ## Información para el ticket
 
 | Dato                          | Solicitud                                                                                                                                                                     |
@@ -55,15 +57,18 @@ instalan servicios del sistema:
 cd /var/src
 git clone https://github.com/ElFeliii/Pizarra-UDEC-Giia pizarra-udec
 cd /var/src/pizarra-udec
-cp .env.example .env
+test -e .env || cp .env.example .env
 chmod 600 .env
 mkdir -p data
 ```
 
-Editar `.env`, seleccionar `PUERTO_PUBLICADO` y completar `MOD_USERS`. El ejemplo
-`Moderador 1:REEMPLAZAR-CON-CLAVE-DEL-EQUIPO` es un marcador; sustituirlo por una clave propia,
-protegida y distinta de la de desarrollo. No incluir claves en el ticket, GitHub ni capturas.
-La coma separa moderadores: las claves de esa lista no pueden contener comas.
+Editar `.env`, seleccionar `PUERTO_PUBLICADO` y completar `MOD_USERS`, que viene vacío.
+Usar claves individuales aleatorias y largas desde el evento: mínimo 12 caracteres en
+producción; se recomiendan 24 bytes aleatorios codificados en base64url. No se admiten
+la clave de desarrollo ni marcadores de ejemplo. La coma separa moderadores: no usarla
+en las claves, ni dos puntos en los nombres. Mantener los valores entre comillas simples
+en `.env` para evitar que Compose interprete caracteres especiales. No incluir claves
+en el ticket, GitHub ni capturas. Ver el generador de [DESPLIEGUE.md](DESPLIEGUE.md#2-ajustes-opcionales).
 
 El contenedor usa UID/GID 1000. La Célula asigna los permisos de su carpeta de datos:
 
@@ -76,7 +81,7 @@ Estos permisos requieren autorización de la Célula. Para una instalación exis
 respaldar y conservar los datos antes de adaptar su propietario.
 
 ```bash
-docker compose up -d --build
+docker compose up -d --build --wait --wait-timeout 120
 docker compose ps
 docker compose port pizarra 3000
 curl --fail "http://$(docker compose port pizarra 3000)/api/health"
@@ -93,13 +98,24 @@ por `PUERTO_PUBLICADO` y reemplazar el subdominio por el asignado. Pasar `Host`,
 
 ## Actualizar
 
-Respaldar SQLite y conservar `.env` y `data/session-secret` con acceso protegido;
-ver [respaldo y exportación](DESPLIEGUE.md#5-respaldo-y-exportación).
+Esta versión exige claves individuales de al menos 12 caracteres y rechaza credenciales
+de desarrollo y marcadores de ejemplo. Antes de actualizar, revisar las de `MOD_USERS`: si
+no cumplen, sustituir únicamente esas credenciales en el `.env` existente por claves aleatorias
+largas. Conservar las demás variables, mantener permisos `600` y entregar las nuevas claves
+por el canal privado del equipo. Un `.env` antiguo no debe sobrescribirse con el ejemplo;
+si conserva credenciales incompatibles, el servicio rechazará el inicio.
+
+Antes de actualizar, obtener un respaldo completo protegido y guardar la imagen y el commit
+actuales. Incluye SQLite, WAL/SHM si existen, secreto, `.env`, Compose y configuración de
+instituciones. Los comandos de [respaldo, restauración y rollback](DESPLIEGUE.md#5-respaldo-y-exportación)
+no requieren que la cuenta SSH tenga UID 1000. Reservar espacio adicional para estas copias;
+los 2 GB propuestos no incluyen los respaldos. Una restauración conserva la instalación
+anterior y recupera juntos código, imagen, configuración y datos del mismo respaldo.
 
 ```bash
 cd /var/src/pizarra-udec
 git pull --ff-only
-docker compose up -d --build
+docker compose up -d --build --wait --wait-timeout 120
 docker compose ps
 curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
@@ -117,6 +133,15 @@ conservar la carpeta anterior y respaldar los datos, `.env` y secreto. La Célul
 clon nuevo bajo `/var/src`, detiene la instalación anterior y transfiere el respaldo con sus
 permisos antes de levantarlo. No usar `reset --hard`, borrar datos o forzar un nuevo historial.
 
+## Documentos que se entregan
+
+Entregar [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md) como punto de entrada, este archivo y la carpeta `docs/` de la copia saneada,
+con `DESPLIEGUE.md`, `SEGURIDAD.md`, `ENTREGA-VERIFICACION.md`, `CUMPLIMIENTO-GIIA.md`,
+`PRIVACIDAD.md` y `seguridad-imagen.json`. El código y `.env.example` están en el repositorio
+privado autorizado. `CONTINUAR.md` es interno y no pertenece a la entrega; tampoco se
+comparten `.env`, datos ni respaldos mediante GitHub o el ticket. Las credenciales y copias
+operativas se transfieren exclusivamente por el canal protegido que autorice la Célula.
+
 ## Pendientes administrativos de GIIA
 
 **Todavía no existe ticket aprobado ni dominio asignado. El código y esta guía no los crean.**
@@ -125,6 +150,8 @@ permisos antes de levantarlo. No usar `reset --hard`, borrar datos o forzar un n
 - Aprobar CPU, RAM, disco, puerto y fechas; disponer de Docker y Compose, y de salida a internet para la construcción o autorizar la transferencia de una imagen.
 - Asignar subdominio, DNS, certificado HTTPS y proxy con WebSocket; confirmar su topología.
 - Realizar el levantamiento en `/var/src` y autorizar acceso al repositorio, cuentas SSH personales, permisos Docker y grupos Linux, con acceso de inspección y administración para la Célula.
+- Definir responsable y canal para reportar inmediatamente errores, accesos sospechosos o pérdida de credenciales a la Célula; acordar la atención de incidentes y la revocación o rotación necesaria sin adjuntar secretos al ticket.
+- Disponer de acceso Git autorizado para recuperar el commit de un respaldo; si el servidor está aislado, preparar un mirror del repositorio saneado. Transferir la imagen Docker por sí sola no sustituye ese acceso al código.
 - Revisar la seguridad del proyecto, contenedor y servidor, incluida la aplicabilidad de los avisos Debian documentados en [SEGURIDAD.md](SEGURIDAD.md); acordar actualizaciones los viernes fuera de horario y respuesta urgente ante vulnerabilidades.
 - Establecer monitoreo externo de CPU, RAM, disco y red. El endpoint de salud y `docker stats` son herramientas auxiliares, no el monitoreo externo continuo.
 - Definir rotación automática de logs en un máximo de 365 días y revisión periódica. Compose ya limita el tamaño a cinco archivos de 10 MB; eso no limita su antigüedad.

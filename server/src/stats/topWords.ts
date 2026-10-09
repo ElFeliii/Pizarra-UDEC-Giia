@@ -47,6 +47,19 @@ export class TopWords {
     this.dirty = true;
   }
 
+  /** Repara contadores anteriores al arrancar o cambiar el filtro, nunca por cada mensaje. */
+  reconstruir(): void {
+    this.repo.reemplazar(
+      this.repo.textosVisibles().map((texto) => tokenizeForStats(texto, this.censor)),
+    );
+    this.invalidate();
+  }
+
+  ajustarVisibilidad(anteriores: string[], siguientes: string[]): void {
+    for (const texto of anteriores) this.apply(texto, -1);
+    for (const texto of siguientes) this.apply(texto, 1);
+  }
+
   top(): TopWord[] {
     if (this.dirty) {
       this.cache = this.repo

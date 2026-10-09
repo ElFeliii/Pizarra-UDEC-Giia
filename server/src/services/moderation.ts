@@ -16,6 +16,7 @@ import { Censor } from '../moderation/censor';
 import { normalizeTermParts } from '../moderation/normalize';
 import { DEFAULT_WORDLIST, WORDLIST_VERSION } from '../moderation/wordlist.default';
 import { fail, ok, rateLimited } from './errors';
+import { notaVisible } from './content';
 
 const SYSTEM = 'sistema';
 
@@ -41,7 +42,7 @@ export function seedWordlist(ctx: AppContext): number {
 
 export function reloadCensor(ctx: AppContext): void {
   ctx.censor.setTerms(ctx.repos.bannedWords.list());
-  ctx.topWords.invalidate();
+  ctx.topWords.reconstruir();
 }
 
 export function addBannedWord(
@@ -127,9 +128,10 @@ export function hideContent(
   if (type === 'pin') {
     const pin = repos.pins.get(id);
     if (!pin) return false;
+    const textos = repos.wordCounts.textosVisibles({ pinId: id });
     const changed = ctx.db.transaction(() => {
       if (!repos.pins.setHidden(id, by, reason, now)) return false;
-      ctx.topWords.apply(pin.text, -1);
+      ctx.topWords.ajustarVisibilidad(textos, []);
       return true;
     })();
     if (!changed) return false;
@@ -142,7 +144,8 @@ export function hideContent(
   if (!reply) return false;
   const count = ctx.db.transaction(() => {
     if (!repos.replies.setHidden(id, by, reason, now)) return null;
-    ctx.topWords.apply(reply.text, -1);
+    const padre = repos.pins.get(reply.pinId);
+    if (padre && notaVisible(ctx, padre)) ctx.topWords.apply(reply.text, -1);
     return repos.pins.bumpReplyCount(reply.pinId, -1, now);
   })();
   if (count === null) return false;
@@ -167,7 +170,7 @@ export function restoreContent(
     const changed = ctx.db.transaction(() => {
       if (!repos.pins.clearHidden(id, now)) return false;
       repos.reports.resolve('pin', id, moderator, now);
-      ctx.topWords.apply(pin.text, 1);
+      ctx.topWords.ajustarVisibilidad([], repos.wordCounts.textosVisibles({ pinId: id }));
       return true;
     })();
     if (!changed) return false;
@@ -178,7 +181,8 @@ export function restoreContent(
     const count = ctx.db.transaction(() => {
       if (!repos.replies.clearHidden(id)) return null;
       repos.reports.resolve('reply', id, moderator, now);
-      ctx.topWords.apply(reply.text, 1);
+      const padre = repos.pins.get(reply.pinId);
+      if (padre && notaVisible(ctx, padre)) ctx.topWords.apply(reply.text, 1);
       return repos.pins.bumpReplyCount(reply.pinId, 1, now);
     })();
     if (count === null) return false;

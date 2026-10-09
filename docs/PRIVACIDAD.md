@@ -1,6 +1,6 @@
 # Revisión del repositorio de entrega
 
-Revisión del 7 de octubre de 2026, aplicada a los archivos actuales de entrega, al paquete
+Revisión del 9 de octubre de 2026, aplicada a los archivos actuales de entrega, al paquete
 y al historial vigente de la copia de publicación. La actualización conserva el historial saneado de publicación. El repositorio de desarrollo permanece
 separado: su historial antiguo no forma parte de la entrega.
 
@@ -35,8 +35,9 @@ terceros ni garantiza la eliminación inmediata de objetos antiguos en cachés d
 Las claves reales se configuran en `.env` en el servidor, se entregan por un canal separado
 y no se versionan. El secreto de sesiones se genera en `data/session-secret` si no se fija
 por entorno; la base del evento vive en `data/`. Estos archivos quedan fuera del paquete,
-de GitHub y del contexto de construcción de la imagen. `.env.example` contiene únicamente
-marcadores de configuración, que deben reemplazarse antes de iniciar producción.
+de GitHub y del contexto de construcción de la imagen. `.env.example` contiene valores por
+omisión y campos vacíos, sin claves reales. Completar `MOD_USERS` con credenciales individuales
+seguras y confirmar el puerto y la topología del proxy antes de iniciar producción.
 
 El documento interno de traspaso se excluye de la entrega. Se exportan los archivos
 versionados de la versión actual, nunca la carpeta `.git` de desarrollo ni el directorio

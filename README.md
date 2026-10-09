@@ -9,6 +9,7 @@ panel de moderación).
 
 - Diseño completo: [docs/diseno.md](docs/diseno.md)
 - Revisión del repositorio: [docs/PRIVACIDAD.md](docs/PRIVACIDAD.md)
+- Documento principal para informática: [docs/GUIA-INFORMATICA.md](docs/GUIA-INFORMATICA.md)
 - Entrega al administrador: [docs/ENTREGA.md](docs/ENTREGA.md)
 - Despliegue en el servidor: [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md)
 - Mapa del campus, del plano CAD al SVG: [docs/MAPA.md](docs/MAPA.md)
@@ -71,13 +72,15 @@ npm run dev          # servidor en :3000 y cliente en http://localhost:5173
 
 ## Producción
 
-El repositorio es privado; quien despliega necesita acceso. Antes de iniciar, copiar
-`.env.example` a `.env` y completar `MOD_USERS` con las claves entregadas por el equipo.
+El repositorio es privado; quien despliega necesita acceso. En la primera instalación,
+crear `.env` desde `.env.example` sólo si todavía no existe, y completar `MOD_USERS`
+con las claves entregadas por el equipo. Después, editar el `.env` existente sin sobrescribirlo.
 
 ```bash
-cp .env.example .env
+test -e .env || cp .env.example .env
+chmod 600 .env
 # Editar .env y preparar los permisos de data/ en Linux (ver la guía de entrega).
-docker compose up -d --build
+docker compose up -d --build --wait --wait-timeout 120
 ```
 
 La página, API y WebSocket usan `127.0.0.1:<PUERTO_PUBLICADO>` detrás del proxy HTTPS;

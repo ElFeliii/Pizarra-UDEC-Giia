@@ -73,7 +73,7 @@ function seccionEscribible(ctx: AppContext, seccion: string): Fail | null {
   return seccionAbierta(ctx, seccion) ? null : fail('SECCION_CERRADA');
 }
 
-function notaVisible(
+export function notaVisible(
   ctx: AppContext,
   pin: { seccion: string; temaId: string | null; hiddenAt: number | null },
 ): boolean {

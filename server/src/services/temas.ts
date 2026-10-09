@@ -91,7 +91,11 @@ export function cambiarPreguntaOculta(
 ): Tema | undefined {
   if (ctx.repos.temas.obtener(id)?.seccion !== 'faq') return undefined;
   const tema = ctx.db.transaction(() => {
+    const textos = ctx.repos.wordCounts.textosVisibles({ temaId: id });
     const cambiada = ctx.repos.temas.cambiarOculto(id, oculto, ctx.now());
+    if (cambiada) {
+      ctx.topWords.ajustarVisibilidad(textos, ctx.repos.wordCounts.textosVisibles({ temaId: id }));
+    }
     if (cambiada)
       ctx.repos.modLog.add({
         moderator: moderador,

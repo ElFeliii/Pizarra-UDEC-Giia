@@ -96,6 +96,23 @@ export function seccionDeSuperficie(surface: Surface): string {
   return SECCION_DE_SUPERFICIE[surface];
 }
 
+function cambiarEstadoConConteo(
+  ctx: AppContext,
+  id: string,
+  estado: EstadoSeccion,
+): Seccion | undefined {
+  return ctx.db.transaction(() => {
+    const anterior = ctx.repos.secciones.get(id);
+    const cambiaVisibilidad = (anterior?.estado === 'oculta') !== (estado === 'oculta');
+    const textos = cambiaVisibilidad ? ctx.repos.wordCounts.textosVisibles({ seccion: id }) : [];
+    const seccion = ctx.repos.secciones.setEstado(id, estado, ctx.now());
+    if (seccion && cambiaVisibilidad) {
+      ctx.topWords.ajustarVisibilidad(textos, ctx.repos.wordCounts.textosVisibles({ seccion: id }));
+    }
+    return seccion;
+  })();
+}
+
 /** Cambia el estado de una sección y lo avisa a todos los navegadores abiertos. */
 export function cambiarEstado(
   ctx: AppContext,
@@ -103,7 +120,7 @@ export function cambiarEstado(
   estado: EstadoSeccion,
   moderador: string,
 ): Seccion | undefined {
-  const seccion = ctx.repos.secciones.setEstado(id, estado, ctx.now());
+  const seccion = cambiarEstadoConConteo(ctx, id, estado);
   if (!seccion) return undefined;
   ctx.broadcaster.seccionChanged(seccion);
   ctx.repos.modLog.add({
@@ -119,7 +136,7 @@ export function cambiarEstado(
 export function aplicarPreset(ctx: AppContext, preset: PresetId, moderador: string): Seccion[] {
   const cambiadas: Seccion[] = [];
   for (const [id, estado] of Object.entries(PRESETS[preset].estados)) {
-    const seccion = ctx.repos.secciones.setEstado(id, estado, ctx.now());
+    const seccion = cambiarEstadoConConteo(ctx, id, estado);
     if (seccion) {
       cambiadas.push(seccion);
       ctx.broadcaster.seccionChanged(seccion);

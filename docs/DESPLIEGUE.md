@@ -16,7 +16,7 @@ son obligatorios; los ejemplos Node de la sección 8 solo corresponden a otros e
 - Docker con el plugin `docker compose`.
 - Propuesta inicial: **1 vCPU y 1 GB de RAM**, sujeta a aprobación y ensayo del evento.
   El ensayo local actual difundió 40 pines a 600 lectores, sin rechazos. La muestra
-  posterior fue de 92,88 MiB; no mide el pico ni garantiza capacidad del servidor real.
+  posterior fue de 79,99 MiB; no mide el pico ni garantiza capacidad del servidor real.
   La imagen actual ocupa unos 444 MB. Ver [evidencia y límites](ENTREGA-VERIFICACION.md).
 - Unos 2 GB de disco para la imagen y la base de datos.
 - Un subdominio con HTTPS (por ejemplo `pizarra.giia.udec.cl`) apuntando a un proxy (Nginx/Apache)
@@ -61,7 +61,7 @@ Crear el archivo `.env` con **quiénes moderan**. Es lo único obligatorio, porq
 están en el código: el repositorio es privado y las claves se entregan por un canal separado.
 
 ```bash
-cp .env.example .env
+test -e .env || cp .env.example .env
 chmod 600 .env
 # Editar MOD_USERS, PUERTO_PUBLICADO y TRUST_PROXY antes de iniciar.
 ```
@@ -79,7 +79,7 @@ El administrador debe poder asignar esos permisos. En una instalación existente
 y conservar los datos antes de adaptar su propietario. Y levantar:
 
 ```bash
-docker compose up -d --build
+docker compose up -d --build --wait --wait-timeout 120
 ```
 
 Lo demás se resuelve solo: el secreto que firma las sesiones se genera y se guarda en
@@ -108,8 +108,9 @@ la aprobación y configuración de la Célula.
 
 ## 2. Ajustes opcionales
 
-Solo si quieres cambiar algo de lo anterior: copia `.env.example` a `.env`, edita lo que
-corresponda y `docker compose up -d`.
+Editar únicamente las variables necesarias en el `.env` existente, sin volver a copiar
+`.env.example` encima. Mantener sus permisos `600` y aplicar el cambio con
+`docker compose up -d --wait --wait-timeout 120`. La lista `MOD_USERS` del ejemplo está vacía.
 
 | Variable            | Qué poner                                                                                                                                                                                                                             |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,14 +121,30 @@ corresponda y `docker compose up -d`.
 | `TRUST_PROXY`       | El código usa `loopback` por omisión; para Docker detrás de un único proxy local usar `1` con el puerto limitado a localhost. Con otra topología, confirmar las IP o los saltos con el administrador. `false` si se prueba sin proxy. |
 | `AUTO_HIDE_REPORTS` | Reportes de usuarios distintos que ocultan un contenido automáticamente (por defecto `3`, `0` desactiva).                                                                                                                             |
 
-> **Sobre las claves de los moderadores.** No están en el repositorio ni en la imagen: viven
-> solo en el `.env` del servidor. Si son cortas, para poder dictarlas en el momento, lo único
-> que frena la fuerza bruta es el límite de intentos: cinco seguidos y después uno por minuto
-> desde esa IP. Alcanza para un evento de unas horas; si la pizarra va a quedar publicada
-> después, usa claves largas.
->
-> El nombre se puede escribir con o sin espacios y en cualquier combinación de mayúsculas:
-> "Moderador 1", "moderador 1" y "moderador1" son el mismo.
+### Credenciales individuales
+
+Usar claves individuales aleatorias y largas desde la primera puesta en producción,
+incluso durante el evento. Cada clave de `MOD_USERS` necesita al menos 12 caracteres;
+se recomiendan 24 bytes aleatorios en base64url. El servidor rechaza la clave de desarrollo
+y marcadores de ejemplo. Los límites de intentos complementan claves fuertes y HTTPS;
+no demuestran que una clave corta sea segura durante unas horas.
+
+Con la imagen construida (`docker compose build`), generar una clave para cada persona:
+
+```bash
+docker run --rm --network none --entrypoint node pizarra-udec:latest \
+  -e "console.log(require('node:crypto').randomBytes(24).toString('base64url'))"
+```
+
+Node permanece en la imagen; este comando no necesita npm, no inicia la aplicación y no
+monta sus datos. Guardar las claves por el canal privado del equipo. En `.env`, encerrar el
+valor completo de `MOD_USERS` entre comillas simples para evitar interpolación de Compose.
+No usar comas en las claves ni dos puntos en los nombres. Cada moderador usa su cuenta;
+la llave maestra permanece vacía salvo necesidad aprobada. Su mínimo técnico es 8 caracteres,
+pero también debe ser larga y aleatoria.
+
+El nombre admite espacios y mayúsculas: "Moderador 1", "moderador 1" y "moderador1"
+identifican a la misma persona; no crear cuentas que sólo difieran en eso.
 
 Editar la lista de colegios y universidades en `server/data/instituciones.json`:
 
@@ -168,7 +185,7 @@ server {
 }
 ```
 
-### Apache (con `mod_proxy`, `mod_proxy_http`, `mod_proxy_wstunnel`, `mod_rewrite`)
+### Apache (con `mod_proxy`, `mod_proxy_http`, `mod_proxy_wstunnel`, `mod_rewrite`, `mod_headers` y `mod_ssl`)
 
 ```apache
 <VirtualHost *:443>
@@ -204,53 +221,238 @@ con más carga para el servidor.
 
 ## 5. Respaldo y exportación
 
-En GIIA, la Célula programa respaldos al final de cada mes según la regla 3-2-1, incluyendo
-configuraciones y volúmenes. Proteger también `.env` y `data/session-secret`. Los comandos
-siguientes permiten obtener una copia de SQLite; no crean por sí solos la programación
-mensual, los destinos externos ni las tres copias requeridas. Ensayar la restauración.
+En GIIA, la Célula programa respaldos al final de cada mes según 3-2-1: tres copias,
+dos tipos de soporte y una fuera del servidor. Deben incluir las configuraciones del
+servidor y los volúmenes. Los comandos siguientes cubren este proyecto y permiten
+restaurarlo; no crean por sí solos esa programación ni los destinos externos.
 
-- **Exportar a Excel:** panel de moderación → _Exportar_ (pines, respuestas y asistentes en CSV).
-- **Respaldo completo** (en caliente, sin detener):
+Los respaldos contienen información de participantes y secretos: no subirlos a GitHub,
+adjuntarlos al ticket ni publicar su contenido. Usar destinos protegidos y la política de
+cifrado y acceso que establezca la Célula. Reservar espacio adicional para copias y sus
+imágenes Docker; los 2 GB iniciales de la aplicación no incluyen ese espacio.
 
-  ```bash
-  docker compose exec pizarra node -e "require('better-sqlite3')('/app/data/pizarra.db').backup('/app/data/respaldo.db').then(()=>console.log('ok'))"
-  cp data/respaldo.db ~/respaldos/pizarra-$(date +%F-%H%M).db
-  ```
+La exportación CSV del panel permite analizar pines, respuestas y asistentes; no sustituye
+un respaldo completo. Estos comandos se ejecutan en **Bash sobre Linux**, con acceso Docker
+aprobado. No suponen que la cuenta SSH tenga UID 1000: Docker obtiene los archivos del
+contenedor. La carpeta de datos del servicio permanece privada para UID/GID 1000.
 
-- O detener y copiar: `docker compose stop && cp -r data ~/respaldos/ && docker compose start`.
+### Respaldo completo en frío antes de actualizar
+
+La copia en frío detiene brevemente la publicación; acordar la ventana. Guarda juntos:
+SQLite y sus archivos WAL/SHM si existen, secreto de sesiones, `.env`, Compose, lista de
+instituciones, commit y la imagen de ejecución. Copiar todo `/app/data/` evita separar la
+base de transacciones que aún estuvieran en WAL. No borrar esos archivos manualmente.
+
+Los bloques usan el Compose versionado y su etiqueta `pizarra-udec:latest`. Antes de
+respaldar, confirmar que el commit instalado corresponde a la imagen activa y a la versión
+aprobada; registrar esa relación en el ticket. Si la Célula usa otras etiquetas o archivos
+Compose, adaptar los comandos y respaldar esa configuración completa.
+
+Desde `/var/src/pizarra-udec`, con el servicio funcionando y su imagen disponible:
+
+```bash
+set -euo pipefail
+cd /var/src/pizarra-udec
+umask 077
+mkdir -p "$HOME/respaldos/pizarra-udec"
+chmod 700 "$HOME/respaldos/pizarra-udec"
+marca=$(date -u +%Y%m%dT%H%M%SZ)
+respaldo=$(mktemp -d "$HOME/respaldos/pizarra-udec/${marca}-XXXXXX")
+mkdir -m 700 "$respaldo/data"
+
+git rev-parse HEAD > "$respaldo/commit.txt"
+contenedor=$(docker compose ps -q pizarra)
+test -n "$contenedor"
+imagen=$(docker inspect --format '{{.Image}}' "$contenedor")
+printf '%s\n' "$imagen" > "$respaldo/imagen-id.txt"
+docker image save --output "$respaldo/imagen.tar" "$imagen"
+cp .env "$respaldo/.env"
+cp docker-compose.yml "$respaldo/docker-compose.yml"
+cp server/data/instituciones.json "$respaldo/instituciones.json"
+
+# Ante un fallo de copia, intentar volver a iniciar la instalación que ya estaba activa.
+trap 'docker compose start pizarra >/dev/null' EXIT
+docker compose stop pizarra
+docker compose cp pizarra:/app/data/. "$respaldo/data/"
+docker compose start pizarra
+trap - EXIT
+chmod -R go-rwx "$respaldo"
+
+# Mantener el respaldo de sólo lectura; SQLite verifica una copia temporal escribible.
+docker run --rm --network none --read-only --user "$(id -u):$(id -g)" \
+  --tmpfs /tmp:rw,noexec,nosuid,size=512m,mode=1777 \
+  --mount "type=bind,source=$respaldo/data,target=/respaldo,readonly" \
+  --entrypoint node "$imagen" -e '
+const fs = require("node:fs");
+const path = require("node:path");
+const D = require("better-sqlite3");
+const temporal = fs.mkdtempSync("/tmp/verificar-");
+let db;
+try {
+  for (const sufijo of ["", "-wal", "-shm"]) {
+    const nombre = "pizarra.db" + sufijo;
+    const origen = path.join("/respaldo", nombre);
+    if (fs.existsSync(origen)) fs.copyFileSync(origen, path.join(temporal, nombre));
+  }
+  db = new D(path.join(temporal, "pizarra.db"), { readonly: true, fileMustExist: true });
+  const resultado = db.pragma("integrity_check", { simple: true });
+  const version = db.pragma("user_version", { simple: true });
+  if (resultado !== "ok") throw new Error("integrity_check=" + resultado);
+  console.log("integrity_check=ok; user_version=" + version);
+} finally {
+  try { if (db) db.close(); }
+  finally { fs.rmSync(temporal, { recursive: true, force: true }); }
+}'
+
+(cd "$respaldo" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS)
+chmod 600 "$respaldo/SHA256SUMS"
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
+printf 'Respaldo protegido: %s\n' "$respaldo"
+```
+
+Si la validación falla, conservar la copia y examinar el error antes de actualizar. La imagen
+se exporta antes de detener el servicio y se incluye para recuperar esa versión aunque cambie
+la etiqueta `latest`. Docker debe poder leer y montar la ruta del respaldo en el anfitrión Linux;
+no ejecutar la validación en un Docker remoto que no disponga de esa ruta.
+
+SQLite puede necesitar crear sus archivos auxiliares aunque la conexión sea de sólo lectura
+cuando la base conserva [el modo WAL](https://www.sqlite.org/wal.html). Por eso el respaldo
+permanece en un bind de sólo lectura y la comprobación copia la base y sus WAL/SHM, si existen,
+a un directorio temporal dentro de `/tmp`; al terminar elimina únicamente esa copia temporal.
+El `tmpfs` de 512 MiB debe alojar la base, los WAL/SHM y los auxiliares necesarios. Si la copia
+es mayor, acordar capacidad y RAM con la Célula y ajustar `size` antes de validar; un fallo por
+falta de espacio no permite dar el respaldo por comprobado.
+
+La carpeta obtenida es el respaldo que se debe trasladar a los destinos protegidos 3-2-1.
+Si se usan archivos Compose adicionales, configuración del proxy o secretos externos, la
+Célula debe agregarlos a su respaldo institucional y documentar cómo se restablecen. No usar
+`docker compose config` para compartir información: su salida puede revelar claves interpoladas.
+
+### Restaurar o volver a una versión anterior
+
+Usar **el código, imagen, configuración y datos del mismo respaldo**. Una imagen vieja con
+una base ya migrada puede ser incompatible. Esta restauración devuelve las publicaciones
+al momento de la copia: las posteriores quedan fuera de la página recuperada; la instalación
+actual se conserva completa en otra carpeta para inspección y recuperación por la Célula.
+
+Requiere la aprobación de la Célula, permisos en `/var/src`, `sudo` para los datos y acceso al
+repositorio privado. El flujo clona el código desde GitHub: importar la imagen no reemplaza
+ese acceso. Si el servidor está totalmente aislado, la Célula debe disponer de un mirror
+aprobado del repositorio saneado, con el commit del respaldo, y adaptar la URL de clonación.
+Ejecutar primero la comprobación de hashes y de integridad anterior, cargando la imagen desde
+`imagen.tar` si ya no está disponible. No continuar si falla.
+
+```bash
+set -euo pipefail
+respaldo="/ruta/absoluta/al/respaldo-protegido"
+(cd "$respaldo" && sha256sum --check SHA256SUMS)
+commit=$(cat "$respaldo/commit.txt")
+imagen=$(cat "$respaldo/imagen-id.txt")
+docker image load --input "$respaldo/imagen.tar"
+
+# Preparar la candidata antes de detener la aplicación actual.
+marca=$(date -u +%Y%m%dT%H%M%SZ)
+base=/var/src
+instalacion="$base/pizarra-udec"
+candidata="$base/pizarra-udec-recuperacion-$marca"
+anterior="$base/pizarra-udec-anterior-$marca"
+test -d "$instalacion"
+test ! -e "$candidata"
+test ! -e "$anterior"
+(umask 022; git clone https://github.com/ElFeliii/Pizarra-UDEC-Giia "$candidata")
+git -C "$candidata" switch --detach "$commit"
+install -m 600 "$respaldo/.env" "$candidata/.env"
+install -m 644 "$respaldo/docker-compose.yml" "$candidata/docker-compose.yml"
+install -m 644 "$respaldo/instituciones.json" "$candidata/server/data/instituciones.json"
+sudo install -d -o 1000 -g 1000 -m 700 "$candidata/data"
+sudo cp -a "$respaldo/data/." "$candidata/data/"
+sudo chown -R 1000:1000 "$candidata/data"
+sudo find "$candidata/data" -type d -exec chmod 700 {} +
+sudo find "$candidata/data" -type f -exec chmod 600 {} +
+
+docker tag "$imagen" pizarra-udec:latest
+cd "$instalacion"
+docker compose stop pizarra
+cd "$base"
+mv "$instalacion" "$anterior"
+mv "$candidata" "$instalacion"
+cd "$instalacion"
+docker compose up -d --no-build --force-recreate --wait --wait-timeout 120
+docker compose ps
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
+docker compose exec -T pizarra node -e "const D=require('better-sqlite3'); const db=new D('/app/data/pizarra.db',{readonly:true,fileMustExist:true}); const r=db.pragma('integrity_check',{simple:true}); const v=db.pragma('user_version',{simple:true}); db.close(); if(r!=='ok'){console.error(r);process.exit(1)} console.log('integrity_check=ok; user_version='+v)"
+printf 'Instalación anterior conservada: %s\n' "$anterior"
+```
+
+Verificar además HTTPS, publicación entre dos navegadores, moderación, mapa y exportación
+con los datos esperados. Si el inicio falla, conservar ambas carpetas y las imágenes; no
+borrar la instalación anterior ni forzar un cambio de esquema. El proyecto Compose vuelve a
+usar `/var/src/pizarra-udec`, y `--force-recreate` remonta sus datos recuperados. La imagen
+previa se utiliza sin reconstruir, con la configuración guardada en la copia.
+
+El clon recuperado queda en el commit de respaldo, con HEAD separado deliberadamente. Para
+retomar actualizaciones normales, la Célula confirma primero que la nueva versión y sus
+migraciones admiten esa base, realiza otro respaldo completo y revisa cambios locales.
+Después, `git switch main` y `git pull --ff-only` recuperan la rama publicada; se construye
+y comprueba la nueva versión siguiendo la sección 6. No usar `reset --hard`, borrar WAL/SHM,
+`down -v` ni eliminar la carpeta anterior como atajo para resolver una recuperación.
 
 ## 6. Actualizar
 
+Esta versión exige claves individuales de al menos 12 caracteres y rechaza credenciales
+de desarrollo y marcadores de ejemplo. Antes de actualizar, revisar las de `MOD_USERS`: si
+no cumplen, sustituir únicamente esas credenciales en el `.env` existente por claves aleatorias
+largas. Conservar las demás variables, mantener permisos `600` y entregar las nuevas claves
+por el canal privado del equipo. Un `.env` antiguo no debe sobrescribirse con el ejemplo;
+si conserva credenciales incompatibles, el servicio rechazará el inicio.
+
+Acordar la ventana, realizar el respaldo completo de la sección 5 y verificarlo. Antes de
+actualizar, comprobar que el clon está en `main` y que no hay modificaciones versionadas
+sin revisar, especialmente en Compose o instituciones. No sobrescribirlas con comandos Git.
+
 ```bash
+cd /var/src/pizarra-udec
+git status --short
+git branch --show-current
+# Continuar únicamente después de revisar el estado y de conservar el respaldo completo.
 git pull --ff-only
-docker compose up -d --build
+docker compose up -d --build --wait --wait-timeout 120
 docker compose ps
 curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
 
-Tras la sustitución inicial del historial publicado por la entrega saneada (ver
+Tras el saneamiento inicial del historial (ver
 [ENTREGA.md](ENTREGA.md#una-vez-pasar-desde-la-primera-publicación-a-la-entrega-saneada)),
-estas actualizaciones requieren que la copia publicada conserve su propio historial limpio.
-No reemplazarlo con un push forzado de un nuevo commit raíz: eso impide el siguiente
-`git pull --ff-only`. El historial local de desarrollo no se publica.
+las publicaciones continúan el historial limpio existente. No reemplazarlo por otra raíz:
+eso impide `git pull --ff-only`. El historial local de desarrollo no se publica.
 
-Si la copia instalada proviene de un historial ya reemplazado, detenerse y conservar `.env`
-y `data/` en un respaldo antes de preparar un clon nuevo; no usar `reset --hard` sobre una
-instalación con cambios sin revisar. `--build` es necesario para incorporar el código nuevo:
-`docker compose up -d` por sí solo puede reutilizar una imagen anterior.
-
-Los datos en `data/` se conservan. Las migraciones de la base de datos se aplican solas al arrancar.
+Si se detectan historiales incompatibles, conservar la instalación y recuperar mediante un
+clon nuevo; no forzar el historial. `--build` incorpora el código actualizado, y las
+migraciones se ejecutan al arrancar. Los datos se conservan durante una actualización normal;
+los moderadores tienen que volver a entrar porque sus sesiones viven en memoria. Si se
+necesita volver atrás, restaurar el conjunto coherente de la sección 5.
 
 ## 7. Reiniciar la pizarra para otro evento
 
-Detener, mover `data/pizarra.db*` a un respaldo y volver a levantar: se crea una base vacía
-con la lista de palabras semilla.
+Acordar el cambio con el equipo y hacer primero el respaldo completo protegido de la sección 5.
+El siguiente procedimiento conserva la carpeta actual íntegra en ese respaldo, sin seleccionar
+ni borrar archivos SQLite. Sustituir la ruta y comprobar que `data-retirados` todavía no existe:
 
 ```bash
-docker compose stop
-mkdir -p ~/respaldos && mv data/pizarra.db* ~/respaldos/
-docker compose start
+set -euo pipefail
+cd /var/src/pizarra-udec
+respaldo="/ruta/absoluta/al/respaldo-protegido"
+test -d "$respaldo"
+test ! -e "$respaldo/data-retirados"
+docker compose stop pizarra
+sudo mv data "$respaldo/data-retirados"
+sudo install -d -o 1000 -g 1000 -m 700 data
+docker compose up -d --no-build --force-recreate --wait --wait-timeout 120
 ```
+
+Se crea una base nueva con las semillas y estados iniciales; revisar secciones y volver a
+cargar las preguntas del equipo. Si el secreto no se fija por entorno, también se genera uno
+nuevo. Mantener la copia anterior protegida y aplicar su retención según la política del evento.
 
 ## 8. Otros entornos: Node directo
 
@@ -261,7 +463,8 @@ o superior**:
 ```bash
 npm ci
 npm run build
-cp .env.example .env     # completar MOD_USERS; ajustar TRUST_PROXY a la topología
+test -e .env || cp .env.example .env  # completar MOD_USERS y ajustar TRUST_PROXY
+chmod 600 .env
 NODE_ENV=production node server/dist/index.js
 ```
 
@@ -305,11 +508,13 @@ docker save pizarra-udec:latest | gzip > pizarra-udec.tar.gz
 
 # En el servidor
 gunzip -c pizarra-udec.tar.gz | docker load
-docker compose up -d          # usa la imagen ya cargada
+docker compose up -d --no-build --wait --wait-timeout 120  # usa la imagen cargada
 ```
 
-Para que `docker compose` no intente reconstruir, comentar la línea `build: .` en
-`docker-compose.yml` mientras se use la imagen importada.
+La opción `--no-build` impide la reconstrucción y permite conservar el YAML versionado
+sin cambios. Transferir una imagen compatible con la arquitectura del servidor y comprobar
+su identificador y su análisis de seguridad antes de usarla. Las actualizaciones posteriores
+sin internet requieren importar una imagen nueva de la versión aprobada.
 
 ## 10. Después del evento: qué hacer con los datos
 
