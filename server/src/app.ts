@@ -55,6 +55,11 @@ export async function buildApp(config: Config) {
   });
   await app.register(compress, { threshold: 1024 });
 
+  // Los permisos y la visibilidad cambian; una caché compartida no debe conservar la API.
+  app.addHook('onRequest', async (req, reply) => {
+    if (req.url.startsWith('/api/')) reply.header('cache-control', 'no-store');
+  });
+
   const modSessions = new ModSessions();
   publicRoutes(app, ctx);
   await app.register(adminRoutes, { ctx, modSessions });

@@ -47,6 +47,10 @@ export function createWordCountsRepo(db: DB) {
   );
   const clear = db.prepare('DELETE FROM word_counts WHERE word = ?');
   const vaciar = db.prepare('DELETE FROM word_counts');
+  const revision = db.prepare("SELECT value FROM app_meta WHERE key = 'ranking_revision'");
+  const renovarRevision = db.prepare(`
+    INSERT INTO app_meta (key, value) VALUES ('ranking_revision', '1')
+    ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + 1`);
   const textos = db.prepare(`
     WITH notas_publicas AS (
       SELECT p.id, p.text FROM pins p
@@ -77,12 +81,17 @@ export function createWordCountsRepo(db: DB) {
         }) as { text: string }[]
       ).map((fila) => fila.text);
     },
+    /** Señal persistida: permite detectar un mantenimiento hecho desde otro proceso. */
+    revision(): string {
+      return (revision.get() as { value: string } | undefined)?.value ?? '0';
+    },
     reemplazar(palabras: Map<string, string>[]): void {
       db.transaction(() => {
         vaciar.run();
         for (const texto of palabras) {
           for (const [word, display] of texto) upsert.run({ word, display, delta: 1 });
         }
+        renovarRevision.run();
       })();
     },
     top(limit: number): TopWord[] {

@@ -16,6 +16,9 @@
 import { openDatabase, type DB } from '../db/db';
 import { loadDotEnv, SERVER_ROOT } from '../config';
 import { resolve } from 'node:path';
+import { createBannedWordsRepo, createWordCountsRepo } from '../db/repos/words';
+import { Censor } from '../moderation/censor';
+import { TopWords } from '../stats/topWords';
 
 export interface Resumen {
   usuarios: number;
@@ -81,6 +84,12 @@ export interface Borrado {
   usuarios: number;
 }
 
+/** El mantenimiento reconstruye sólo una vez, con los textos y el filtro que quedan. */
+function repararRanking(db: DB): void {
+  const filtro = new Censor(createBannedWordsRepo(db).list());
+  new TopWords(createWordCountsRepo(db), filtro).reconstruir();
+}
+
 /**
  * Borra de verdad todo lo de un usuario: sus respuestas, sus pines (con las respuestas que
  * otros dejaron ahí) y su fila. Es lo que corresponde si alguien pide que lo saquen.
@@ -115,6 +124,7 @@ export function borrarUsuario(db: DB, id: number): Borrado {
       .prepare('DELETE FROM pins WHERE user_id = @id')
       .run(parametros).changes;
     const usuarios = db.prepare('DELETE FROM users WHERE id = @id').run(parametros).changes;
+    repararRanking(db);
     return { pines: borradosPines, respuestas, usuarios };
   })();
 }
@@ -127,8 +137,8 @@ export function borrarContenido(db: DB): Borrado {
     const pines = db.prepare('DELETE FROM pins').run().changes;
     db.prepare('DELETE FROM reports').run();
     db.prepare('DELETE FROM content_fts').run();
-    db.prepare('DELETE FROM word_counts').run();
     const usuarios = db.prepare('DELETE FROM users').run().changes;
+    repararRanking(db);
     return { pines, respuestas, usuarios };
   })();
 }

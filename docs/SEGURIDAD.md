@@ -4,6 +4,13 @@ Las claves reales y los datos del evento no se incluyen en Git ni en la imagen. 
 `.env` y `data/` fuera del repositorio, usar las credenciales individuales por un canal privado
 y conservar el historial saneado para publicar. Ver [PRIVACIDAD.md](PRIVACIDAD.md).
 
+## Revisión ampliada del 14 de octubre de 2026
+
+Se revisaron adicionalmente caché compartida, reconexiones dentro del mismo transporte,
+reportes de objetivos no públicos, estadísticas de borrados, catálogo de temas y selectores
+CSV. Correcciones y evidencia en [REVISION-SEGURIDAD-AMPLIADA.md](REVISION-SEGURIDAD-AMPLIADA.md).
+La aceptación del proxy real y la invalidación de su caché previa corresponden a GIIA.
+
 ## Respuesta a la auditoría del 12 de octubre de 2026
 
 La revisión cerrada el 14 de octubre incorpora las correcciones de aplicación descritas en

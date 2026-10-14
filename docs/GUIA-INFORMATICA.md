@@ -6,6 +6,10 @@ resultados de cada versión. La aceptación del proxy institucional sigue pendie
 Guía principal para la Célula de Infraestructura y Seguridad de GIIA, según su Manual de
 Trabajo 1.0 del 15 de junio de 2026. El despliegue institucional todavía requiere aprobación.
 
+La revisión ampliada de esta entrega está en
+[REVISION-SEGURIDAD-AMPLIADA.md](REVISION-SEGURIDAD-AMPLIADA.md). Incluye protección de
+caché, reconexión, reportes, borrados, catálogo y CSV; su evidencia está fechada por versión.
+
 ## 1. Proyecto, repositorio y código
 
 Pizarra UdeC permite participar en un evento de puertas abiertas de la Universidad de
@@ -149,6 +153,13 @@ el `map` de `Connection` se define en el contexto `http`. Preservar el puerto ex
 en `Host` si se usa uno diferente de 443. La verificación HTTP local no comprueba DNS,
 HTTPS ni esa configuración.
 
+Deshabilitar la caché compartida de `/api/` y `/socket.io/`, incluidas las configuraciones
+heredadas de Nginx/CDN. Conservar `Cache-Control: no-store` en la API dinámica y no ignorarlo.
+Invalidar respuestas API guardadas antes de actualizar. Consultar el panel con una sesión
+válida y luego las mismas URL sin cookie: deben responder 401, sin datos privados.
+El ejemplo Nginx desactiva `proxy_cache` para esta aplicación; los archivos estáticos con
+hash siguen teniendo caché en el navegador.
+
 El cliente admite HTTP long-polling si falla WebSocket, pero esa alternativa requiere
 validar los GET/POST de `/socket.io/`, cookies, reconexión y carga con el Nginx real.
 No presentarla como garantía de funcionamiento. Seguir el
@@ -233,6 +244,12 @@ revisión. No usar una imagen vieja contra una base ya migrada sin verificar com
 
 ## 7. Seguridad, mantenimiento e incidentes
 
+Verificación local de la revisión ampliada del **14 de octubre**: **523 pruebas en 42
+archivos**, tipos, lint y compilación aprobados. Nginx con caché compartida deliberada
+rechazó lecturas privadas sin sesión; 20 controles HTTPS/WSS/polling pasaron y la carga
+entregó 24.000 mensajes sin rechazos. La imagen y el alcance del análisis de paquetes están
+en [ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md); la aceptación institucional sigue pendiente.
+
 Resultados históricos de la revisión local del **8 y 9 de octubre de 2026**: 394 pruebas en 30
 archivos; tipos, lint y compilación con salida 0; auditoría npm con cero vulnerabilidades
 conocidas; Docker `healthy` en loopback, puerto 3189 de ensayo; 24.000/24.000 entregas en carga.
@@ -248,6 +265,13 @@ copia saneada y documentos, excluyendo `CONTINUAR.md`. No usar `down -v`, borrar
 forzar Git como recuperación. No mover/regenerar `campus.json` después de tener pines reales.
 Usar exclusivamente fotos propias o libres con crédito/licencia. Tras el evento, aplicar
 la [anonimización de IP](DESPLIEGUE.md#10-después-del-evento-qué-hacer-con-los-datos), respaldando antes.
+
+Para retirar una persona o vaciar el evento, seguir el
+[procedimiento de borrado con el servicio detenido](DESPLIEGUE.md#borrar-con-el-servicio-detenido):
+respaldo validado, ventana sin participantes, `compose stop`, herramienta en contenedor
+temporal, reinicio y comprobación de notas, respuestas, búsqueda y ranking. La herramienta
+repara estadísticas y notifica su revisión a la caché; detener/reiniciar también evita
+conexiones y vistas anteriores. No ejecutar borrados durante la participación activa.
 
 GIIA debe programar actualizaciones cada viernes fuera del horario de uso y atención urgente de
 CVE relevantes; reconstruye, escanea y verifica antes de activar. Monitorea externamente

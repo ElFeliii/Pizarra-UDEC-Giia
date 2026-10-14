@@ -250,10 +250,14 @@ export function reportContent(
   if (!parsed.success) return fail('VALIDATION', firstIssue(parsed.error));
   const { targetType, targetId, reason } = parsed.data;
 
-  const target =
-    targetType === 'pin' ? ctx.repos.pins.get(targetId) : ctx.repos.replies.get(targetId);
-  if (!target) return fail('NOT_FOUND');
-  if (target.hiddenAt !== null) return ok({ received: true });
+  const nota = targetType === 'pin' ? ctx.repos.pins.get(targetId) : undefined;
+  const respuesta = targetType === 'reply' ? ctx.repos.replies.get(targetId) : undefined;
+  const target = nota ?? respuesta;
+  const padre = nota ?? (respuesta ? ctx.repos.pins.get(respuesta.pinId) : undefined);
+  // Conocer un id anterior no permite alterar notas de una sección o pregunta oculta.
+  if (!target || target.hiddenAt !== null || !padre || !notaVisible(ctx, padre)) {
+    return fail('NOT_FOUND');
+  }
 
   const added = ctx.repos.reports.add(targetType, targetId, user.id, reason || null, ctx.now());
   if (!added) return ok({ received: true });

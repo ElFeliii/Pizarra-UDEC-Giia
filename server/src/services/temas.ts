@@ -44,9 +44,7 @@ export function seedTemas(ctx: AppContext, ruta: string, seccion: 'carreras' | '
 }
 
 export function temasVisibles(ctx: AppContext): Tema[] {
-  return ctx.repos.temas
-    .listar()
-    .filter((tema) => !tema.oculto && ctx.repos.secciones.get(tema.seccion)?.estado !== 'oculta');
+  return ctx.repos.temas.listarVisibles();
 }
 
 export function agregarPregunta(ctx: AppContext, entrada: unknown, moderador: string): Ack<Tema> {

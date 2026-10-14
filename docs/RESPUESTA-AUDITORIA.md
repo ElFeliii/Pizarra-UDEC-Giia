@@ -12,6 +12,14 @@ publicable no debe incluir `.env`, credenciales reales, datos del evento ni resp
 Las claves que aparecen en las pruebas son ficticias. La revisión de seguridad no equivale
 a certificar ausencia absoluta de vulnerabilidades ni autoriza el despliegue institucional.
 
+## Revisión complementaria
+
+La revisión ampliada del 14 de octubre añade correcciones de caché, reconexión del
+namespace sobre el mismo transporte, visibilidad de reportes, estadísticas de borrados,
+catálogo de temas y exportaciones. Ver
+[REVISION-SEGURIDAD-AMPLIADA.md](REVISION-SEGURIDAD-AMPLIADA.md) y la evidencia de la
+versión correspondiente; los ensayos anteriores se conservan como antecedentes.
+
 ## I. Saturación por eventos y consultas
 
 Se agrega un presupuesto antes de los handlers de Socket.IO y de SQLite. Cuenta también

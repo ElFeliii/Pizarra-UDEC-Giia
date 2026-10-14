@@ -203,6 +203,8 @@ server {
     # ssl_certificate ...; ssl_certificate_key ...;
 
     location / {
+        # Evita heredar una caché compartida para API y Socket.IO.
+        proxy_cache off;
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -223,6 +225,20 @@ intervalo de ping y 20 de espera: los 75 segundos del proxy superan su suma de 4
 Validar la configuración con `nginx -t` antes de recargar según el procedimiento de GIIA.
 Referencias: [WebSocket en Nginx](https://nginx.org/en/docs/http/websocket.html) y
 [Socket.IO detrás de un proxy](https://socket.io/docs/v4/reverse-proxy/).
+
+### Caché y contenido privado
+
+No habilitar caché compartida para `/api/` ni `/socket.io/`, aunque exista en otros sitios
+del servidor. El ejemplo desactiva `proxy_cache` para esta aplicación. La API dinámica
+envía `Cache-Control: no-store`, incluidas sesiones, panel, errores, hilos y búsquedas;
+no eliminar esa cabecera ni usar `proxy_ignore_headers Cache-Control` para estas rutas.
+El catálogo estático de instituciones y los archivos con hash conservan su caché pública.
+
+Al actualizar desde una versión anterior, la Célula debe invalidar cualquier respuesta
+API almacenada previamente en Nginx/CDN. La cabecera nueva no retira entradas ya guardadas.
+Comprobar que `/api/admin/feed` y `/api/admin/users` sin cookie responden 401 aun después
+de que un moderador haya consultado esas mismas URL, y que el logout revoca el acceso.
+Comprobar también que ocultar una nota retira su hilo y sus resultados de búsqueda.
 
 ### Apache (con `mod_proxy`, `mod_proxy_http`, `mod_proxy_wstunnel`, `mod_rewrite`, `mod_headers` y `mod_ssl`)
 
@@ -612,6 +628,36 @@ Ninguna operación destructiva se ejecuta sin `--si`: sin esa bandera solo muest
 
 Estas operaciones se reservan a la cuenta de infraestructura autorizada, fuera del panel
 web: permiten borrar información del evento y requieren respaldo y confirmación explícita.
+
+### Borrar con el servicio detenido
+
+Para `--borrar-usuario` y `--borrar-contenido`, acordar una ventana sin participantes y
+validar antes el respaldo completo de la sección 5. Detener el servidor cierra conexiones,
+evita publicaciones concurrentes. Detener por sí solo no borra el contenido ya dibujado;
+el reinicio y la recarga posterior retiran las vistas anteriores.
+No ejecutar estos borrados mediante `compose exec` mientras el evento sigue en uso.
+
+```bash
+docker compose stop pizarra
+# Sustituir 42 por el ID exacto; sin --si primero muestra lo que se eliminaría.
+docker compose run --rm --no-deps --entrypoint node pizarra \
+  server/dist/datos.js --borrar-usuario 42
+docker compose run --rm --no-deps --entrypoint node pizarra \
+  server/dist/datos.js --borrar-usuario 42 --si
+docker compose up -d --no-build --wait --wait-timeout 120
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
+```
+
+Para vaciar el evento, reemplazar `--borrar-usuario 42` por `--borrar-contenido`, revisar la
+vista previa y confirmar con `--si`. Si falla el comando, revisar el error y la integridad
+antes de volver a abrir el servicio. Nunca borrar el volumen para resolver ese fallo.
+
+El borrado repara los contadores de palabras en la misma transacción e incrementa una
+revisión persistente que invalida el ranking del proceso vivo, incluso desde otra conexión.
+El mantenimiento con reinicio sigue siendo obligatorio para cerrar sockets y limpiar las
+vistas anteriores. Después, comprobar que notas, respuestas, búsqueda y `/api/words/top`
+ya no contienen el material retirado; moderadores y asistentes deben recargar la página.
+Anonimizar IP y consultar `--resumen` no requieren detener el servicio.
 
 ## 11. Revisión antes del evento
 

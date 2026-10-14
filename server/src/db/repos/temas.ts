@@ -7,6 +7,12 @@ const convertir = (fila: FilaTema): Tema => ({ ...fila, oculto: fila.oculto === 
 
 export function crearTemasRepo(db: DB) {
   const listar = db.prepare(`${SELECCION} ORDER BY orden, nombre, id`);
+  // La visibilidad se resuelve en una lectura; no crece el número de consultas con el catálogo.
+  const visibles = db.prepare(`
+    SELECT t.id, t.seccion_id AS seccion, t.nombre, t.grupo, t.campus, t.orden, t.oculto
+    FROM temas t JOIN secciones s ON s.id = t.seccion_id
+    WHERE t.oculto = 0 AND s.estado != 'oculta'
+    ORDER BY t.orden, t.nombre, t.id`);
   const porId = db.prepare(`${SELECCION} WHERE id = ?`);
   const insertar = db.prepare(`INSERT OR IGNORE INTO temas
     (id, seccion_id, nombre, grupo, campus, orden, oculto)
@@ -16,6 +22,9 @@ export function crearTemasRepo(db: DB) {
   return {
     listar(): Tema[] {
       return (listar.all() as FilaTema[]).map(convertir);
+    },
+    listarVisibles(): Tema[] {
+      return (visibles.all() as FilaTema[]).map(convertir);
     },
     obtener(id: string): Tema | undefined {
       const fila = porId.get(id) as FilaTema | undefined;

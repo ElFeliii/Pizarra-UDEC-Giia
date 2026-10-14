@@ -11,6 +11,10 @@ Los resultados de pruebas, imagen y ensayos tienen su fecha y alcance en
 [ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md); no confundir una comprobación local con
 la aceptación del servidor institucional.
 
+Correcciones adicionales y condiciones de actualización:
+[REVISION-SEGURIDAD-AMPLIADA.md](REVISION-SEGURIDAD-AMPLIADA.md). Incluye caché privada,
+reconexión, reportes, estadísticas de borrados, presupuesto de temas/ranking y CSV.
+
 ## Información para el ticket
 
 | Dato                          | Solicitud                                                                                                                                                                     |

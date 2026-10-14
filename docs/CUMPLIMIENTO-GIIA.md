@@ -7,6 +7,11 @@ hallazgos está en [RESPUESTA-AUDITORIA.md](RESPUESTA-AUDITORIA.md); resultados 
 versión, imagen, transportes, carga y límites en [ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md).
 La guía principal para el equipo es [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md).
 
+La revisión ampliada y sus regresiones están en
+[REVISION-SEGURIDAD-AMPLIADA.md](REVISION-SEGURIDAD-AMPLIADA.md). Incluye desactivar y
+purgar caché API del proxy, y el mantenimiento de borrados con el servicio detenido;
+GIIA debe verificar esas condiciones en la instalación efectiva.
+
 | Apartado | Requisito                                                          | Estado                                                                 | Evidencia o gestión necesaria                                                                                                                                                                                    |
 | -------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | §1       | Levantamiento exclusivamente por la Célula                         | Pendiente GIIA                                                         | No se intervino su servidor; procedimiento en [ENTREGA.md](ENTREGA.md).                                                                                                                                          |

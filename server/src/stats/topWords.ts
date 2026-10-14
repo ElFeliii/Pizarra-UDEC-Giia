@@ -28,6 +28,7 @@ export class TopWords {
   private cache: TopWord[] = [];
   private dirty = true;
   private lastSent = '';
+  private revision = '';
 
   constructor(
     private readonly repo: WordCountsRepo,
@@ -61,6 +62,11 @@ export class TopWords {
   }
 
   top(): TopWord[] {
+    const revision = this.repo.revision();
+    if (revision !== this.revision) {
+      this.revision = revision;
+      this.dirty = true;
+    }
     if (this.dirty) {
       this.cache = this.repo
         .top(TOP_WORDS_COUNT * 2)

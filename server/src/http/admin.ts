@@ -305,8 +305,9 @@ export async function adminRoutes(app: FastifyInstance, { ctx, modSessions }: Ad
     admin.get('/api/admin/export/:file', async (req, reply) => {
       const file = (req.params as { file?: string }).file ?? '';
       const kind = file.replace(/\.csv$/, '');
-      const spec = EXPORTS[kind];
-      if (!spec) return sendError(reply, 'NOT_FOUND', 'Exportación desconocida.');
+      if (!Object.hasOwn(EXPORTS, kind))
+        return sendError(reply, 'NOT_FOUND', 'Exportación desconocida.');
+      const spec = EXPORTS[kind]!;
       const stamp = formatDate(ctx.now()).replace(/[: ]/g, '-');
       reply
         .header('content-type', 'text/csv; charset=utf-8')

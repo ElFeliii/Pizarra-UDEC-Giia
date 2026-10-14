@@ -55,6 +55,11 @@ export function attachRealtime(
   modSessions: ModSessions,
 ): Realtime {
   const trust = makeTrust(ctx.config.trustProxy);
+  // El namespace puede reconectarse sin cerrar Engine.IO: su presupuesto pertenece al transporte.
+  const presupuestosTransporte = new WeakMap<
+    ClientSocket['conn'],
+    { eventos: RateLimiter; rechazosSeguidos: number }
+  >();
 
   const io: IO = new Server(app.server, {
     serveClient: false,
@@ -102,11 +107,25 @@ export function attachRealtime(
   }
 
   io.use((socket, next) => {
+    const ip = proxyaddr(socket.request, trust);
+    if (presupuestosTransporte.has(socket.conn)) {
+      const limite = ctx.limiters.conexionSocket.take(ip);
+      if (!limite.ok) {
+        const rechazo = rateLimited(limite.retryAfterMs);
+        return next(Object.assign(new Error(rechazo.error.message), { data: rechazo.error }));
+      }
+    } else {
+      // El handshake ya pagó el primer CONNECT; cobrarlo de nuevo reduciría la cuota del WiFi.
+      presupuestosTransporte.set(socket.conn, {
+        eventos: new RateLimiter(LIMIT_SPECS.eventoSocket, ctx.now),
+        rechazosSeguidos: 0,
+      });
+    }
     const auth = socket.handshake.auth as { token?: unknown } | undefined;
     const user = findUserByToken(ctx, auth?.token);
     socket.data.userId = user?.id ?? null;
     socket.data.moderator = moderatorFromCookie(socket.request.headers.cookie);
-    socket.data.ip = proxyaddr(socket.request, trust);
+    socket.data.ip = ip;
     socket.data.threadId = null;
     next();
   });
@@ -126,21 +145,20 @@ export function attachRealtime(
 
   io.on('connection', (socket) => {
     const { userId, moderator, ip } = socket.data;
-    const eventos = new RateLimiter(LIMIT_SPECS.eventoSocket, ctx.now);
-    let rechazosSeguidos = 0;
+    const presupuesto = presupuestosTransporte.get(socket.conn)!;
     // Corre antes de handlers y SQLite, incluso sin sesión o con un evento desconocido.
     socket.use((mensaje, continuar) => {
-      const local = eventos.take('conexion');
+      const local = presupuesto.eventos.take('conexion');
       const limite = local.ok ? ctx.limiters.eventosPorIp.take(ip) : local;
       if (limite.ok) {
-        rechazosSeguidos = 0;
+        presupuesto.rechazosSeguidos = 0;
         continuar();
         return;
       }
       const ack = mensaje.at(-1);
       if (typeof ack === 'function') ack(rateLimited(limite.retryAfterMs));
       // No registrar cada rechazo: una ráfaga tampoco debe llenar los logs.
-      if (++rechazosSeguidos >= 3) socket.disconnect(true);
+      if (++presupuesto.rechazosSeguidos >= 3) socket.disconnect(true);
     });
     if (userId) void socket.join(`user:${userId}`);
     if (moderator) void socket.join('mods');

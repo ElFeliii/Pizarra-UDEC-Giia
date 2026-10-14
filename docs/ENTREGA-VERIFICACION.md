@@ -1,5 +1,54 @@
 # Verificación de la entrega
 
+## Entrega vigente: revisión ampliada del 14 de octubre de 2026
+
+Esta versión incorpora los seis hallazgos adicionales y el presupuesto HTTP del ranking
+con revisión persistente. El código, las nuevas pruebas y las guías se entregan juntos.
+No se modificaron las migraciones, dependencias, cliente, mapa ni catálogos.
+Las cifras del cierre original, conservadas más abajo, son antecedentes.
+
+| Comprobación                   | Resultado de esta versión                                                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Suite completa                 | **523 pruebas en 42 archivos**, ninguna fallida ni omitida; salida 0.                                                                    |
+| Tipos, lint y compilación      | Salidas 0. Vite mantiene el aviso conocido de paquete mayor de 500 KB.                                                                   |
+| Prettier y diff                | Archivos tocados con formato comprobado y sin errores de espacios.                                                                       |
+| Regresiones                    | Doble rojo/verde de los seis hallazgos y del presupuesto del ranking.                                                                    |
+| npm audit                      | Cero avisos conocidos; lockfile y dependencias sin cambios.                                                                              |
+| Compose                        | Ocho comprobaciones de puerto y confianza, salida 0.                                                                                     |
+| Nginx con caché de 200 por URL | Respuestas privadas con `no-store`; sin cookie reciben 401, sin feed oculto ni usuarios; también después de logout.                      |
+| Nginx HTTPS/WSS/polling        | 20 controles, incluyendo firma, origen, moderación, CSV y 55 segundos de continuidad; salida 0.                                          |
+| Carga WebSocket                | 600 lectores, 20 escritores, 40 publicaciones, **24.000/24.000 entregas**, cero rechazos; salida 0.                                      |
+| CLI compilado                  | Otra ejecución invalida el ranking caliente; procedimiento detener/vista previa/borrar/reiniciar/comprobar ensayado con datos ficticios. |
+| Guías                          | Enlaces y anclas locales, sintaxis Bash y procedimiento de mantenimiento comprobados.                                                    |
+
+Imagen probada: `pizarra-udec:seguridad-ampliada-20261014`, identificador
+`sha256:0c24aeab2f2329e7cf43f792e8001c752bf1fe99191db0824a2193f40472ccc5`, tamaño **444232817 bytes**.
+Node `v22.23.3`, usuario `node`. Se reconstruyó la aplicación
+usando las capas existentes; no se presenta como una actualización nueva de Debian.
+El inventario Debian y la versión Node coinciden con la imagen del cierre original:
+huella del inventario `5cb45e2688001a0fe4d366d89e8be9268cc2be43357bb1f4d020f2f03d8e4438`.
+
+La carga final conectó 600 lectores en 1,8 segundos: p50 939 ms, p95 1621 ms,
+p99 2152 ms y máximo 2183 ms. El generador y los contenedores usaron la misma máquina;
+estas cifras no garantizan la capacidad del anfitrión institucional ni de polling masivo.
+
+No se repitió Trivy para esta reconstrucción. El informe fechado anterior conserva
+228 avisos Debian/99 identificadores, sin versión corregida indicada, y cero avisos Node
+en ese escaneo. Que los inventarios coincidan no reemplaza un escaneo actualizado ni la
+evaluación de aplicabilidad y del host por GIIA. No certificar cero vulnerabilidades.
+
+Los ensayos se hicieron exclusivamente con claves, datos y volúmenes ficticios. La prueba
+de caché configura deliberadamente un proxy que intenta guardar respuestas 200; prueba la
+protección de la aplicación, sin afirmar cómo está configurado el Nginx institucional.
+La cabecera nueva no purga datos API antiguos: GIIA debe invalidarlos al actualizar.
+
+La guía principal sigue siendo [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md).
+El detalle está en [REVISION-SEGURIDAD-AMPLIADA.md](REVISION-SEGURIDAD-AMPLIADA.md).
+Ticket, recursos, dominio, TLS, topología y aceptación reales, avisos, monitoreo y operación
+institucional siguen pendientes como se indica al final de la guía.
+
+## Antecedente: cierre original de auditoría del 14 de octubre
+
 Cierre de la auditoría: **14 de octubre de 2026**. Responde al informe del 12 de octubre
 y a la observación sobre Nginx. Se conserva la arquitectura, el mapa y las migraciones
 publicadas; v6 se agrega al final. Todos los ensayos utilizaron datos, claves y volúmenes

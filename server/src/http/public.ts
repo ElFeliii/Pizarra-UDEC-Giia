@@ -48,7 +48,7 @@ export function publicRoutes(app: FastifyInstance, ctx: AppContext): void {
 
   /** Qué secciones existen y cuáles aceptan publicaciones ahora. */
   app.get('/api/secciones', async () => seccionesVisibles(ctx));
-  app.get('/api/temas', async (_req, reply) => {
+  app.get('/api/temas', { preHandler: limitarLectura }, async (_req, reply) => {
     reply.header('cache-control', 'no-store');
     return temasVisibles(ctx);
   });
@@ -89,5 +89,5 @@ export function publicRoutes(app: FastifyInstance, ctx: AppContext): void {
     return search(ctx, q.data.q, seccionDe(q.data));
   });
 
-  app.get('/api/words/top', async () => ctx.topWords.top());
+  app.get('/api/words/top', { preHandler: limitarLectura }, async () => ctx.topWords.top());
 }
