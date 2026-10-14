@@ -47,8 +47,12 @@ npm install
 npm run dev          # servidor en :3000 y cliente en http://localhost:5173
 ```
 
-- Panel de moderación: http://localhost:5173/moderador (contraseña de desarrollo:
-  `moderador-dev`, o la que definas en `.env`).
+- `npm run dev` y `npm run dev:lan` activan desarrollo explícitamente con `--desarrollo`.
+  Sin esa selección ni `NODE_ENV`, el servidor usa producción y exige credenciales válidas.
+  Una configuración `NODE_ENV=production` no puede degradarse con la bandera de desarrollo.
+- Panel de moderación: http://localhost:5173/moderador. Si no se define `MOD_USERS` en
+  desarrollo, usar `Moderador 1`, `Moderador 2` o `Moderador 3` con `moderador-dev`.
+  La clave maestra queda desactivada por omisión. Usar una base separada de la del evento.
 - La base de datos de desarrollo queda en `data/pizarra.db` (se crea sola, está en `.gitignore`).
 - Instituciones: `server/data/instituciones.json`.
 - Palabras prohibidas iniciales: `server/src/moderation/wordlist.default.ts` (solo se cargan
@@ -72,7 +76,9 @@ npm run dev          # servidor en :3000 y cliente en http://localhost:5173
 
 ## Producción
 
-El repositorio es privado; quien despliega necesita acceso. En la primera instalación,
+Repositorio: [ElFeliii/Pizarra-UDEC-Giia](https://github.com/ElFeliii/Pizarra-UDEC-Giia).
+Quien despliega comprueba acceso; si GitHub solicita autorización, tramitarla con el equipo.
+En la primera instalación,
 crear `.env` desde `.env.example` sólo si todavía no existe, y completar `MOD_USERS`
 con las claves entregadas por el equipo. Después, editar el `.env` existente sin sobrescribirlo.
 
@@ -85,7 +91,20 @@ docker compose up -d --build --wait --wait-timeout 120
 
 La página, API y WebSocket usan `127.0.0.1:<PUERTO_PUBLICADO>` detrás del proxy HTTPS;
 GIIA asigna ese puerto en `.env` (3000 por defecto). El dominio público
-debe terminar en `.giia.udec.cl` y lo asigna la Universidad.
+debe terminar en `.giia.udec.cl` y lo asigna la Universidad. Compose usa `TRUST_PROXY=1`
+por omisión únicamente para un proxy local y backend publicado en `127.0.0.1`; otra
+cadena requiere configuración acordada con GIIA. Para probar directamente, usar `false`.
+
+Cada clave individual requiere al menos 12 caracteres. `MOD_PASSWORD` es opcional, no
+tiene valor predeterminado, exige también 12 caracteres y registra todas sus acciones como
+`Emergencia`; ese nombre no puede ser una cuenta individual. Al rotar o retirar credenciales,
+recrear el servicio con `docker compose up -d --force-recreate --wait --wait-timeout 120`:
+las sesiones anteriores se invalidan y los moderadores vuelven a iniciar sesión.
+
+Nginx necesita HTTP/1.1 hacia el backend, `Upgrade`/`Connection`, el origen externo y
+tiempos de espera de 75 segundos. El cliente también permite HTTP long-polling, pero su
+funcionamiento y carga deben comprobarse detrás del proxy real antes del evento; ver la
+[aceptación de transportes](docs/DESPLIEGUE.md#comprobar-los-dos-transportes).
 
 En GIIA el levantamiento lo realiza la Célula de Infraestructura y Seguridad, mediante
 un ticket aprobado, y el proyecto se instala en `/var/src/pizarra-udec`.

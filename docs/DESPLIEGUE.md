@@ -58,7 +58,8 @@ cd /var/src/pizarra-udec
 ```
 
 Crear el archivo `.env` con **quiénes moderan**. Es lo único obligatorio, porque las claves no
-están en el código: el repositorio es privado y las claves se entregan por un canal separado.
+están en el código y se entregan por un canal privado separado del repositorio.
+Comprobar acceso al repositorio; tramitar autorización si GitHub la exige.
 
 ```bash
 test -e .env || cp .env.example .env
@@ -83,8 +84,9 @@ docker compose up -d --build --wait --wait-timeout 120
 ```
 
 Lo demás se resuelve solo: el secreto que firma las sesiones se genera y se guarda en
-`data/session-secret` (sobrevive a los reinicios), y `TRUST_PROXY=1` corresponde al despliegue con un único proxy HTTPS y el puerto Docker
-publicado solo en localhost. El salto Docker puede llegar desde una IP de puente, no desde
+`data/session-secret` (sobrevive a los reinicios), y Compose usa `TRUST_PROXY=1` por
+omisión para el despliegue con un único proxy HTTPS local y el puerto Docker
+publicado solo en `127.0.0.1`. El salto Docker puede llegar desde una IP de puente, no desde
 loopback. Si la U usa una cadena de proxies distinta, el administrador debe ajustar la confianza.
 
 Reemplazar la clave de ejemplo antes de iniciar. No usarla como credencial del evento.
@@ -112,14 +114,14 @@ Editar únicamente las variables necesarias en el `.env` existente, sin volver a
 `.env.example` encima. Mantener sus permisos `600` y aplicar el cambio con
 `docker compose up -d --wait --wait-timeout 120`. La lista `MOD_USERS` del ejemplo está vacía.
 
-| Variable            | Qué poner                                                                                                                                                                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PUERTO_PUBLICADO`  | Puerto del servidor asignado por GIIA, publicado solo en localhost; por defecto `3000`.                                                                                                                                               |
-| `MOD_USERS`         | **Obligatoria.** Moderadores del panel `/moderador`, como `nombre:clave` separados por coma. Sin esto (o sin `MOD_PASSWORD`) el servidor no arranca.                                                                                  |
-| `MOD_PASSWORD`      | Llave maestra opcional: sirve con cualquier nombre (mínimo 8 caracteres). Déjala vacía si no la necesitas.                                                                                                                            |
-| `SESSION_SECRET`    | Solo si prefieres fijarlo tú (32+ caracteres aleatorios). Si se deja vacía, el servidor genera uno y lo guarda en `data/session-secret`.                                                                                              |
-| `TRUST_PROXY`       | El código usa `loopback` por omisión; para Docker detrás de un único proxy local usar `1` con el puerto limitado a localhost. Con otra topología, confirmar las IP o los saltos con el administrador. `false` si se prueba sin proxy. |
-| `AUTO_HIDE_REPORTS` | Reportes de usuarios distintos que ocultan un contenido automáticamente (por defecto `3`, `0` desactiva).                                                                                                                             |
+| Variable            | Qué poner                                                                                                                                                                                                 |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUERTO_PUBLICADO`  | Puerto del servidor asignado por GIIA, publicado solo en localhost; por defecto `3000`.                                                                                                                   |
+| `MOD_USERS`         | **Obligatoria.** Moderadores del panel `/moderador`, como `nombre:clave` separados por coma. Sin esto (o sin `MOD_PASSWORD`) el servidor no arranca.                                                      |
+| `MOD_PASSWORD`      | Clave maestra opcional, sin valor predeterminado: mínimo 12 caracteres y acciones firmadas siempre como `Emergencia`. Dejar vacía salvo necesidad aprobada.                                               |
+| `SESSION_SECRET`    | Solo si prefieres fijarlo tú (32+ caracteres aleatorios). Si se deja vacía, el servidor genera uno y lo guarda en `data/session-secret`.                                                                  |
+| `TRUST_PROXY`       | Compose usa `1` por omisión, sólo para un proxy local y backend publicado en `127.0.0.1`. El código directo usa `loopback`. Otra topología requiere IP o saltos aprobados; `false` para probar sin proxy. |
+| `AUTO_HIDE_REPORTS` | Reportes de usuarios distintos que autoocultan contenido de asistentes (por defecto `3`, `0` desactiva). Las publicaciones firmadas por moderación conservan reportes y ocultado manual.                  |
 
 ### Credenciales individuales
 
@@ -140,11 +142,30 @@ Node permanece en la imagen; este comando no necesita npm, no inicia la aplicaci
 monta sus datos. Guardar las claves por el canal privado del equipo. En `.env`, encerrar el
 valor completo de `MOD_USERS` entre comillas simples para evitar interpolación de Compose.
 No usar comas en las claves ni dos puntos en los nombres. Cada moderador usa su cuenta;
-la llave maestra permanece vacía salvo necesidad aprobada. Su mínimo técnico es 8 caracteres,
-pero también debe ser larga y aleatoria.
+la clave maestra permanece vacía salvo necesidad aprobada. Exige al menos 12 caracteres,
+no acepta claves de desarrollo o marcadores y firma siempre como **Emergencia**, aunque
+se escriba el nombre de otra persona. Ese nombre está reservado y no se admite en `MOD_USERS`.
 
-El nombre admite espacios y mayúsculas: "Moderador 1", "moderador 1" y "moderador1"
-identifican a la misma persona; no crear cuentas que sólo difieran en eso.
+Los nombres se comparan con normalización Unicode NFKC, sin diferencias de mayúsculas
+ni espacios: "Moderador 1", "moderador 1" y "moderador1" identifican a la misma persona.
+El arranque rechaza nombres repetidos después de normalizar o una lista mal formada;
+las credenciales individuales conservan el nombre configurado en el registro.
+
+### Rotar o retirar una credencial
+
+Editar `MOD_USERS` o `MOD_PASSWORD` en el `.env` existente, conservar permisos `600` y
+entregar la nueva clave por el canal privado. Acordar la interrupción y recrear el servicio:
+
+```bash
+docker compose up -d --force-recreate --wait --wait-timeout 120
+curl --fail "http://$(docker compose port pizarra 3000)/api/health"
+```
+
+La recreación carga la configuración nueva y vacía las sesiones de moderación en memoria:
+las cookies anteriores y las claves retiradas deben dejar de dar acceso. Verificar ese
+rechazo y un inicio de sesión con la clave nueva. Editar `.env` sin recrear no revoca
+sesiones; `docker compose restart` reinicia con las variables originales del contenedor.
+El secreto persistente y la base no se borran para rotar una credencial.
 
 Editar la lista de colegios y universidades en `server/data/instituciones.json`:
 
@@ -166,7 +187,16 @@ debe reemplazarlos por el valor de `PUERTO_PUBLICADO` y el dominio aprobado.
 
 ### Nginx
 
+El `map` va en el contexto `http` de Nginx, fuera de cualquier bloque `server` o `location`.
+La Célula adapta las directivas TLS a su versión; no duplicar un `map` existente con el
+mismo nombre. El ejemplo reenvía todas las rutas, incluida `/socket.io/`, al mismo backend.
+
 ```nginx
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
 server {
     listen 443 ssl http2;
     server_name pizarra.giia.udec.cl;
@@ -176,14 +206,23 @@ server {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $http_host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_read_timeout 75s;
+        proxy_send_timeout 75s;
     }
 }
 ```
+
+El `Host` conserva también un puerto externo si lo hay; `X-Forwarded-Proto` informa el
+HTTPS terminado en el proxy. La confianza debe coincidir con esa topología para aceptar
+el mismo origen externo y establecer cookies seguras. Socket.IO usa 25 segundos de
+intervalo de ping y 20 de espera: los 75 segundos del proxy superan su suma de 45.
+Validar la configuración con `nginx -t` antes de recargar según el procedimiento de GIIA.
+Referencias: [WebSocket en Nginx](https://nginx.org/en/docs/http/websocket.html) y
+[Socket.IO detrás de un proxy](https://socket.io/docs/v4/reverse-proxy/).
 
 ### Apache (con `mod_proxy`, `mod_proxy_http`, `mod_proxy_wstunnel`, `mod_rewrite`, `mod_headers` y `mod_ssl`)
 
@@ -203,8 +242,30 @@ server {
 </VirtualHost>
 ```
 
-Si el proxy no permite WebSocket, la aplicación igual funciona (cae a _long-polling_), pero
-con más carga para el servidor.
+### Comprobar los dos transportes
+
+El cliente intenta WebSocket y permite probar **HTTP long-polling** si falla el otro
+transporte. Esta alternativa requiere que el proxy acepte los GET/POST de `/socket.io/`
+sin reescribir la ruta ni perder cookies, origen o parámetros. Supone más peticiones HTTP;
+no se garantiza su funcionamiento ni capacidad detrás del Nginx de GIIA sin ensayarlo.
+
+En una instalación de pruebas, desde fuera de la universidad y con dos navegadores:
+
+1. Confirmar HTTPS y WebSocket: `/socket.io/` cambia a `101 Switching Protocols` y conserva
+   la conexión más de 75 segundos sin cortes inesperados. Publicar notas y respuestas,
+   cambiar secciones y moderar; el otro navegador refleja cada cambio sin recargar.
+2. Deshabilitar deliberadamente el upgrade sólo en el proxy de pruebas. Verificar que el
+   cliente real pasa a polling y completa las mismas acciones mediante GET/POST, sin
+   errores de autenticación ni cambios en los permisos. Recargar entre ensayos.
+3. Interrumpir y recuperar temporalmente la conexión; verificar reconexión y lectura del
+   contenido vigente. Comprobar también IP real y cookies `Secure`/`HttpOnly` por HTTPS.
+4. Ensayar la carga prevista con ambos transportes. Los límites anti-spam siguen activos;
+   probar asistentes que comparten WiFi y abuso controlado, sin usar datos reales.
+
+Restituir WebSocket después del ensayo y registrar versión/configuración del proxy,
+transporte observado y resultados. Que abra la página o responda `/api/health` no prueba
+la publicación ni la moderación en tiempo real. Esta aceptación en el servidor real
+corresponde a la Célula y sigue pendiente hasta que se ejecute.
 
 ## 4. Durante el evento
 
@@ -336,7 +397,8 @@ al momento de la copia: las posteriores quedan fuera de la página recuperada; l
 actual se conserva completa en otra carpeta para inspección y recuperación por la Célula.
 
 Requiere la aprobación de la Célula, permisos en `/var/src`, `sudo` para los datos y acceso al
-repositorio privado. El flujo clona el código desde GitHub: importar la imagen no reemplaza
+repositorio saneado. Si requiere autorización, obtenerla antes de restaurar. El flujo
+clona el código desde GitHub: importar la imagen no reemplaza
 ese acceso. Si el servidor está totalmente aislado, la Célula debe disponer de un mirror
 aprobado del repositorio saneado, con el commit del respaldo, y adaptar la URL de clonación.
 Ejecutar primero la comprobación de hashes y de integridad anterior, cargando la imagen desde
@@ -399,8 +461,10 @@ y comprueba la nueva versión siguiendo la sección 6. No usar `reset --hard`, b
 
 ## 6. Actualizar
 
-Esta versión exige claves individuales de al menos 12 caracteres y rechaza credenciales
-de desarrollo y marcadores de ejemplo. Antes de actualizar, revisar las de `MOD_USERS`: si
+Esta versión exige claves individuales y maestras de al menos 12 caracteres y rechaza
+credenciales de desarrollo y marcadores de ejemplo. La maestra no tiene valor
+predeterminado y usa la identidad reservada `Emergencia`. Antes de actualizar, revisar
+`MOD_USERS` y `MOD_PASSWORD`: si
 no cumplen, sustituir únicamente esas credenciales en el `.env` existente por claves aleatorias
 largas. Conservar las demás variables, mantener permisos `600` y entregar las nuevas claves
 por el canal privado del equipo. Un `.env` antiguo no debe sobrescribirse con el ejemplo;
@@ -495,6 +559,12 @@ sudo systemctl daemon-reload && sudo systemctl enable --now pizarra
 journalctl -u pizarra -f
 ```
 
+Sin `NODE_ENV`, el servidor también selecciona producción y falla antes de escuchar
+si no hay credenciales válidas. Para desarrollo local, `npm run dev` y `npm run dev:lan`
+pasan `--desarrollo`; también puede seleccionarse explícitamente `NODE_ENV=development`.
+La bandera no se admite junto a un entorno de producción. No usar el modo de desarrollo
+ni sus credenciales contra datos del evento.
+
 La base de datos queda en `data/pizarra.db` dentro del proyecto (o donde apunte `DB_PATH`).
 
 ## 9. Si el servidor no tiene salida a internet
@@ -540,8 +610,8 @@ npm run datos -- --resumen
 Ninguna operación destructiva se ejecuta sin `--si`: sin esa bandera solo muestra qué haría.
 **Respalda antes** (sección 5): no hay deshacer.
 
-Estas operaciones no están en el panel web a propósito. Las claves de los moderadores son
-cortas, y un panel con un botón de "borrar todo" es demasiado riesgo para lo que aporta.
+Estas operaciones se reservan a la cuenta de infraestructura autorizada, fuera del panel
+web: permiten borrar información del evento y requieren respaldo y confirmación explícita.
 
 ## 11. Revisión antes del evento
 
@@ -551,8 +621,9 @@ de cinco archivos de 10 MB evita crecimiento sin límite, pero no fija una antig
 
 - [ ] `docker compose ps` dice **healthy**.
 - [ ] La página abre por HTTPS desde fuera de la universidad, en computador y en celular.
-- [ ] En la consola del navegador no aparece el aviso de que el WebSocket falló
-      (si cae a _long-polling_ igual funciona, pero con más carga).
+- [ ] WebSocket permanece conectado y completa publicación, respuestas y moderación.
+- [ ] El respaldo HTTP long-polling se ensayó deliberadamente con el proxy y carga reales
+      según la sección 3; no basta con asumir que funcionará si falla WebSocket.
 - [ ] Un pin publicado desde un teléfono aparece en otro navegador sin recargar.
 - [ ] `/moderador` acepta el nombre y la clave de cada moderador.
 - [ ] Una palabra prohibida se rechaza y el mensaje de error se entiende.

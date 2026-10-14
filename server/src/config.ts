@@ -10,9 +10,15 @@ const REPO_ROOT = resolve(SERVER_ROOT, '..');
 
 const DEV_MOD_PASSWORD = 'moderador-dev';
 const DEV_SECRET = 'solo-para-desarrollo-cambiar-en-produccion';
+export const NOMBRE_EMERGENCIA = 'Emergencia';
+
+/** Configuración y login deben resolver la misma identidad para impedir nombres ambiguos. */
+export function normalizarNombreModerador(nombre: string): string {
+  return nombre.normalize('NFKC').toLowerCase().replace(/\s+/gu, '');
+}
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
   HOST: z.string().optional(),
   PORT: z.coerce.number().int().min(0).max(65535).default(3000),
   DB_PATH: z.string().default(resolve(REPO_ROOT, 'data/pizarra.db')),
@@ -50,7 +56,7 @@ export interface Config {
   carrerasPath: string;
   faqPath: string;
   clientDist: string;
-  /** Llave maestra: sirve con cualquier nombre. Vacía si solo se usan los moderadores. */
+  /** Clave opcional de emergencia, siempre atribuida a la identidad reservada. */
   modPassword: string;
   moderators: Moderator[];
   sessionSecret: string;
@@ -64,19 +70,19 @@ export interface Config {
  * querer. Con `--lan` (npm run dev:lan) se abre a la red local para probar en el celular.
  * En producción escucha en todas las interfaces: dentro de Docker es lo que corresponde.
  */
-function defaultHost(env: 'development' | 'production' | 'test'): string {
+function defaultHost(env: 'development' | 'production' | 'test', argumentos: string[]): string {
   if (env === 'production') return '0.0.0.0';
-  return process.argv.includes('--lan') ? '0.0.0.0' : '127.0.0.1';
+  return argumentos.includes('--lan') ? '0.0.0.0' : '127.0.0.1';
 }
 
 /**
  * `--port 3000` manda sobre la variable PORT. Sirve cuando quien lanza el proceso define PORT
  * para otra cosa (un lanzador de vista previa, por ejemplo) y se llevaría el servidor de API.
  */
-function argvPort(): number | undefined {
-  const i = process.argv.indexOf('--port');
+function argvPort(argumentos: string[]): number | undefined {
+  const i = argumentos.indexOf('--port');
   if (i === -1) return undefined;
-  const n = Number(process.argv[i + 1]);
+  const n = Number(argumentos[i + 1]);
   return Number.isInteger(n) && n >= 0 && n <= 65535 ? n : undefined;
 }
 
@@ -102,7 +108,7 @@ export function parseModerators(raw: string | undefined): Moderator[] {
     if (i <= 0) continue;
     const name = parte.slice(0, i).trim();
     const password = parte.slice(i + 1).trim();
-    const clave = name.toLowerCase();
+    const clave = normalizarNombreModerador(name);
     if (!name || !password || vistos.has(clave)) continue;
     vistos.add(clave);
     out.push({ name, password });
@@ -170,50 +176,82 @@ export function loadDotEnv(): void {
   }
 }
 
-export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
-  const e = envSchema.parse(env);
-  const prod = e.NODE_ENV === 'production';
-
-  const moderators = e.MOD_USERS ? parseModerators(e.MOD_USERS) : prod ? [] : devModerators();
-  const maestra = e.MOD_PASSWORD ?? '';
-
-  if (prod && maestra.length > 0 && maestra.length < 8) {
-    throw new Error('MOD_PASSWORD debe tener al menos 8 caracteres.');
-  }
-  if (prod) {
-    const esMarcador = (clave: string) =>
-      clave === DEV_MOD_PASSWORD || clave === 'REEMPLAZAR-CON-CLAVE-DEL-EQUIPO';
-    if (
-      moderators.some(
-        (moderador) => moderador.password.length < 12 || esMarcador(moderador.password),
-      )
-    ) {
+/** Evita perder moderadores por errores de formato o por nombres que el login trata como iguales. */
+function validarModeradores(raw: string | undefined): void {
+  if (!raw) return;
+  const vistos = new Set<string>();
+  for (const parte of raw.split(',')) {
+    const separador = parte.indexOf(':');
+    const nombre = separador > 0 ? parte.slice(0, separador).trim() : '';
+    const clave = separador > 0 ? parte.slice(separador + 1).trim() : '';
+    if (!nombre || !clave) {
+      throw new Error('MOD_USERS debe contener pares nombre:clave separados por comas.');
+    }
+    const identidad = normalizarNombreModerador(nombre);
+    if (identidad === normalizarNombreModerador(NOMBRE_EMERGENCIA)) {
+      throw new Error('El nombre Emergencia está reservado para MOD_PASSWORD.');
+    }
+    if (vistos.has(identidad)) {
       throw new Error(
-        'Cada clave de MOD_USERS debe tener al menos 12 caracteres y no ser una clave de desarrollo o de ejemplo.',
+        'MOD_USERS contiene un nombre de moderador repetido después de normalizarlo.',
       );
     }
-    if (esMarcador(maestra)) {
-      throw new Error('MOD_PASSWORD no puede ser una clave de desarrollo o de ejemplo.');
-    }
+    vistos.add(identidad);
+  }
+}
+
+export function loadConfig(
+  env: NodeJS.ProcessEnv = process.env,
+  argumentos: string[] = process.argv,
+): Config {
+  const desarrollo = argumentos.includes('--desarrollo');
+  if (desarrollo && env.NODE_ENV && env.NODE_ENV !== 'development') {
+    throw new Error('--desarrollo es incompatible con un NODE_ENV distinto de development.');
+  }
+  const e = envSchema.parse({
+    ...env,
+    NODE_ENV: env.NODE_ENV ?? (desarrollo ? 'development' : undefined),
+  });
+  const prod = e.NODE_ENV === 'production';
+
+  validarModeradores(e.MOD_USERS);
+  const moderators = e.MOD_USERS ? parseModerators(e.MOD_USERS) : prod ? [] : devModerators();
+  const maestra = e.MOD_PASSWORD ?? '';
+  const esMarcador = (clave: string) =>
+    clave === DEV_MOD_PASSWORD || clave === 'REEMPLAZAR-CON-CLAVE-DEL-EQUIPO';
+
+  if (esMarcador(maestra)) {
+    throw new Error('MOD_PASSWORD no puede ser una clave de desarrollo o de ejemplo.');
+  }
+  if (maestra.length > 0 && maestra.length < 12) {
+    throw new Error('MOD_PASSWORD debe tener al menos 12 caracteres.');
+  }
+  if (
+    prod &&
+    moderators.some((moderador) => moderador.password.length < 12 || esMarcador(moderador.password))
+  ) {
+    throw new Error(
+      'Cada clave de MOD_USERS debe tener al menos 12 caracteres y no ser una clave de desarrollo o de ejemplo.',
+    );
   }
   if (prod && maestra.length === 0 && moderators.length === 0) {
     throw new Error(
       'Falta definir quién modera. Crea un archivo .env junto a docker-compose.yml con:\n' +
-        '  MOD_USERS=Moderador 1:la-clave,Moderador 2:otra-clave\n' +
-        '(o MOD_PASSWORD con una clave de 8 caracteres o más, que sirve con cualquier nombre).',
+        '  MOD_USERS=Moderador 1:clave-privada-del-equipo,Moderador 2:otra-clave-privada\n' +
+        'Cada clave debe tener al menos 12 caracteres. MOD_PASSWORD es opcional y se registra como Emergencia.',
     );
   }
   return {
     env: e.NODE_ENV,
-    host: e.HOST || defaultHost(e.NODE_ENV),
-    port: argvPort() ?? e.PORT,
+    host: e.HOST || defaultHost(e.NODE_ENV, argumentos),
+    port: argvPort(argumentos) ?? e.PORT,
     dbPath: e.DB_PATH,
     institutionsPath: e.INSTITUTIONS_PATH,
     seccionesPath: e.SECCIONES_PATH,
     carrerasPath: e.CARRERAS_PATH,
     faqPath: e.FAQ_PATH,
     clientDist: e.CLIENT_DIST,
-    modPassword: prod ? maestra : maestra || DEV_MOD_PASSWORD,
+    modPassword: maestra,
     moderators,
     sessionSecret: resolveSessionSecret(e.SESSION_SECRET, prod, e.DB_PATH),
     trustProxy: parseTrustProxy(e.TRUST_PROXY),

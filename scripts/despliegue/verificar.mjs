@@ -22,10 +22,10 @@ for (const variable of [
   delete entorno[variable];
 }
 
-function configuracion(puerto) {
+function configuracion(puerto, confianza) {
   writeFileSync(
     archivo,
-    `MOD_USERS=Revision:CLAVE-FICTICIA-DE-VERIFICACION\nTRUST_PROXY=false\n${puerto === undefined ? '' : `PUERTO_PUBLICADO=${puerto}\n`}`,
+    `MOD_USERS=Revision:CLAVE-FICTICIA-DE-VERIFICACION\n${confianza === undefined ? '' : `TRUST_PROXY=${confianza}\n`}${puerto === undefined ? '' : `PUERTO_PUBLICADO=${puerto}\n`}`,
     { mode: 0o600 },
   );
   return JSON.parse(
@@ -54,7 +54,7 @@ try {
     ['3199', '3199'],
     ['', '3000'],
   ]) {
-    const servicio = configuracion(valor).services.pizarra;
+    const servicio = configuracion(valor, 'false').services.pizarra;
     assert.equal(servicio.ports.length, 1);
     assert.equal(servicio.ports[0].published, esperado);
     assert.equal(servicio.ports[0].target, 3000);
@@ -63,7 +63,19 @@ try {
   }
   assert.throws(() => configuracion('65536'));
   registrar('Correcto: se rechaza un puerto fuera del rango válido.');
-  registrar('Cuatro comprobaciones de Compose aprobadas; no se levantaron contenedores.');
+  for (const [valor, esperado] of [
+    [undefined, '1'],
+    ['', '1'],
+    ['false', 'false'],
+    ['2', '2'],
+  ]) {
+    assert.equal(
+      configuracion(undefined, valor).services.pizarra.environment.TRUST_PROXY,
+      esperado,
+    );
+    registrar(`Correcto: confianza del proxy ${esperado}, sin publicar fuera de localhost.`);
+  }
+  registrar('Ocho comprobaciones de Compose aprobadas; no se levantaron contenedores.');
 } finally {
   // Solo se elimina el archivo creado por esta comprobación y su carpeta temporal vacía.
   assert.equal(dirname(archivo), carpeta);

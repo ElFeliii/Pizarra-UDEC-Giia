@@ -4,6 +4,49 @@ Las claves reales y los datos del evento no se incluyen en Git ni en la imagen. 
 `.env` y `data/` fuera del repositorio, usar las credenciales individuales por un canal privado
 y conservar el historial saneado para publicar. Ver [PRIVACIDAD.md](PRIVACIDAD.md).
 
+## Respuesta a la auditoría del 12 de octubre de 2026
+
+La revisión cerrada el 14 de octubre incorpora las correcciones de aplicación descritas en
+[RESPUESTA-AUDITORIA.md](RESPUESTA-AUDITORIA.md): arranque seguro por omisión,
+firma fija de la maestra opcional como `Emergencia`, límites tempranos de eventos/conexiones
+y lecturas HTTP, consulta indexada de avisos, protección de avisos auténticos frente al
+autoocultado, comparación Unicode y visitas acotadas. También valida el origen de las acciones administrativas y corrige el borrado de datos
+cuando existen visitas y otras dependencias. La migración **v6** se añade al final; no se
+reescriben las migraciones publicadas. Hacer respaldo completo antes de actualizar.
+
+Producción requiere credenciales válidas antes de escuchar. Desarrollo exige selección
+explícita; no activar ese modo en el servidor del evento. Las claves individuales y la
+maestra, si se utiliza, requieren un mínimo de 12 caracteres; generar valores aleatorios.
+Una lista de moderadores mal formada o con identidades repetidas impide el arranque.
+`MOD_PASSWORD` permanece vacía salvo necesidad aprobada y siempre se registra como
+`Emergencia`, identidad reservada. Para revocar claves y sesiones, editar el `.env` protegido
+y usar `docker compose up -d --force-recreate --wait --wait-timeout 120`; todas las sesiones
+de moderación en memoria se invalidan. Un `restart` no importa variables nuevas.
+
+Las notas y respuestas firmadas conservan filtros, secciones y revisión de reportes;
+la excepción sólo impide su autoocultado por reportes. Copiar el nombre o la firma en JSON
+no la concede. La comparación usa NFKC y dígitos Unicode decimales; el contenido almacenado
+conserva NFC y la ñ. Las visitas nuevas se acotan en 300 por nota, conservando contadores
+históricos superiores y crecimiento. No representan asistencia certificada ni antifraude.
+
+El presupuesto temprano cuenta mensajes inválidos y desconocidos antes de SQLite.
+Permite ráfagas legítimas de asistentes bajo el mismo WiFi y limita reconexiones por IP;
+las lecturas HTTP caras devuelven 429 al agotarse. Estos controles no sustituyen la
+protección de red/DDoS de GIIA. Sus capacidades y regresiones están en la respuesta técnica.
+
+Compose usa `TRUST_PROXY=1` exclusivamente para un proxy local y backend publicado en
+IPv4 loopback; adaptar con GIIA una cadena diferente. La configuración conserva origen,
+IP y protocolo externos, con `Upgrade`/`Connection` y timeout de 75 segundos para WebSocket.
+El cliente también admite HTTP long-polling; validar ambos transportes, cookies seguras,
+reconexión y carga detrás del Nginx real. La aceptación institucional sigue pendiente.
+Ver [DESPLIEGUE.md](DESPLIEGUE.md#3-proxy-con-websocket).
+
+Los resultados de la versión nueva se registran con fecha en
+[ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md). Los conteos y el escaneo del 8 y 9 de
+octubre que se conservan más abajo son históricos y no certifican una imagen posterior.
+La revisión local de módulos Unicode en Node 22.23.3 pasó; ese ensayo aislado no equivale
+a verificar el nuevo servidor completo ni el host institucional.
+
 ## Herramientas de desarrollo y construcción
 
 Se actualizaron las siguientes dependencias transitivas. El archivo raíz `package.json`
@@ -59,7 +102,28 @@ Se conservaron la arquitectura y las migraciones publicadas. Las 33 pruebas adic
 acompañan las correcciones. La suite completa tiene 394 casos y se ejecutó nuevamente;
 evidencia y alcance en [ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md).
 
-## Imagen de ejecución: revisión del 8 de octubre de 2026
+## Imagen final del 14 de octubre de 2026
+
+Imagen `pizarra-udec:auditoria-20261014`, identificador `sha256:d3d9ca54bee9a79e7a5da827137f79e5b45caeaa97429c4dde82859b73046f68`.
+Trivy 0.75.0, sin red: **228 avisos por paquete Debian, 99 identificadores distintos,
+cero avisos Node y ninguna versión corregida indicada en la base consultada**.
+Severidades por paquete: 83 bajas, 95 medias, 48 altas, una desconocida y una crítica.
+La base se actualizó el 13 de octubre a las 19:11 UTC; el análisis final se realizó el 14.
+El informe vigente es [seguridad-imagen.json](seguridad-imagen.json).
+
+El aviso crítico sigue siendo CVE-2023-45853 de MiniZip. Se volvió a comprobar en esta
+imagen que MiniZip no está instalado y se contrastó la nota de
+[Debian sobre Bookworm](https://security-tracker.debian.org/tracker/CVE-2023-45853):
+contrib/minizip no se construye dentro del paquete zlib de esa versión.
+Esto acota la aplicabilidad de ese aviso; no descarta los otros ni reemplaza la decisión de GIIA.
+No se presenta la imagen como libre de vulnerabilidades. El reporte anterior permanece
+descrito más abajo como antecedente, con sus cifras y fechas originales.
+
+La suite final, npm audit, Nginx y recuperación están documentados en
+[ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md). El origen administrativo se comprueba
+antes del cuerpo y autenticación, además del control de origen del tiempo real.
+
+## Imagen de ejecución: referencia del 8 de octubre de 2026
 
 Se construyó de nuevo con `docker build --pull --no-cache`. La etapa final aplica las actualizaciones
 APT disponibles y retira npm, npx y Corepack después de instalar las dependencias de producción.
@@ -71,22 +135,22 @@ La base de avisos se descargó antes, sin montar código ni la imagen en ese pas
 posterior usó `--network none`, `--offline-scan` y `--skip-db-update`: no envió el contenido
 a un servicio de análisis externo.
 
-| Resultado                                    | Imagen anterior | Imagen actual |
-| -------------------------------------------- | --------------: | ------------: |
-| Avisos en paquetes Node detectados por Trivy |              21 |             0 |
-| Avisos por paquete Debian                    |             235 |           222 |
-| Avisos Debian con versión corregida indicada |              13 |             0 |
+| Resultado                                    | Antes de la revisión | Imagen del 8 de octubre |
+| -------------------------------------------- | -------------------: | ----------------------: |
+| Avisos en paquetes Node detectados por Trivy |                   21 |                       0 |
+| Avisos por paquete Debian                    |                  235 |                     222 |
+| Avisos Debian con versión corregida indicada |                   13 |                       0 |
 
 Los 13 avisos corregibles correspondían a `perl-base`, actualizado a `5.36.0-7+deb12u4`.
 La retirada de npm y Corepack eliminó los avisos de sus dependencias de la imagen final.
 La instalación de las dependencias de producción durante la construcción también informó
 cero avisos npm; `npm audit --json` del proyecto terminó con salida 0 y cero vulnerabilidades.
 
-**La imagen no se presenta como libre de vulnerabilidades.** El informe final contiene 222
+**La imagen no se presenta como libre de vulnerabilidades.** El informe del 8 de octubre contiene 222
 combinaciones de paquete y aviso, correspondientes a 93 identificadores distintos de Debian:
 48 altas, 95 medias, 77 bajas, una de severidad desconocida y una clasificada como crítica.
 La base consultada no indica versiones corregidas para esos paquetes en Debian 12.
-El [informe estructurado](seguridad-imagen.json) conserva identificadores, paquetes,
+El [informe estructurado fechado](seguridad-imagen.json) conserva identificadores, paquetes,
 versiones, estados y referencias para que la Célula evalúe aplicabilidad y tratamiento.
 
 El aviso crítico `CVE-2023-45853` corresponde a MiniZip. La

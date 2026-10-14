@@ -1,18 +1,18 @@
 {
-  "fecha": "2026-10-08",
+  "fecha": "2026-10-14",
   "analizador": "Trivy 0.75.0",
   "escaneoSinRed": true,
-  "imagen": "pizarra-udec:revision-20261008",
-  "identificadorImagen": "sha256:48053127d6e3a276603365848b7add1f5701a590a001e8690ebfc12481668a4a",
+  "imagen": "pizarra-udec:auditoria-20261014",
+  "identificadorImagen": "sha256:d3d9ca54bee9a79e7a5da827137f79e5b45caeaa97429c4dde82859b73046f68",
   "sistema": "Debian 12.15",
-  "baseActualizadaUTC": "2026-10-08T19:05:21.721409049Z",
-  "baseDescargadaUTC": "2026-10-09T00:32:36.974356821Z",
-  "avisosPorPaquete": 222,
-  "avisosUnicos": 93,
+  "baseActualizadaUTC": "2026-10-13T19:11:46.909502157Z",
+  "baseDescargadaUTC": "2026-10-13T22:41:44.847722681Z",
+  "avisosPorPaquete": 228,
+  "avisosUnicos": 99,
   "avisosNode": 0,
   "corregiblesDetectados": 0,
   "severidadesPorPaquete": {
-    "LOW": 77,
+    "LOW": 83,
     "HIGH": 48,
     "MEDIUM": 95,
     "UNKNOWN": 1,
@@ -1492,6 +1492,20 @@
       "referencia": "https://avd.aquasec.com/nvd/cve-2026-6368"
     },
     {
+      "id": "CVE-2026-67693",
+      "severidad": "LOW",
+      "estado": "affected",
+      "titulo": "gnutls: gnutls: Information disclosure via contradictory Key Usage and Extended Key Usage extensions",
+      "paquetes": [
+        {
+          "nombre": "libgnutls30",
+          "version": "3.7.9-2+deb12u7",
+          "versionCorregida": null
+        }
+      ],
+      "referencia": "https://avd.aquasec.com/nvd/cve-2026-67693"
+    },
+    {
       "id": "CVE-2026-6791",
       "severidad": "MEDIUM",
       "estado": "fix_deferred",
@@ -1811,6 +1825,34 @@
       "referencia": "https://avd.aquasec.com/nvd/cve-2026-86805"
     },
     {
+      "id": "CVE-2026-88647",
+      "severidad": "LOW",
+      "estado": "affected",
+      "titulo": "gnutls: gnutls: Information disclosure via hostname verification bypass",
+      "paquetes": [
+        {
+          "nombre": "libgnutls30",
+          "version": "3.7.9-2+deb12u7",
+          "versionCorregida": null
+        }
+      ],
+      "referencia": "https://avd.aquasec.com/nvd/cve-2026-88647"
+    },
+    {
+      "id": "CVE-2026-88648",
+      "severidad": "LOW",
+      "estado": "affected",
+      "titulo": "gnutls: gnutls: Cross-domain certificate restriction bypass via incomplete X.509 validation",
+      "paquetes": [
+        {
+          "nombre": "libgnutls30",
+          "version": "3.7.9-2+deb12u7",
+          "versionCorregida": null
+        }
+      ],
+      "referencia": "https://avd.aquasec.com/nvd/cve-2026-88648"
+    },
+    {
       "id": "CVE-2026-89092",
       "severidad": "MEDIUM",
       "estado": "fix_deferred",
@@ -1830,6 +1872,48 @@
       "referencia": "https://avd.aquasec.com/nvd/cve-2026-89092"
     },
     {
+      "id": "CVE-2026-95184",
+      "severidad": "LOW",
+      "estado": "affected",
+      "titulo": "Improper certificate validation in gnutls v3.8.13 causes the applicati ...",
+      "paquetes": [
+        {
+          "nombre": "libgnutls30",
+          "version": "3.7.9-2+deb12u7",
+          "versionCorregida": null
+        }
+      ],
+      "referencia": "https://avd.aquasec.com/nvd/cve-2026-95184"
+    },
+    {
+      "id": "CVE-2026-95209",
+      "severidad": "LOW",
+      "estado": "affected",
+      "titulo": "An issue in gnutls v3.8.13 causes legitimate CA certificates to be rej ...",
+      "paquetes": [
+        {
+          "nombre": "libgnutls30",
+          "version": "3.7.9-2+deb12u7",
+          "versionCorregida": null
+        }
+      ],
+      "referencia": "https://avd.aquasec.com/nvd/cve-2026-95209"
+    },
+    {
+      "id": "CVE-2026-95210",
+      "severidad": "LOW",
+      "estado": "affected",
+      "titulo": "Improper certificate validation in gnutls v3.8.13 causes the applicati ...",
+      "paquetes": [
+        {
+          "nombre": "libgnutls30",
+          "version": "3.7.9-2+deb12u7",
+          "versionCorregida": null
+        }
+      ],
+      "referencia": "https://avd.aquasec.com/nvd/cve-2026-95210"
+    },
+    {
       "id": "CVE-2026-9538",
       "severidad": "HIGH",
       "estado": "fix_deferred",
@@ -1846,7 +1930,7 @@
     {
       "id": "CVE-2026-95619",
       "severidad": "MEDIUM",
-      "estado": "affected",
+      "estado": "fix_deferred",
       "titulo": "gcc: libstdc++ integer overflow in `new` operator",
       "paquetes": [
         {

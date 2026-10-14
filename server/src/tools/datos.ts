@@ -1,6 +1,6 @@
 /**
  * Herramienta de datos para después del evento. Se ejecuta en el servidor, no desde el panel:
- * borrar es irreversible y las claves de los moderadores son cortas a propósito.
+ * borrar es irreversible y requiere acceso administrativo a la base de datos.
  *
  *   node server/dist/datos.js --resumen
  *   node server/dist/datos.js --anonimizar-ips
@@ -14,7 +14,8 @@
  */
 
 import { openDatabase, type DB } from '../db/db';
-import { loadConfig, loadDotEnv } from '../config';
+import { loadDotEnv, SERVER_ROOT } from '../config';
+import { resolve } from 'node:path';
 
 export interface Resumen {
   usuarios: number;
@@ -86,20 +87,34 @@ export interface Borrado {
  */
 export function borrarUsuario(db: DB, id: number): Borrado {
   return db.transaction(() => {
-    const pines = db.prepare('SELECT id FROM pins WHERE user_id = ?').all(id) as { id: number }[];
-    let respuestas = 0;
-    for (const pin of pines) {
-      respuestas += db.prepare('DELETE FROM replies WHERE pin_id = ?').run(pin.id).changes;
-      db.prepare('DELETE FROM content_fts WHERE pin_id = ?').run(pin.id);
-      db.prepare("DELETE FROM reports WHERE target_type = 'pin' AND target_id = ?").run(pin.id);
-    }
-    respuestas += db.prepare('DELETE FROM replies WHERE user_id = ?').run(id).changes;
+    const pinesPropios = 'SELECT id FROM pins WHERE user_id = @id';
+    const respuestasPropias = `SELECT id FROM replies WHERE user_id = @id OR pin_id IN (${pinesPropios})`;
+    const parametros = { id, ahora: Date.now() };
+    // Las subconsultas deben ejecutarse antes de borrar sus filas: después ya no identifican
+    // los reportes e índices de respuestas ajenas dentro del hilo que también se retira.
     db.prepare(
-      "DELETE FROM content_fts WHERE kind = 'reply' AND ref_id IN (SELECT id FROM replies WHERE user_id = ?)",
-    ).run(id);
-    const borradosPines = db.prepare('DELETE FROM pins WHERE user_id = ?').run(id).changes;
-    db.prepare('DELETE FROM reports WHERE user_id = ?').run(id);
-    const usuarios = db.prepare('DELETE FROM users WHERE id = ?').run(id).changes;
+      `DELETE FROM content_fts WHERE pin_id IN (${pinesPropios})
+      OR (kind = 'reply' AND ref_id IN (${respuestasPropias}))`,
+    ).run(parametros);
+    db.prepare(
+      `DELETE FROM reports WHERE user_id = @id
+      OR (target_type = 'pin' AND target_id IN (${pinesPropios}))
+      OR (target_type = 'reply' AND target_id IN (${respuestasPropias}))`,
+    ).run(parametros);
+    db.prepare(`DELETE FROM pin_vistas WHERE pin_id IN (${pinesPropios})`).run(parametros);
+    db.prepare(
+      `UPDATE pins SET reply_count = (
+      SELECT COUNT(*) FROM replies WHERE pin_id = pins.id AND hidden_at IS NULL AND user_id != @id
+    ), updated_at = MAX(updated_at, @ahora)
+    WHERE user_id != @id AND id IN (SELECT pin_id FROM replies WHERE user_id = @id)`,
+    ).run(parametros);
+    const respuestas = db
+      .prepare(`DELETE FROM replies WHERE id IN (${respuestasPropias})`)
+      .run(parametros).changes;
+    const borradosPines = db
+      .prepare('DELETE FROM pins WHERE user_id = @id')
+      .run(parametros).changes;
+    const usuarios = db.prepare('DELETE FROM users WHERE id = @id').run(parametros).changes;
     return { pines: borradosPines, respuestas, usuarios };
   })();
 }
@@ -108,6 +123,7 @@ export function borrarUsuario(db: DB, id: number): Borrado {
 export function borrarContenido(db: DB): Borrado {
   return db.transaction(() => {
     const respuestas = db.prepare('DELETE FROM replies').run().changes;
+    db.prepare('DELETE FROM pin_vistas').run();
     const pines = db.prepare('DELETE FROM pins').run().changes;
     db.prepare('DELETE FROM reports').run();
     db.prepare('DELETE FROM content_fts').run();
@@ -147,6 +163,14 @@ function valor(bandera: string): string | undefined {
   return i === -1 ? undefined : process.argv[i + 1];
 }
 
+/** La herramienta local no inicia un servidor ni requiere credenciales de moderación. */
+export function resolverRutaDatos(
+  argumento: string | undefined,
+  entorno: Record<string, string | undefined> = process.env,
+): string {
+  return argumento ?? entorno.DB_PATH ?? resolve(SERVER_ROOT, '../data/pizarra.db');
+}
+
 export async function main(): Promise<number> {
   const args = process.argv.slice(2);
   if (args.length === 0 || args.includes('--ayuda') || args.includes('-h')) {
@@ -155,7 +179,7 @@ export async function main(): Promise<number> {
   }
 
   loadDotEnv();
-  const ruta = valor('--db') ?? loadConfig().dbPath;
+  const ruta = resolverRutaDatos(valor('--db'));
   const confirmado = args.includes('--si');
   const db = openDatabase(ruta);
   console.log(`Base de datos: ${ruta}\n`);

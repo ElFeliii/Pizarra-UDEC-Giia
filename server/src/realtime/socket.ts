@@ -5,11 +5,12 @@ import {
   type ServerToClientEvents,
 } from '@pizarra/shared';
 import type { FastifyInstance } from 'fastify';
-import type { IncomingMessage } from 'node:http';
 import proxyaddr from 'proxy-addr';
 import { Server, type Socket } from 'socket.io';
 import type { Broadcaster, AppContext } from '../context';
 import { MOD_COOKIE, type ModSessions } from '../http/auth';
+import { origenPermitido } from '../http/origen';
+import { LIMIT_SPECS, RateLimiter } from '../moderation/rateLimit';
 import {
   createNota,
   createPin,
@@ -18,7 +19,7 @@ import {
   notaVisible,
   registrarVista,
 } from '../services/content';
-import { fail } from '../services/errors';
+import { fail, rateLimited } from '../services/errors';
 import { reportContent } from '../services/moderation';
 import { makeTrust } from '../trust';
 
@@ -55,40 +56,17 @@ export function attachRealtime(
 ): Realtime {
   const trust = makeTrust(ctx.config.trustProxy);
 
-  // SameSite no separa subdominios hermanos; WebSocket requiere comprobar el origen.
-  function origenPermitido(solicitud: IncomingMessage): boolean {
-    const cabecera = solicitud.headers.origin;
-    // Los clientes CLI no envían Origin; los navegadores sí lo envían en WebSocket.
-    if (cabecera === undefined) return true;
-    try {
-      const origen = new URL(cabecera);
-      if (origen.origin !== cabecera || !['http:', 'https:'].includes(origen.protocol))
-        return false;
-      let protocolo = (solicitud.socket as { encrypted?: boolean }).encrypted ? 'https:' : 'http:';
-      const reenviado = solicitud.headers['x-forwarded-proto'];
-      const direccion = solicitud.socket.remoteAddress;
-      if (direccion && trust(direccion, 0) && (reenviado === 'https' || reenviado === 'http')) {
-        protocolo = `${reenviado}:`;
-      }
-      const anfitrion = solicitud.headers.host;
-      if (!anfitrion) return false;
-      const destino = new URL(`${protocolo}//${anfitrion}`);
-      if (destino.username || destino.password) return false;
-      if (origen.origin === destino.origin) return true;
-      return (
-        ctx.config.env === 'development' &&
-        origen.protocol === protocolo &&
-        origen.hostname === destino.hostname &&
-        origen.port === '5173'
-      );
-    } catch {
-      return false;
-    }
-  }
-
   const io: IO = new Server(app.server, {
     serveClient: false,
-    allowRequest: (solicitud, responder) => responder(null, origenPermitido(solicitud)),
+    allowRequest: (solicitud, responder) => {
+      if (!origenPermitido(solicitud, trust, ctx.config.env)) return responder(null, false);
+      try {
+        const ip = proxyaddr(solicitud, trust);
+        responder(null, ctx.limiters.conexionSocket.take(ip).ok);
+      } catch {
+        responder(null, false);
+      }
+    },
     maxHttpBufferSize: 16_000,
     pingInterval: 25_000,
     pingTimeout: 20_000,
@@ -148,6 +126,22 @@ export function attachRealtime(
 
   io.on('connection', (socket) => {
     const { userId, moderator, ip } = socket.data;
+    const eventos = new RateLimiter(LIMIT_SPECS.eventoSocket, ctx.now);
+    let rechazosSeguidos = 0;
+    // Corre antes de handlers y SQLite, incluso sin sesión o con un evento desconocido.
+    socket.use((mensaje, continuar) => {
+      const local = eventos.take('conexion');
+      const limite = local.ok ? ctx.limiters.eventosPorIp.take(ip) : local;
+      if (limite.ok) {
+        rechazosSeguidos = 0;
+        continuar();
+        return;
+      }
+      const ack = mensaje.at(-1);
+      if (typeof ack === 'function') ack(rateLimited(limite.retryAfterMs));
+      // No registrar cada rechazo: una ráfaga tampoco debe llenar los logs.
+      if (++rechazosSeguidos >= 3) socket.disconnect(true);
+    });
     if (userId) void socket.join(`user:${userId}`);
     if (moderator) void socket.join('mods');
     presenceDirty = true;

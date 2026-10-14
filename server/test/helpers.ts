@@ -13,7 +13,8 @@ export async function startServer(env: Record<string, string> = {}) {
   const config = loadConfig({
     NODE_ENV: 'test',
     DB_PATH: ':memory:',
-    MOD_PASSWORD,
+    MOD_PASSWORD: '',
+    MOD_USERS: `Mod Test:${MOD_PASSWORD}`,
     SESSION_SECRET: 's'.repeat(40),
     AUTO_HIDE_REPORTS: '3',
     CLIENT_DIST: '/no-existe',

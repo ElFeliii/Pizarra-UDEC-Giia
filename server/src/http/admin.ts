@@ -28,6 +28,8 @@ import { agregarPregunta, cambiarPreguntaOculta } from '../services/temas';
 import { authenticateModerator, MOD_COOKIE, MOD_SESSION_TTL_MS, type ModSessions } from './auth';
 import { formatDate, toCsv, type CsvColumn } from './csv';
 import { sendAck, sendError } from './respond';
+import { origenPermitido } from './origen';
+import { makeTrust } from '../trust';
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -115,6 +117,16 @@ function readSid(app: FastifyInstance, req: FastifyRequest): string | undefined 
 }
 
 export async function adminRoutes(app: FastifyInstance, { ctx, modSessions }: AdminDeps) {
+  const confia = makeTrust(ctx.config.trustProxy);
+  const mutaciones = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+  // Antes del cuerpo y del login: una cookie válida no autoriza acciones desde otro origen.
+  app.addHook('onRequest', async (req, reply) => {
+    if (!mutaciones.has(req.method) || origenPermitido(req.raw, confia, ctx.config.env)) return;
+    return reply.code(403).send({
+      error: { code: 'UNAUTHORIZED', message: 'El origen de la solicitud no está permitido.' },
+    });
+  });
+
   // ---------- Sesión ----------
 
   app.post('/api/admin/login', async (req, reply) => {

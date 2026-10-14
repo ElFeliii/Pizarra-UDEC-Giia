@@ -77,11 +77,14 @@ describe('login de moderador', () => {
     expect(entra('Moderador 2', ` ${clave(2)}`)).toBeNull();
   });
 
-  it('la llave maestra sirve con cualquier nombre', () => {
+  it('la llave maestra registra una identidad fija de emergencia', () => {
     expect(entra('Camila de Rectoría', 'clave-larga-del-evento', 'clave-larga-del-evento')).toBe(
-      'Camila de Rectoría',
+      'Emergencia',
     );
     expect(entra('Camila de Rectoría', 'otra', 'clave-larga-del-evento')).toBeNull();
+    expect(entra('Moderador 3', 'clave-larga-del-evento', 'clave-larga-del-evento')).toBe(
+      'Emergencia',
+    );
   });
 
   it('sin llave maestra configurada, una clave vacía no abre nada', () => {
@@ -171,5 +174,54 @@ describe('credenciales de producción', () => {
 
   it('rechaza la llave maestra de desarrollo en producción', () => {
     expect(() => loadConfig({ ...base, MOD_PASSWORD: 'moderador-dev' })).toThrow(/desarrollo/);
+  });
+});
+
+describe('identidad y fortaleza de emergencia', () => {
+  const base = {
+    NODE_ENV: 'production',
+    DB_PATH: ':memory:',
+    CLIENT_DIST: '/no-existe',
+    SESSION_SECRET: 's'.repeat(40),
+  };
+
+  it.each(['clave123', 'x'.repeat(11)])(
+    'rechaza una clave maestra inferior a 12 caracteres: %s',
+    (claveFicticia) => {
+      expect(() => loadConfig({ ...base, MOD_PASSWORD: claveFicticia })).toThrow(/12 caracteres/);
+    },
+  );
+
+  it('permite habilitar explícitamente una clave maestra fuerte sin moderadores individuales', () => {
+    const configuracion = loadConfig({ ...base, MOD_PASSWORD: 'clave-maestra-ficticia' });
+    expect(configuracion.moderators).toEqual([]);
+    expect(
+      authenticateModerator(
+        [],
+        configuracion.modPassword,
+        'Nombre arbitrario',
+        'clave-maestra-ficticia',
+      ),
+    ).toBe('Emergencia');
+  });
+
+  it.each(['Emergencia', ' e merg encia ', 'Ｅｍｅｒｇｅｎｃｉａ'])(
+    'reserva el nombre %s para la clave maestra',
+    (nombre) => {
+      expect(() =>
+        loadConfig({ ...base, MOD_USERS: `${nombre}:clave-individual-ficticia` }),
+      ).toThrow(/reservado/);
+    },
+  );
+
+  it.each([
+    'Mod Uno:clave-individual-ficticia,moduno:otra-clave-ficticia',
+    'Ana:clave-individual-ficticia,ＡＮＡ:otra-clave-ficticia',
+  ])('rechaza identidades ambiguas después de normalizar', (lista) => {
+    expect(() => loadConfig({ ...base, MOD_USERS: lista })).toThrow(/repetido/);
+  });
+
+  it('acepta nombres Unicode equivalentes y mantiene el nombre individual verdadero', () => {
+    expect(entra('Ｍｏｄｅｒａｄｏｒ ３', clave(3))).toBe('Moderador 3');
   });
 });

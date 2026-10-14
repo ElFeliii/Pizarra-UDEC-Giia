@@ -259,7 +259,9 @@ export function reportContent(
   if (!added) return ok({ received: true });
 
   const threshold = ctx.config.autoHideReports;
+  // La firma proviene de la sesión autenticada: los reportes del equipo requieren revisión humana.
   const autoHidden =
+    target.autorModerador === null &&
     threshold > 0 &&
     ctx.repos.reports.openCount(targetType, targetId) >= threshold &&
     hideContent(ctx, targetType, targetId, SYSTEM, 'reports');

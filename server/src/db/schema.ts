@@ -155,4 +155,10 @@ export const MIGRATIONS: string[] = [
   ALTER TABLE pins ADD COLUMN autor_moderador TEXT;
   ALTER TABLE replies ADD COLUMN autor_moderador TEXT;
   `,
+  /* v6: acotar la deduplicación de visitas de notas que ya alcanzaron el tamaño máximo
+     y consultar los avisos firmados sin recorrer todas las notas de asistentes. */ `
+  DELETE FROM pin_vistas WHERE pin_id IN (SELECT id FROM pins WHERE vistas >= 300);
+  CREATE INDEX pins_moderadores_visibles ON pins(seccion_id)
+    WHERE autor_moderador IS NOT NULL AND hidden_at IS NULL;
+  `,
 ];

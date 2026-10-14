@@ -1,6 +1,6 @@
 # Revisión del repositorio de entrega
 
-Revisión del 9 de octubre de 2026, aplicada a los archivos actuales de entrega, al paquete
+Revisión del 14 de octubre de 2026, aplicada a los archivos actuales de entrega, al paquete
 y al historial vigente de la copia de publicación. La actualización conserva el historial saneado de publicación. El repositorio de desarrollo permanece
 separado: su historial antiguo no forma parte de la entrega.
 

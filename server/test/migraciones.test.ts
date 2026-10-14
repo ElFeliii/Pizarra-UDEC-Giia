@@ -48,7 +48,10 @@ describe('migraciones sobre una base con datos', () => {
     const tablas = ['users', 'pins', 'replies', 'temas', 'pin_vistas', 'reports'];
     const antes = tablas.map((tabla) => previa.prepare(`SELECT * FROM ${tabla}`).all());
     previa.close();
-    const migrada = openDatabase(archivo);
+    const migrada = new Database(archivo);
+    migrada.pragma('foreign_keys = ON');
+    migrada.exec(MIGRATIONS[4]!);
+    migrada.pragma('user_version = 5');
     try {
       expect(migrada.pragma('user_version', { simple: true })).toBe(5);
       for (const [indice, tabla] of tablas.entries()) {
@@ -131,5 +134,64 @@ describe('migraciones sobre una base con datos', () => {
     expect(db.pragma('user_version', { simple: true })).toBe(MIGRATIONS.length);
     expect(db.prepare('SELECT COUNT(*) AS n FROM pins').get()).toEqual({ n: 2 });
     db.close();
+  });
+});
+
+describe('migración v6 sobre visitas existentes', () => {
+  it('retira visitas saturadas sin cambiar contenido, contadores ni firmas y se aplica una sola vez', () => {
+    const archivo = baseEnVersion(5);
+    const previa = new Database(archivo);
+    previa.pragma('foreign_keys = ON');
+    previa.exec(`UPDATE pins SET seccion_id = CASE surface WHEN 'map' THEN 'mapa' ELSE 'pizarra' END;
+      UPDATE pins SET vistas = 299, autor_moderador = 'Equipo' WHERE id = 1;
+      UPDATE pins SET vistas = 300 WHERE id = 2;
+      INSERT INTO pins (seccion_id, surface, x, y, color, text, user_id, autor_moderador, vistas, created_at, updated_at)
+        VALUES ('pizarra', 'board', 20, 20, 'verde', 'Nota histórica', 1, 'Equipo', 450, 2, 2);
+      INSERT INTO replies (pin_id, text, user_id, autor_moderador, created_at) VALUES (3, 'Respuesta histórica', 1, 'Equipo', 3);
+      UPDATE pins SET reply_count = 1 WHERE id = 3;
+      INSERT INTO reports (target_type, target_id, user_id, created_at) VALUES ('pin', 3, 1, 4);
+      INSERT INTO content_fts (text, author, institution, kind, ref_id, pin_id)
+        VALUES ('Nota histórica', 'Equipo', 'Colegio ejemplo 1', 'pin', 3, 3);`);
+    const insertar = previa.prepare('INSERT INTO pin_vistas VALUES (?, ?, ?)');
+    previa.transaction(() => {
+      for (const [id, cantidad] of [
+        [1, 299],
+        [2, 300],
+        [3, 450],
+      ] as const) {
+        for (let n = 0; n < cantidad; n++) insertar.run(id, `visitante-${n}`, n);
+      }
+    })();
+    const tablas = ['users', 'pins', 'replies', 'secciones', 'temas', 'reports', 'content_fts'];
+    const antes = tablas.map((tabla) => previa.prepare(`SELECT * FROM ${tabla}`).all());
+    const visitasVigentes = previa.prepare('SELECT * FROM pin_vistas WHERE pin_id = 1').all();
+    previa.close();
+    let migrada = openDatabase(archivo);
+    try {
+      expect(migrada.pragma('user_version', { simple: true })).toBe(6);
+      for (const [indice, tabla] of tablas.entries()) {
+        expect(migrada.prepare(`SELECT * FROM ${tabla}`).all()).toEqual(antes[indice]);
+      }
+      expect(migrada.prepare('SELECT * FROM pin_vistas').all()).toEqual(visitasVigentes);
+      expect(
+        migrada
+          .prepare(
+            "SELECT name FROM sqlite_master WHERE type = 'index' AND name = 'pins_moderadores_visibles'",
+          )
+          .get(),
+      ).toEqual({ name: 'pins_moderadores_visibles' });
+      expect(migrada.pragma('foreign_key_check')).toEqual([]);
+      migrada.close();
+      migrada = openDatabase(archivo);
+      expect(migrada.pragma('user_version', { simple: true })).toBe(6);
+      expect(migrada.prepare('SELECT * FROM pin_vistas').all()).toEqual(visitasVigentes);
+      expect(migrada.prepare('SELECT id, vistas FROM pins ORDER BY id').all()).toEqual([
+        { id: 1, vistas: 299 },
+        { id: 2, vistas: 300 },
+        { id: 3, vistas: 450 },
+      ]);
+    } finally {
+      migrada.close();
+    }
   });
 });

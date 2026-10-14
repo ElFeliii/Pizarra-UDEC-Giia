@@ -15,7 +15,8 @@ services:
       MOD_PASSWORD: ${MOD_PASSWORD:-}
       # Si se deja vacía, el servidor genera el secreto y lo guarda en data/session-secret.
       SESSION_SECRET: ${SESSION_SECRET:-}
-      TRUST_PROXY: ${TRUST_PROXY:-loopback}
+      # Un único proxy local; el par TCP puede ser el puente Docker.
+      TRUST_PROXY: ${TRUST_PROXY:-1}
       AUTO_HIDE_REPORTS: ${AUTO_HIDE_REPORTS:-3}
     ports:
       # Solo escucha en localhost: el proxy HTTPS de la universidad reenvía hacia aquí.

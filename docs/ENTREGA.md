@@ -4,7 +4,12 @@ La Célula de Infraestructura y Seguridad realiza el levantamiento, previa solic
 aprobación por su plataforma de tickets. Esta guía sigue el Manual de Trabajo 1.0 del
 15 de junio de 2026. No se necesita modificar el código para escoger el puerto del servidor.
 
-Documento principal con instalación, funcionamiento y precauciones: [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md).
+Revisión documental: **14 de octubre de 2026**. Documento principal con instalación,
+funcionamiento y precauciones: [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md). La respuesta a los
+apartados del informe del 12 de octubre está en [RESPUESTA-AUDITORIA.md](RESPUESTA-AUDITORIA.md).
+Los resultados de pruebas, imagen y ensayos tienen su fecha y alcance en
+[ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md); no confundir una comprobación local con
+la aceptación del servidor institucional.
 
 ## Información para el ticket
 
@@ -12,7 +17,7 @@ Documento principal con instalación, funcionamiento y precauciones: [GUIA-INFOR
 | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Proyecto y objetivo           | Pizarra UdeC: participación en un evento universitario de puertas abiertas mediante notas, mapa del campus y contenido orientador, con moderación y tiempo real               |
 | Responsable y fechas          | Completar por el equipo organizador en el ticket                                                                                                                              |
-| Repositorio privado           | [Pizarra-UDEC-Giia](https://github.com/ElFeliii/Pizarra-UDEC-Giia); autorizar la cuenta de quien despliega y de la Célula                                                     |
+| Repositorio público           | [Pizarra-UDEC-Giia](https://github.com/ElFeliii/Pizarra-UDEC-Giia); código saneado disponible para lectura pública; la Célula define accesos administrativos                  |
 | Versión                       | Identificar el commit publicado aprobado antes de instalar                                                                                                                    |
 | Recursos iniciales propuestos | 1 vCPU, 1 GB de RAM y 2 GB de disco para aplicación e imagen; confirmar capacidad y espacio adicional para logs y respaldos con GIIA                                          |
 | Directorio                    | `/var/src/pizarra-udec`                                                                                                                                                       |
@@ -20,7 +25,9 @@ Documento principal con instalación, funcionamiento y precauciones: [GUIA-INFOR
 | Subdominio solicitado         | Uno dentro de `.giia.udec.cl`; `pizarra.giia.udec.cl` es una propuesta todavía no asignada                                                                                    |
 | Documentación                 | [Verificación actual](ENTREGA-VERIFICACION.md), esta guía, [DESPLIEGUE.md](DESPLIEGUE.md), [PRIVACIDAD.md](PRIVACIDAD.md), [SEGURIDAD.md](SEGURIDAD.md) y el resto de `docs/` |
 
-El nombre del repositorio no es el dominio del evento. La URL definitiva será
+El repositorio se confirmó **público** mediante la API de GitHub el 13 de octubre de 2026.
+Eso permite descargar el código sin publicar credenciales ni datos operativos. El nombre
+del repositorio no es el dominio del evento. La URL definitiva será
 `https://<subdominio-asignado>.giia.udec.cl`, con el panel en `/moderador`.
 
 ## Puertos y variables
@@ -38,14 +45,14 @@ en otra máquina, la Célula debe acordar la interfaz privada, el firewall y `TR
 el localhost de esa otra máquina no apunta al contenedor. No abrir directamente el backend
 al público. Página, API y WebSocket comparten un único puerto de aplicación.
 
-| Variable            | Configuración                                                                             |
-| ------------------- | ----------------------------------------------------------------------------------------- |
-| `PUERTO_PUBLICADO`  | Puerto libre aprobado por GIIA; 3000 por defecto                                          |
-| `MOD_USERS`         | Lista `nombre:clave` con las credenciales individuales entregadas por un canal privado    |
-| `MOD_PASSWORD`      | Llave maestra opcional; dejar vacía si no se necesita. Si se utiliza, mínimo 8 caracteres |
-| `SESSION_SECRET`    | Vacía: se genera en `data/session-secret`; si se fija, mínimo 32 caracteres aleatorios    |
-| `TRUST_PROXY`       | `1` para un único proxy local con el backend en loopback; adaptar a la topología real     |
-| `AUTO_HIDE_REPORTS` | `3` por defecto; `0` desactiva el ocultado automático por reportes                        |
+| Variable            | Configuración                                                                                                                     |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `PUERTO_PUBLICADO`  | Puerto libre aprobado por GIIA; 3000 por defecto                                                                                  |
+| `MOD_USERS`         | Lista `nombre:clave`; mínimo 12 caracteres en producción, claves aleatorias entregadas por canal privado                          |
+| `MOD_PASSWORD`      | Clave de emergencia opcional; dejar vacía por omisión. Si se activa, mínimo 12 caracteres; identidad fija `Emergencia`            |
+| `SESSION_SECRET`    | Vacía: se genera en `data/session-secret`; si se fija, mínimo 32 caracteres aleatorios                                            |
+| `TRUST_PROXY`       | `1` para un único proxy local con el backend en loopback; adaptar a la topología real                                             |
+| `AUTO_HIDE_REPORTS` | `3` por defecto; `0` desactiva el autoocultado. Los avisos con firma auténtica siguen reportables, pero requieren ocultado manual |
 
 ## Primera instalación
 
@@ -99,9 +106,11 @@ por `PUERTO_PUBLICADO` y reemplazar el subdominio por el asignado. Pasar `Host`,
 ## Actualizar
 
 Esta versión exige claves individuales de al menos 12 caracteres y rechaza credenciales
-de desarrollo y marcadores de ejemplo. Antes de actualizar, revisar las de `MOD_USERS`: si
-no cumplen, sustituir únicamente esas credenciales en el `.env` existente por claves aleatorias
-largas. Conservar las demás variables, mantener permisos `600` y entregar las nuevas claves
+de desarrollo y marcadores de ejemplo. `MOD_PASSWORD` queda vacía por omisión; si se conserva,
+también exige al menos 12 caracteres y registra todas sus acciones como **Emergencia**, sin
+permitir atribuirlas al nombre enviado en el login. Antes de actualizar, revisar `MOD_USERS`
+y `MOD_PASSWORD`: sustituir las credenciales incompatibles en el `.env` existente por claves
+aleatorias largas. Conservar las demás variables, mantener permisos `600` y entregar las nuevas claves
 por el canal privado del equipo. Un `.env` antiguo no debe sobrescribirse con el ejemplo;
 si conserva credenciales incompatibles, el servicio rechazará el inicio.
 
@@ -121,9 +130,31 @@ curl --fail "http://$(docker compose port pizarra 3000)/api/health"
 ```
 
 `--build` incorpora el código nuevo; los datos persisten y las migraciones se aplican al
-iniciar. Los moderadores vuelven a entrar después de un reinicio porque sus sesiones viven
+iniciar. Esta entrega añade **v6** al final, sin modificar v1 a v5: crea el índice de avisos
+firmados visibles y retira identificadores de visitas de notas que ya llegaron a 300.
+Conserva sus contadores históricos, contenido y firmas. Las visitas nuevas se acotan a 300
+por nota, independientemente de sus respuestas, conservando el crecimiento visual de hasta 5×.
+Esta métrica no certifica asistencia ni evita fraude; el identificador anónimo puede renovarse.
+Antes de aplicar v6, conservar y validar el respaldo completo. Para volver atrás, recuperar
+juntos imagen, código, configuración y datos del mismo respaldo; una imagen antigua por sí
+sola no revierte el esquema. Los moderadores vuelven a entrar después de un reinicio porque sus sesiones viven
 en memoria. Las futuras publicaciones deben continuar el historial saneado existente.
 El historial local de desarrollo no se publica ni se instala en el servidor.
+
+### Credenciales y mantenimiento de datos
+
+Para retirar o rotar claves, editar `.env` por el canal administrativo y **recrear** el
+servicio según [DESPLIEGUE.md](DESPLIEGUE.md#rotar-o-retirar-una-credencial). Esto carga los
+nuevos valores y elimina las sesiones de moderación en memoria. Editar el archivo o hacer
+sólo `docker compose restart` no carga las nuevas variables del contenedor.
+
+El borrado de asistentes o contenido ahora contempla visitas, respuestas, reportes e índice
+de búsqueda en una transacción. Requiere respaldo, decisión del responsable y una ventana
+sin participantes. Ejecutar la herramienta con la aplicación detenida y volver a iniciarla
+para renovar los estados y el ranking en memoria; no realizar borrados mientras el evento
+está activo. Ver [operaciones después del evento](DESPLIEGUE.md#10-después-del-evento-qué-hacer-con-los-datos).
+La herramienta local puede trabajar sobre una base indicada sin habilitar cuentas de desarrollo
+ni exigir claves de moderación. No usarla sobre la base del evento para ensayos.
 
 ### Una vez: pasar desde la primera publicación a la entrega saneada
 
@@ -133,12 +164,29 @@ conservar la carpeta anterior y respaldar los datos, `.env` y secreto. La Célul
 clon nuevo bajo `/var/src`, detiene la instalación anterior y transfiere el respaldo con sus
 permisos antes de levantarlo. No usar `reset --hard`, borrar datos o forzar un nuevo historial.
 
+## Aceptación del tiempo real detrás de Nginx
+
+Nginx puede reenviar WebSocket, pero su configuración institucional todavía requiere ensayo.
+Reenviar `Host`, `X-Forwarded-For`, `X-Forwarded-Proto`, `Upgrade` y `Connection`, usar HTTP/1.1
+hacia el backend y tiempos de lectura/envío de 75 segundos. Mantener página, API, panel y
+Socket.IO en el mismo origen. El ejemplo está en
+[DESPLIEGUE.md](DESPLIEGUE.md#3-proxy-con-websocket); no sustituye la configuración aprobada.
+
+El cliente admite respaldo HTTP long-polling cuando falla WebSocket. Comprobar ambos
+transportes, el respaldo automático, cookies seguras, rechazo de origen ajeno, IP efectiva,
+reconexión y comunicación entre navegadores/celular. Los GET/POST de `/socket.io/` deben
+atravesar el proxy; que la página o `/api/health` responda no prueba el tiempo real.
+La suite de configuración Compose contempla ocho casos, pero validar Compose no ensaya
+por sí solo su Nginx. Los resultados locales vigentes y sus limitaciones se consignan en
+[ENTREGA-VERIFICACION.md](ENTREGA-VERIFICACION.md).
+
 ## Documentos que se entregan
 
 Entregar [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md) como punto de entrada, este archivo y la carpeta `docs/` de la copia saneada,
 con `DESPLIEGUE.md`, `SEGURIDAD.md`, `ENTREGA-VERIFICACION.md`, `CUMPLIMIENTO-GIIA.md`,
-`PRIVACIDAD.md` y `seguridad-imagen.json`. El código y `.env.example` están en el repositorio
-privado autorizado. `CONTINUAR.md` es interno y no pertenece a la entrega; tampoco se
+`PRIVACIDAD.md`, `RESPUESTA-AUDITORIA.md` y `seguridad-imagen.json`. El código y `.env.example`
+están en el repositorio público saneado. El ZIP de la versión aprobada debe contener esa misma
+documentación y fuentes; revisar el commit y la evidencia de verificación antes de instalar. `CONTINUAR.md` es interno y no pertenece a la entrega; tampoco se
 comparten `.env`, datos ni respaldos mediante GitHub o el ticket. Las credenciales y copias
 operativas se transfieren exclusivamente por el canal protegido que autorice la Célula.
 
@@ -149,9 +197,9 @@ operativas se transfieren exclusivamente por el canal protegido que autorice la 
 - Ingresar y aprobar el ticket; obtener la aprobación formal de la Célula Estratégica de Proyectos y del Comité Directivo de GIIA.
 - Aprobar CPU, RAM, disco, puerto y fechas; disponer de Docker y Compose, y de salida a internet para la construcción o autorizar la transferencia de una imagen.
 - Asignar subdominio, DNS, certificado HTTPS y proxy con WebSocket; confirmar su topología.
-- Realizar el levantamiento en `/var/src` y autorizar acceso al repositorio, cuentas SSH personales, permisos Docker y grupos Linux, con acceso de inspección y administración para la Célula.
+- Realizar el levantamiento en `/var/src` y asegurar acceso al código y autorizar cuentas SSH personales, permisos Docker y grupos Linux, con acceso de inspección y administración para la Célula.
 - Definir responsable y canal para reportar inmediatamente errores, accesos sospechosos o pérdida de credenciales a la Célula; acordar la atención de incidentes y la revocación o rotación necesaria sin adjuntar secretos al ticket.
-- Disponer de acceso Git autorizado para recuperar el commit de un respaldo; si el servidor está aislado, preparar un mirror del repositorio saneado. Transferir la imagen Docker por sí sola no sustituye ese acceso al código.
+- Disponer de acceso de lectura Git para recuperar el commit público de un respaldo; si el servidor está aislado, preparar un mirror del repositorio saneado. Los permisos de escritura y administración siguen siendo exclusivos de las cuentas autorizadas. Transferir la imagen Docker por sí sola no sustituye ese acceso al código.
 - Revisar la seguridad del proyecto, contenedor y servidor, incluida la aplicabilidad de los avisos Debian documentados en [SEGURIDAD.md](SEGURIDAD.md); acordar actualizaciones los viernes fuera de horario y respuesta urgente ante vulnerabilidades.
 - Establecer monitoreo externo de CPU, RAM, disco y red. El endpoint de salud y `docker stats` son herramientas auxiliares, no el monitoreo externo continuo.
 - Definir rotación automática de logs en un máximo de 365 días y revisión periódica. Compose ya limita el tamaño a cinco archivos de 10 MB; eso no limita su antigüedad.

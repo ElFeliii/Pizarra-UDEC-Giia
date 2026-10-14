@@ -1,3 +1,5 @@
+import { normalizarComparacion } from './normalize';
+
 const TLDS =
   'com|cl|net|org|io|ly|gg|me|co|xyz|app|dev|info|tk|ru|es|ar|pe|mx|link|site|online|store|tv|live|ws|to|club|shop|top|biz|us|uk';
 
@@ -9,20 +11,22 @@ const LINK_PATTERNS = [
 const PERSONAL_PATTERNS = [
   // Email
   /[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}/i,
+  // Los límites son numéricos: adjuntar letras no debe esconder datos personales.
   // Celular chileno: +56 9 1234 5678, 912345678, 9-1234-5678
-  /(?:\+?56[\s.-]?)?\b9[\s.-]?\d{4}[\s.-]?\d{4}\b/,
+  /(?:\+?56[\s.-]?)?(?<!\p{Nd})9[\s.-]?\p{Nd}{4}[\s.-]?\p{Nd}{4}(?!\p{Nd})/u,
   // RUT: 12.345.678-9 / 12345678-k
-  /\b\d{1,2}\.?\d{3}\.?\d{3}-[\dkK]\b/,
+  /(?<!\p{Nd})\p{Nd}{1,2}\.?\p{Nd}{3}\.?\p{Nd}{3}-[\p{Nd}kK](?!\p{Nd})/u,
   // Cualquier secuencia de 8+ dígitos (con . o - entre medio)
-  /\d(?:[.-]?\d){7,}/,
+  /\p{Nd}(?:[.-]?\p{Nd}){7,}/u,
 ];
 
 export type ContentRuleViolation = 'LINKS' | 'PERSONAL_DATA';
 
 /** Reglas de contenido independientes de la lista de palabras. Recibe texto ya sanitizado. */
 export function checkContentRules(text: string): ContentRuleViolation | null {
+  const comparable = normalizarComparacion(text);
   // Primero datos personales: un email también calza con el patrón de dominio.
-  if (PERSONAL_PATTERNS.some((re) => re.test(text))) return 'PERSONAL_DATA';
-  if (LINK_PATTERNS.some((re) => re.test(text))) return 'LINKS';
+  if (PERSONAL_PATTERNS.some((re) => re.test(comparable))) return 'PERSONAL_DATA';
+  if (LINK_PATTERNS.some((re) => re.test(comparable))) return 'LINKS';
   return null;
 }

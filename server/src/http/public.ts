@@ -1,11 +1,12 @@
 import { SECCION_DE_SUPERFICIE, SURFACES } from '@pizarra/shared';
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import type { AppContext } from '../context';
 import { createSession, findUserByToken, getThread, listPins, search } from '../services/content';
 import { seccionesVisibles } from '../services/secciones';
 import { temasVisibles } from '../services/temas';
 import { sendAck, sendError } from './respond';
+import { rateLimited } from '../services/errors';
 
 /** Se pide por sección; `surface` se sigue aceptando y se traduce. */
 function seccionDe(q: { seccion?: string; surface?: 'board' | 'map' }): string {
@@ -31,6 +32,13 @@ const searchQuery = z.object({
 });
 
 export function publicRoutes(app: FastifyInstance, ctx: AppContext): void {
+  // Se aplica sólo a lecturas de contenido: salud, archivos y Engine.IO conservan su acceso.
+  const limitarLectura = async (req: FastifyRequest, reply: FastifyReply) => {
+    const limite = ctx.limiters.lecturasHttp.take(req.ip);
+    if (limite.ok) return;
+    reply.header('retry-after', Math.max(1, Math.ceil(limite.retryAfterMs / 1000)));
+    return sendAck(reply, rateLimited(limite.retryAfterMs));
+  };
   app.get('/api/health', async () => ({ ok: true, time: ctx.now() }));
 
   app.get('/api/institutions', async (_req, reply) => {
@@ -50,7 +58,7 @@ export function publicRoutes(app: FastifyInstance, ctx: AppContext): void {
   });
 
   /** Verifica un token guardado en el navegador. */
-  app.get('/api/session', async (req, reply) => {
+  app.get('/api/session', { preHandler: limitarLectura }, async (req, reply) => {
     const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
     const user = findUserByToken(ctx, token);
     if (!user) return sendError(reply, 'NO_SESSION', 'Sesión no válida.');
@@ -60,14 +68,14 @@ export function publicRoutes(app: FastifyInstance, ctx: AppContext): void {
     };
   });
 
-  app.get('/api/pins', async (req, reply) => {
+  app.get('/api/pins', { preHandler: limitarLectura }, async (req, reply) => {
     const q = pinsQuery.safeParse(req.query);
     if (!q.success) return sendError(reply, 'VALIDATION', 'Parámetros no válidos.');
     reply.header('cache-control', 'no-store');
     return listPins(ctx, seccionDe(q.data), q.data.since);
   });
 
-  app.get('/api/pins/:id/thread', async (req, reply) => {
+  app.get('/api/pins/:id/thread', { preHandler: limitarLectura }, async (req, reply) => {
     const p = idParam.safeParse(req.params);
     if (!p.success) return sendError(reply, 'VALIDATION', 'Id no válido.');
     const thread = getThread(ctx, p.data.id);
@@ -75,7 +83,7 @@ export function publicRoutes(app: FastifyInstance, ctx: AppContext): void {
     return thread;
   });
 
-  app.get('/api/search', async (req, reply) => {
+  app.get('/api/search', { preHandler: limitarLectura }, async (req, reply) => {
     const q = searchQuery.safeParse(req.query);
     if (!q.success) return sendError(reply, 'VALIDATION', 'Parámetros no válidos.');
     return search(ctx, q.data.q, seccionDe(q.data));

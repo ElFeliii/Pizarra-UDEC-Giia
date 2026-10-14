@@ -155,7 +155,7 @@ export function createPin(
   const seccion = seccionDeSuperficie(parsed.data.surface);
   const cerrada = seccionEscribible(ctx, seccion);
   if (cerrada) return cerrada;
-  if (invadeModeracion(parsed.data, ctx.repos.pins.listVisible(seccion))) {
+  if (invadeModeracion(parsed.data, ctx.repos.pins.listModeradoresVisibles(seccion))) {
     return fail('VALIDATION', ESPACIO_MODERACION);
   }
 

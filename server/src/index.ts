@@ -5,8 +5,10 @@ loadDotEnv();
 const config = loadConfig();
 const { app } = await buildApp(config);
 
-if (config.env !== 'production' && !process.env.MOD_PASSWORD) {
-  app.log.warn('MOD_PASSWORD no definida: usando la contraseña de desarrollo "moderador-dev".');
+if (config.env === 'development' && !process.env.MOD_USERS) {
+  app.log.warn(
+    'Modo desarrollo explícito: los moderadores de prueba no deben usarse en el evento.',
+  );
 }
 
 await app.listen({ host: config.host, port: config.port });

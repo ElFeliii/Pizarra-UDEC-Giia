@@ -23,6 +23,28 @@ export function sanitizeText(input: string): string {
     .trim();
 }
 
+// Nd contiene juegos decimales consecutivos 0..9; varios juegos pueden ser adyacentes.
+// Se usa la propiedad del motor, sin mantener una lista parcial de alfabetos numéricos.
+const DIGITO_DECIMAL = /\p{Nd}/u;
+const DIGITOS_DECIMALES = /\p{Nd}/gu;
+const digitosComparacion = new Map<number, string>();
+
+function digitoAscii(digito: string): string {
+  const codigo = digito.codePointAt(0)!;
+  const conocido = digitosComparacion.get(codigo);
+  if (conocido !== undefined) return conocido;
+  let inicio = codigo;
+  while (inicio > 0 && DIGITO_DECIMAL.test(String.fromCodePoint(inicio - 1))) inicio--;
+  const valor = String((codigo - inicio) % 10);
+  digitosComparacion.set(codigo, valor);
+  return valor;
+}
+
+/** NFKC y dígitos equivalentes solo para comparar; el contenido publicado conserva NFC. */
+export function normalizarComparacion(entrada: string): string {
+  return sanitizeText(entrada).normalize('NFKC').replace(DIGITOS_DECIMALES, digitoAscii);
+}
+
 const N_TILDE = '\u0001';
 
 /** Minúsculas y sin tildes, pero conservando la ñ ("coño" ≠ "cono"). */
@@ -182,7 +204,7 @@ export interface Candidates {
  * leetspeak traducido ("w3on" → "weon").
  */
 export function matchCandidates(text: string): Candidates {
-  const folded = foldCase(sanitizeText(text));
+  const folded = foldCase(normalizarComparacion(text));
   const plain = splitTokens(folded);
   const leet = splitTokens(folded.replace(LEET_RE, (c) => LEET[c] ?? c));
 
@@ -213,7 +235,7 @@ export function matchCandidates(text: string): Candidates {
 
 /** Forma canónica de un término de la lista prohibida (una sola palabra). */
 export function normalizeTerm(term: string): string {
-  return squeeze2(foldCase(term.trim()).replace(/[^a-zñ0-9]/g, ''));
+  return squeeze2(foldCase(normalizarComparacion(term)).replace(/[^a-zñ0-9]/g, ''));
 }
 
 /**
@@ -221,7 +243,7 @@ export function normalizeTerm(term: string): string {
  * odio muchas veces no cabe en una sola.
  */
 export function normalizeTermParts(term: string): string[] {
-  return foldCase(term.trim())
+  return foldCase(normalizarComparacion(term))
     .split(/[^a-zñ0-9]+/)
     .filter(Boolean)
     .map(squeeze2);

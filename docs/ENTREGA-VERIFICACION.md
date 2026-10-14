@@ -1,85 +1,87 @@
 # Verificación de la entrega
 
-Cierre documental y comprobación del código: **9 de octubre de 2026**. Se volvió a leer
-el Manual de Trabajo 1.0 completo y se contrastó con configuración, código y guías.
-La imagen, la carga, la recuperación y el navegador se ensayaron el **8 de octubre**;
-el 9 se volvió a iniciar la imagen recuperada y se repitieron los once controles HTTP/WebSocket.
-Todas las operaciones usaron credenciales y datos ficticios, separados del evento.
+Cierre de la auditoría: **14 de octubre de 2026**. Responde al informe del 12 de octubre
+y a la observación sobre Nginx. Se conserva la arquitectura, el mapa y las migraciones
+publicadas; v6 se agrega al final. Todos los ensayos utilizaron datos, claves y volúmenes
+ficticios, separados del evento y de la infraestructura institucional.
 
-| Comprobación                        | Resultado                                                                                                                                                                                 |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm test`                          | 394 pruebas en 30 archivos; ninguna fallida ni omitida, salida 0                                                                                                                          |
-| `npm run typecheck`                 | Cliente, servidor y tipos compartidos: salida 0                                                                                                                                           |
-| `npm run lint`                      | Salida 0                                                                                                                                                                                  |
-| `npm run build`                     | Cliente y servidor construidos; salida 0                                                                                                                                                  |
-| Prettier y `git diff --check`       | Archivos modificados con formato compatible comprobados; sin errores de espacios                                                                                                          |
-| `npm audit --json`                  | Cero vulnerabilidades conocidas en el árbol completo; salida 0                                                                                                                            |
-| Instalación de producción en Docker | Cero avisos npm durante la construcción; npm y Corepack retirados de la etapa final                                                                                                       |
-| `npm run verificar:despliegue`      | Puerto por defecto, alternativo, vacío y rechazo de fuera de rango; cuatro casos, salida 0                                                                                                |
-| Regresiones nuevas                  | Revocación de sesiones, origen WebSocket, difusión y ranking ocultos, claves de producción y consultas administrativas inválidas; defecto reintroducido y corrección restaurada dos veces |
-| Construcción Docker                 | `--pull --no-cache`, dependencias del lockfile, actualizaciones APT y compilación Linux; salida 0                                                                                         |
-| Compose                             | `healthy`; puerto real `127.0.0.1:3189` elegido por entorno, sin reemplazar `ports`                                                                                                       |
-| HTTP y WebSocket                    | Once controles: salud, HTML/cabeceras, acceso protegido, login, secciones, sesión, transmisión entre clientes, moderación y CSV sin IP                                                    |
-| Usuario del contenedor              | `node`, UID/GID 1000; sin modo privilegiado                                                                                                                                               |
-| Copia en caliente                   | Copia SQLite legible, esquema v5, integridad y contenido conservados                                                                                                                      |
-| Respaldo completo en frío           | Copia de todo el volumen con Compose, configuración ficticia y exportación de la imagen exacta                                                                                            |
-| Validación del respaldo             | Fragmento exacto de DESPLIEGUE ejecutado con UID 65534: copia temporal de DB/WAL/SHM, integridad correcta y huellas del respaldo sin cambios                                              |
-| Recuperación                        | Imagen importada sin reconstruir, datos y secreto recuperados en otro volumen, permisos del secreto 600 y volumen anterior conservado durante el ensayo                                   |
-| Limpieza                            | Contenedor, ambos volúmenes ficticios y red retirados; imagen probada conservada localmente                                                                                               |
-| Navegador                           | Fichas con fotos/descripciones en escritorio y 390×844; login, creación, ocultación y restauración de FAQ entre dos pestañas; cero avisos o errores de consola                            |
+| Comprobación                        | Resultado                                                                                                                                           |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm test`                          | **491 pruebas en 37 archivos**, ninguna fallida ni omitida; salida 0                                                                                |
+| `npm run typecheck`, `npm run lint` | Tipos compartidos, servidor y cliente; salidas 0                                                                                                    |
+| `npm run build`                     | Cliente y servidor construidos; salida 0                                                                                                            |
+| Prettier y `git diff --check`       | Formato de los archivos modificados y espacios revisados                                                                                            |
+| `npm audit --json`                  | Cero avisos conocidos en el árbol completo; salida 0                                                                                                |
+| `npm run verificar:despliegue`      | Ocho comprobaciones de puertos y confianza del proxy; salida 0                                                                                      |
+| Regresiones de auditoría            | Defectos reintroducidos y correcciones restauradas en dos ciclos rojo/verde; incluyen origen HTTP administrativo                                    |
+| Docker                              | Construcción Linux con `--pull --no-cache`, actualizaciones APT y dependencias del lockfile; salida 0                                               |
+| Usuario del contenedor              | `node`, UID/GID 1000, sin modo privilegiado; secreto con permisos 600                                                                               |
+| Nginx local y HTTPS                 | **20 controles**, incluyendo WSS, polling, cookies Secure, rechazo de origen, moderación, reportes, CSV y continuidad durante 55 segundos; salida 0 |
+| Cabeceras de proxy                  | IP efectiva conservada; se descartaron IP de proxy y cabecera falsificada                                                                           |
+| Arranque compilado sin NODE_ENV     | Rechaza ausencia de credenciales, maestra corta y clave individual de desarrollo antes de escuchar                                                  |
+| Rotación real en Docker             | Recrear invalida cookie y clave antiguas, admite clave nueva y firma maestra Emergencia; conserva el secreto                                        |
+| Carga a través de Nginx             | 600 lectores, 20 escritores, 40 publicaciones y **24.000/24.000 entregas**, cero rechazos; salida 0                                                 |
+| SQLite y recuperación               | Copia caliente, respaldo completo en frío, esquema v6 e integridad; imagen exacta importada y datos/secreto recuperados en otro volumen             |
+| Validación del respaldo             | Bind de sólo lectura, copia DB/WAL/SHM en tmpfs y UID 65534; huellas del respaldo sin cambios                                                       |
+| Navegador                           | Página y panel renderizados; acceso legítimo desde navegador comprobado detrás de Nginx local                                                       |
 
-Imagen: `pizarra-udec:revision-20261008`.
-Identificador: `sha256:48053127d6e3a276603365848b7add1f5701a590a001e8690ebfc12481668a4a`.
-Tamaño informado por Docker: **444201242 bytes**. Motor 29.8.0 y Compose 5.5.1.
-La imagen incluye las correcciones actuales del servidor; las guías quedan fuera de su contexto.
+Imagen: `pizarra-udec:auditoria-20261014`. Identificador:
+`sha256:d3d9ca54bee9a79e7a5da827137f79e5b45caeaa97429c4dde82859b73046f68`. Tamaño Docker: **444218842 bytes**.
+Motor 29.8.0 y Compose 5.5.1. La imagen incluye todas las correcciones del servidor;
+la documentación se entrega con las fuentes y no entra en la imagen.
 
-## Carga y recuperación
+## Tiempo real y capacidad
 
-El ensayo `URL=http://127.0.0.1:3189 READERS=600 WRITERS=20 npm run loadtest` conectó
-600 lectores en 1,1 segundos, publicó 40 pines y recibió **24.000 de 24.000 entregas,
-sin rechazos**, salida 0. Latencia p50: 313 ms; p95: 767 ms; p99: 817 ms; máxima: 827 ms.
-La muestra posterior de RAM fue 79,99 MiB: no mide el máximo durante la prueba.
-Generador y Docker corrieron en la misma máquina; esto no garantiza la capacidad de GIIA.
+La configuración ensayada usa un solo Nginx, backend aislado y `TRUST_PROXY=1`.
+Los puertos de prueba quedaron en loopback: HTTP 3188, HTTPS 3443, backend 3189;
+otro listener bloqueó deliberadamente Upgrade para comprobar el respaldo automático.
+Estos puertos son del ensayo y no una asignación de GIIA.
 
-La recuperación cambió primero el servicio ficticio a otra imagen y después recuperó el
-identificador guardado mediante `docker image load`, sin reconstruir. Se compararon datos,
-secreto e integridad con el estado anterior. Se corrigió el paso de validación de la guía:
-una base en modo WAL puede necesitar auxiliares aunque se abra de sólo lectura.
-El bind del respaldo conserva sólo lectura y la verificación usa una copia temporal.
+El cliente conectado con WebSocket bloqueado pasó automáticamente a polling antes de
+ocho segundos, conservó la autenticación y difundió publicaciones hacia otro cliente WSS.
+También funcionaron respuestas, filtro Unicode, reportes y ocultado/restauración manual.
+Las dos conexiones permanecieron disponibles durante 55 segundos. Un origen ajeno no
+puede establecer WSS ni realizar acciones administrativas con una cookie válida.
+Una ráfaga de mil eventos desconocidos se desconectó sin perder la salud ni el lector legítimo.
 
-Se verificaron los mecanismos de copia, importación y recuperación en Docker local.
-Las rutas `/var/src`, `sudo`, cuentas y permisos del anfitrión Linux, renombrado de directorios,
-configuración institucional y destinos externos requieren un ensayo de la Célula.
+La carga conectó 600 lectores en 1,7 segundos. Latencias de difusión: p50 **619 ms**,
+p95 **1154 ms**, p99 **1232 ms**, máxima **1253 ms**. La muestra posterior de memoria fue
+43,61 MiB para la aplicación y 4,715 MiB para Nginx; no mide el pico del ensayo.
+Generador y contenedores corrieron en la misma máquina. La carga representa lectores
+conectados y 20 altas/escritores, no 600 registros simultáneos. La carga masiva se ensayó
+por WebSocket; polling se verificó funcionalmente, sin certificar igual capacidad.
 
-## Seguridad y catálogo
+## Seguridad y actualización
 
-El servidor revalida sesiones antes de enviar eventos privados y comprueba el origen de
-WebSocket. Las notas y respuestas se difunden sólo si su padre, sección y tema son públicos.
-Las retiradas de preguntas no transmiten títulos privados; el ranking excluye contenido oculto
-y repara contadores anteriores al arrancar. Las claves individuales de producción deben tener
-12 caracteres como mínimo y se rechazan los marcadores de desarrollo/ejemplo. Las consultas
-administrativas inválidas responden 400 en lugar de 500. Estas pruebas usan ejemplos ficticios.
+Las correcciones de los siete hallazgos y los controles adicionales de lectura HTTP,
+origen administrativo y borrado transaccional están en [RESPUESTA-AUDITORIA.md](RESPUESTA-AUDITORIA.md).
+V6 se probó sobre una base v5 con contenido y visitas; conserva contadores históricos y
+firmas, limita nuevas visitas a 300 e incorpora el índice de avisos. No se modifican v1 a v5.
+Antes de actualizar, respaldar imagen, commit, configuración y datos compatibles.
 
-Trivy 0.75.0 analizó la imagen exportada **sin red**. Paquetes Node: cero avisos.
-Debian: **222 avisos por paquete, 93 identificadores distintos**, sin versión corregida indicada
-en la base consultada. Salida 0 significa análisis terminado, no ausencia de avisos.
-La fecha de la base y el detalle están en [seguridad-imagen.json](seguridad-imagen.json).
-Ver aplicabilidad de MiniZip y límites en [SEGURIDAD.md](SEGURIDAD.md).
+Trivy 0.75.0 analizó la imagen exportada sin red: **228 avisos por paquete
+Debian, 99 identificadores distintos y cero avisos de paquetes Node**. La base
+consultada no indicó versiones corregidas. Los detalles y la fecha de la base están en
+[seguridad-imagen.json](seguridad-imagen.json); aplicabilidad de MiniZip y tratamiento en
+[SEGURIDAD.md](SEGURIDAD.md). Un escaneo finalizado no certifica ausencia de vulnerabilidades.
 
-El catálogo conserva 85 descripciones con fuente y 34 fotos libres en 25 edificios.
-Quedan 60 edificios sin fotografía libre validada: [FOTOS-PENDIENTES.md](FOTOS-PENDIENTES.md).
-No se modificaron geometría, IDs del mapa ni migraciones publicadas.
+La recuperación importó la imagen guardada y reconstruyó la instalación desde el respaldo
+en otro volumen, conservando datos, secreto, permisos e integridad. El volumen anterior
+permaneció separado durante el ensayo. Rutas `/var/src`, cuentas, sudo, permisos del host,
+destinos externos y programación 3-2-1 necesitan ensayo y autorización institucional.
 
-## Límites de la entrega
+Contenedores, tres volúmenes ficticios y red del ensayo retirados tras verificar sus etiquetas. La imagen final queda conservada localmente.
 
-- Vite conserva su aviso de paquetes mayores de 500 KB; la capa de ciudad se descarga aparte.
-- Prettier no admite `.env`; el ejemplo se revisa como configuración. npm genera el lockfile.
-- Los controles locales y npm no certifican ausencia de vulnerabilidades ni validan el host o proxy.
-- El navegador se comprobó contra HTTP local: dominio, DNS, HTTPS y acceso externo siguen pendientes.
-- La entrega excluye historial de desarrollo, documento interno, datos y credenciales; conserva el historial saneado de publicación. Ver [PRIVACIDAD.md](PRIVACIDAD.md).
-- El paquete contiene fuentes para construir la imagen; no incluye `imagen.tar` ni respaldos operativos.
+## Alcance y pendientes
 
-**Pendientes GIIA:** ticket, aprobaciones, recursos, accesos, instalación en `/var/src`, dominio,
-DNS, TLS/proxy, evaluación de avisos y host, mantenimiento, incidentes, monitoreo externo,
-retención de logs y respaldos mensuales 3-2-1. Lista en [ENTREGA.md](ENTREGA.md#pendientes-administrativos-de-giia).
-Documento principal para informática: [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md).
+- El navegador se comprobó por HTTP local; HTTPS y cookies seguras se comprobaron con clientes automatizados que confiaban exclusivamente en el certificado ficticio. No se instalaron certificados ni se omitieron barreras del navegador.
+- Vite conserva su aviso por paquetes mayores de 500 KB; la capa de ciudad se descarga aparte.
+- El catálogo mantiene 85 descripciones y 34 fotografías libres en 25 edificios. Permanecen 60 fotos pendientes de identidad/licencia; [FOTOS-PENDIENTES.md](FOTOS-PENDIENTES.md).
+- La entrega excluye datos, secretos reales, documento interno e historial privado; [PRIVACIDAD.md](PRIVACIDAD.md).
+- El ZIP contiene fuentes y documentación para construir; no incluye imagen Docker ni respaldos operativos.
+
+**Pendientes GIIA:** ticket y aprobaciones, recursos, accesos, instalación institucional,
+dominio/DNS/TLS, configuración y aceptación de su Nginx, evaluación de avisos de imagen y host,
+mantenimiento, incidentes, monitoreo externo, retención de logs y respaldos 3-2-1.
+Lista operativa en [ENTREGA.md](ENTREGA.md#pendientes-administrativos-de-giia).
+Punto de entrada para informática: [GUIA-INFORMATICA.md](GUIA-INFORMATICA.md).

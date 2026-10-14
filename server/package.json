@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --clear-screen=false src/index.ts --port 3000",
+    "dev": "tsx watch --clear-screen=false src/index.ts --desarrollo --port 3000",
     "build": "tsup",
     "start": "node dist/index.js",
-    "dev:lan": "tsx watch --clear-screen=false src/index.ts --lan --port 3000"
+    "dev:lan": "tsx watch --clear-screen=false src/index.ts --desarrollo --lan --port 3000"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0",

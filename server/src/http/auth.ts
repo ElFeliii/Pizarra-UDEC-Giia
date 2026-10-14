@@ -1,5 +1,5 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
-import type { Moderator } from '../config';
+import { NOMBRE_EMERGENCIA, normalizarNombreModerador, type Moderator } from '../config';
 
 export const MOD_COOKIE = 'pz_mod';
 
@@ -18,8 +18,8 @@ export function checkPassword(input: string, expected: string): boolean {
  * Autentica a un moderador. Devuelve el nombre tal como está escrito en la lista (así el
  * registro de acciones queda parejo) o null.
  *
- * La llave maestra, si existe, sirve con cualquier nombre: es la salida de emergencia si
- * alguien del equipo llega sin credenciales. Siempre se compara algo, para no delatar por el
+ * La clave maestra, si existe, registra siempre Emergencia para impedir atribuir acciones
+ * a otro moderador. Siempre se compara algo, para no delatar por el
  * tiempo de respuesta si el nombre existe o no.
  */
 export function authenticateModerator(
@@ -28,15 +28,13 @@ export function authenticateModerator(
   name: string,
   password: string,
 ): string | null {
-  // Sin espacios ni mayúsculas: "Moderador 1", "moderador 1" y "moderador1" son el mismo.
-  const plano = (n: string) => n.toLowerCase().replace(/\s+/g, '');
-  const buscado = plano(name);
-  const mod = moderators.find((m) => plano(m.name) === buscado);
+  const buscado = normalizarNombreModerador(name);
+  const mod = moderators.find((m) => normalizarNombreModerador(m.name) === buscado);
   const esperado = mod?.password ?? SIN_MODERADOR;
   const propia = checkPassword(password, esperado);
   const maestra = masterPassword.length > 0 && checkPassword(password, masterPassword);
+  if (maestra) return NOMBRE_EMERGENCIA;
   if (mod && propia) return mod.name;
-  if (maestra) return name.trim();
   return null;
 }
 

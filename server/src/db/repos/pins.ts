@@ -1,5 +1,6 @@
 import {
   LIMITS,
+  PESO,
   type HiddenReason,
   type PinDetail,
   type PinSummary,
@@ -57,7 +58,7 @@ export function createPinsRepo(db: DB) {
   const byId = db.prepare(`${SELECT} WHERE p.id = ?`);
   const insertVista = db.prepare(`
     INSERT OR IGNORE INTO pin_vistas (pin_id, visitante, created_at)
-    VALUES (@id, @visitante, @now)`);
+    SELECT id, @visitante, @now FROM pins WHERE id = @id AND vistas < @maximo`);
   const bumpVistas = db.prepare(
     'UPDATE pins SET vistas = vistas + 1 WHERE id = ? RETURNING vistas',
   );
@@ -65,6 +66,9 @@ export function createPinsRepo(db: DB) {
     AND EXISTS (SELECT 1 FROM secciones s WHERE s.id = p.seccion_id AND s.estado != 'oculta')
     AND (p.tema_id IS NULL OR EXISTS (SELECT 1 FROM temas t WHERE t.id = p.tema_id AND t.oculto = 0))`;
   const visible = db.prepare(`${SELECT} WHERE p.seccion_id = ? AND ${publica}`);
+  const moderadoresVisibles = db.prepare(
+    `${SELECT} WHERE p.seccion_id = ? AND p.autor_moderador IS NOT NULL AND ${publica}`,
+  );
   // ">=" y no ">": cambios en el mismo milisegundo que el snapshot no se pierden (el cliente
   // hace upsert, así que un duplicado es inocuo).
   const changedSince = db.prepare(
@@ -111,6 +115,9 @@ export function createPinsRepo(db: DB) {
     listVisible(seccion: string): PinSummary[] {
       return (visible.all(seccion) as PinRow[]).map(toSummary);
     },
+    listModeradoresVisibles(seccion: string): PinSummary[] {
+      return (moderadoresVisibles.all(seccion) as PinRow[]).map(toSummary);
+    },
     /** Cambios desde `since`: pines visibles actualizados y los ocultados en ese lapso. */
     listChangedSince(seccion: string, since: number): { pins: PinSummary[]; removed: number[] } {
       const pins: PinSummary[] = [];
@@ -122,12 +129,12 @@ export function createPinsRepo(db: DB) {
       return { pins, removed };
     },
     /**
-     * Cuenta una visita. Devuelve el total si la persona no había abierto esta nota, o null si
-     * ya la había visto: el `INSERT OR IGNORE` hace que contar dos veces no cueste nada.
+     * Cuenta visitas únicas hasta el umbral de crecimiento, independientemente de las respuestas.
+     * Después no se guardan identificadores nuevos; se conserva el contador histórico si era mayor.
      */
     registrarVista(id: number, visitante: string, now: number): number | null {
       return db.transaction(() => {
-        if (insertVista.run({ id, visitante, now }).changes === 0) return null;
+        if (insertVista.run({ id, visitante, now, maximo: PESO.maximo }).changes === 0) return null;
         const row = bumpVistas.get(id) as { vistas: number } | undefined;
         return row?.vistas ?? null;
       })();
