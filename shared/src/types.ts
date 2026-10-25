@@ -127,7 +127,7 @@ export type Ack<T> = { ok: true; data: T } | { ok: false; error: ApiError };
 // ---------- Moderación ----------
 
 export type TargetType = 'pin' | 'reply';
-export type HiddenReason = 'mod' | 'reports' | 'word';
+export type HiddenReason = 'mod' | 'reports' | 'word' | 'ia';
 
 export interface ModContentItem {
   type: TargetType;

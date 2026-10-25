@@ -22,6 +22,7 @@ import type { AppContext } from '../context';
 import { toDetail, toSummary } from '../db/repos/pins';
 import { toReply } from '../db/repos/replies';
 import type { UserRow } from '../db/repos/users';
+import { analizarPublicacion } from '../moderation/analisis';
 import { checkContentRules } from '../moderation/contentRules';
 import { incitesHate } from '../moderation/hate';
 import { sanitizeText } from '../moderation/normalize';
@@ -198,6 +199,7 @@ export function createPin(
   ctx.broadcaster.pinCreated(summary);
   const item = repos.mod.item('pin', id);
   if (item) ctx.broadcaster.modFeed(item);
+  analizarPublicacion(ctx, { type: 'pin', id, text }, autorModerador);
   return ok(summary);
 }
 
@@ -275,6 +277,7 @@ export function createNota(
   ctx.broadcaster.pinCreated(summary);
   const item = repos.mod.item('pin', id);
   if (item) ctx.broadcaster.modFeed(item);
+  analizarPublicacion(ctx, { type: 'pin', id, text }, autorModerador);
   return ok(summary);
 }
 
@@ -332,6 +335,7 @@ export function createReply(
   ctx.broadcaster.replyCountChanged(pinId, replyCount);
   const item = repos.mod.item('reply', id);
   if (item) ctx.broadcaster.modFeed(item);
+  analizarPublicacion(ctx, { type: 'reply', id, text }, autorModerador);
   return ok(reply);
 }
 

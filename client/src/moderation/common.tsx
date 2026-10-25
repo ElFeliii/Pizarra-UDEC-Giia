@@ -7,6 +7,7 @@ export const REASON_LABEL: Record<HiddenReason, string> = {
   mod: 'Oculto por moderador',
   reports: 'Oculto por reportes',
   word: 'Oculto por palabra prohibida',
+  ia: 'Oculto por análisis automático (IA)',
 };
 
 export const TYPE_LABEL: Record<TargetType, string> = { pin: 'Pin', reply: 'Respuesta' };
