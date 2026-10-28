@@ -44,7 +44,7 @@ describe('vigencia de moderación en WebSocket', () => {
     'retira todos los eventos privados de una sesión %s inmediatamente',
     async (estado) => {
       const usuario = await servidor.newUser();
-      const pin = createPin(
+      const pin = await createPin(
         servidor.ctx,
         usuario.user.id,
         pinInput('Mensaje para revisar'),
@@ -98,7 +98,7 @@ describe('visibilidad de hilos y restauraciones', () => {
       servidor.ctx.db.exec(
         "INSERT INTO temas VALUES ('faq-seguridad', 'faq', 'Pregunta de prueba', NULL, NULL, 1, 0)",
       );
-      const pin = createNota(
+      const pin = await createNota(
         servidor.ctx,
         usuario.user.id,
         {
@@ -110,7 +110,7 @@ describe('visibilidad de hilos y restauraciones', () => {
         'ip-prueba',
       );
       if (!pin.ok) throw new Error(pin.error.message);
-      const respuesta = createReply(
+      const respuesta = await createReply(
         servidor.ctx,
         usuario.user.id,
         { pinId: pin.data.id, text: 'Respuesta privada durante revisión' },
@@ -161,9 +161,14 @@ describe('visibilidad de hilos y restauraciones', () => {
 
   it('las restauraciones visibles siguen llegando a asistentes sin sesión', async () => {
     const usuario = await servidor.newUser();
-    const pin = createPin(servidor.ctx, usuario.user.id, pinInput('Nota pública'), 'ip-prueba');
+    const pin = await createPin(
+      servidor.ctx,
+      usuario.user.id,
+      pinInput('Nota pública'),
+      'ip-prueba',
+    );
     if (!pin.ok) throw new Error(pin.error.message);
-    const respuesta = createReply(
+    const respuesta = await createReply(
       servidor.ctx,
       usuario.user.id,
       { pinId: pin.data.id, text: 'Respuesta pública' },

@@ -38,6 +38,15 @@ const envSchema = z.object({
    */
   TRUST_PROXY: z.string().default('loopback'),
   AUTO_HIDE_REPORTS: z.coerce.number().int().min(0).default(3),
+  /** Sin clave no hay revisión con IA: se publica con los filtros locales, como antes. */
+  OPENAI_API_KEY: z.string().optional(),
+  /** `moderation`: API de moderación (gratis). `decision`: API Decisions con normas propias. */
+  MODERACION_IA_MODO: z.enum(['moderation', 'decision']).default('moderation'),
+  OPENAI_MODERATION_MODEL: z.string().default('omni-moderation-latest'),
+  OPENAI_DECISION_MODEL: z.string().default('gpt-6-luna'),
+  /** Modo decision: probabilidad desde la que una norma se considera infringida. */
+  MODERACION_IA_UMBRAL: z.coerce.number().gt(0).lt(1).default(0.5),
+  MODERACION_IA_TIMEOUT_MS: z.coerce.number().int().min(500).max(30_000).default(5_000),
 });
 
 /** Un moderador con su propia clave. El nombre es el que queda en el registro de acciones. */
@@ -63,6 +72,17 @@ export interface Config {
   trustProxy: boolean | number | string;
   /** 0 = desactivado. */
   autoHideReports: number;
+  /** null = sin revisión previa con IA. */
+  moderacionIa: ModeracionIaConfig | null;
+}
+
+export interface ModeracionIaConfig {
+  modo: 'moderation' | 'decision';
+  apiKey: string;
+  modelo: string;
+  /** Solo en modo decision. */
+  umbral: number;
+  timeoutMs: number;
 }
 
 /**
@@ -256,5 +276,17 @@ export function loadConfig(
     sessionSecret: resolveSessionSecret(e.SESSION_SECRET, prod, e.DB_PATH),
     trustProxy: parseTrustProxy(e.TRUST_PROXY),
     autoHideReports: e.AUTO_HIDE_REPORTS,
+    moderacionIa: e.OPENAI_API_KEY?.trim()
+      ? {
+          modo: e.MODERACION_IA_MODO,
+          apiKey: e.OPENAI_API_KEY.trim(),
+          modelo:
+            e.MODERACION_IA_MODO === 'decision'
+              ? e.OPENAI_DECISION_MODEL
+              : e.OPENAI_MODERATION_MODEL,
+          umbral: e.MODERACION_IA_UMBRAL,
+          timeoutMs: e.MODERACION_IA_TIMEOUT_MS,
+        }
+      : null,
   };
 }

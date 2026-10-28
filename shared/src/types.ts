@@ -106,6 +106,8 @@ export interface SearchHit {
 export type ErrorCode =
   | 'VALIDATION'
   | 'CENSORED'
+  | 'IA_RECHAZADO'
+  | 'EN_REVISION'
   | 'LINKS'
   | 'PERSONAL_DATA'
   | 'DUPLICATE'
@@ -127,7 +129,8 @@ export type Ack<T> = { ok: true; data: T } | { ok: false; error: ApiError };
 // ---------- Moderación ----------
 
 export type TargetType = 'pin' | 'reply';
-export type HiddenReason = 'mod' | 'reports' | 'word' | 'ia';
+/** `pendiente`: la IA no respondió y el mensaje espera que un moderador lo apruebe. */
+export type HiddenReason = 'mod' | 'reports' | 'word' | 'pendiente';
 
 export interface ModContentItem {
   type: TargetType;
@@ -178,6 +181,37 @@ export interface ModUser {
   silencedAt: number | null;
   pinCount: number;
   replyCount: number;
+}
+
+/** Qué se hizo con un mensaje tras consultar a la IA. */
+export type DecisionIa = 'publicar' | 'rechazar' | 'revisar';
+
+/** Una consulta a la API de moderación, tal como la ve el panel. */
+export interface RegistroIa {
+  at: number;
+  decision: DecisionIa;
+  /** Cuánto tardó OpenAI en responder (o en fallar). */
+  ms: number;
+  autor: string;
+  texto: string;
+  /** Categorías que OpenAI marcó. */
+  categorias: string[];
+  /** Las categorías con mayor puntaje (0 a 1), aunque no se hayan marcado. */
+  puntajes: { categoria: string; puntaje: number }[];
+  /** Motivo de la falla cuando la decisión es `revisar`. */
+  error: string | null;
+}
+
+export interface ResumenIa {
+  activa: boolean;
+  /** `moderation`: API de moderación. `decision`: API Decisions con las normas propias. */
+  modo: 'moderation' | 'decision' | null;
+  modelo: string | null;
+  /** Totales desde que arrancó el servidor. */
+  totales: Record<DecisionIa, number>;
+  msPromedio: number | null;
+  /** Las consultas más recientes primero. */
+  registros: RegistroIa[];
 }
 
 export interface ModStats {

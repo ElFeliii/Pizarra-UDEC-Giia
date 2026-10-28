@@ -1,6 +1,6 @@
-import type { BannedWordMode, EstadoSeccion, ModContentItem } from '@pizarra/shared';
+import type { BannedWordMode, DecisionIa, EstadoSeccion, ModContentItem } from '@pizarra/shared';
 import { ESTADOS_SECCION } from '@pizarra/shared';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ApiError, api } from '../api/http';
 import { fullDate, timeAgo, useNow } from '../lib/time';
 import { useStore } from '../state/store';
@@ -70,9 +70,15 @@ export function FeedPanel({
   onChanged(): void;
 }) {
   const [onlyHidden, setOnlyHidden] = useState(false);
+  const [onlyPending, setOnlyPending] = useState(false);
   const now = useNow(15_000);
   if (!items) return <p className="muted">Cargando…</p>;
-  const shown = onlyHidden ? items.filter((i) => i.hiddenAt !== null) : items;
+  const pendientes = items.filter((i) => i.hiddenReason === 'pendiente').length;
+  const shown = onlyPending
+    ? items.filter((i) => i.hiddenReason === 'pendiente')
+    : onlyHidden
+      ? items.filter((i) => i.hiddenAt !== null)
+      : items;
   return (
     <>
       <label className="check">
@@ -82,6 +88,14 @@ export function FeedPanel({
           onChange={(e) => setOnlyHidden(e.target.checked)}
         />
         Solo ocultos
+      </label>
+      <label className="check">
+        <input
+          type="checkbox"
+          checked={onlyPending}
+          onChange={(e) => setOnlyPending(e.target.checked)}
+        />
+        Solo pendientes de aprobar ({pendientes})
       </label>
       {shown.length === 0 && <p className="empty">Nada por aquí todavía.</p>}
       <ul className="mod-list">
@@ -94,7 +108,11 @@ export function FeedPanel({
               <span className="tag">{TYPE_LABEL[i.type]}</span>
               {i.reportCount > 0 && <span className="tag tag--warn">{i.reportCount} reportes</span>}
               {i.hiddenReason && (
-                <span className="tag tag--danger">{REASON_LABEL[i.hiddenReason]}</span>
+                <span
+                  className={`tag ${i.hiddenReason === 'pendiente' ? 'tag--warn' : 'tag--danger'}`}
+                >
+                  {REASON_LABEL[i.hiddenReason]}
+                </span>
               )}
               <span className="muted mod-card__time" title={fullDate(i.createdAt)}>
                 {timeAgo(i.createdAt, now)}
@@ -110,6 +128,7 @@ export function FeedPanel({
               authorId={i.authorId}
               hidden={i.hiddenAt !== null}
               reported={i.reportCount > 0}
+              pending={i.hiddenReason === 'pendiente'}
               onDone={onChanged}
             />
           </li>
@@ -610,5 +629,122 @@ function PreguntasPanel() {
         </ul>
       )}
     </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// IA: qué va respondiendo OpenAI
+
+const DECISION_IA: Record<DecisionIa, { label: string; tag: string }> = {
+  publicar: { label: 'Publicado', tag: 'tag--ok' },
+  rechazar: { label: 'Rechazado por la IA', tag: 'tag--danger' },
+  revisar: { label: 'Sin respuesta → pendiente', tag: 'tag--warn' },
+};
+
+const REFRESCO_IA_MS = 5_000;
+
+export function IaPanel() {
+  const { data, error, reload } = useLoad(() => api.admin.ia(), []);
+  const [filtro, setFiltro] = useState<DecisionIa | 'todas'>('todas');
+  const now = useNow(REFRESCO_IA_MS);
+  // Se refresca solo: la bitácora vive en memoria del servidor y no emite eventos.
+  useEffect(() => {
+    const t = setInterval(reload, REFRESCO_IA_MS);
+    return () => clearInterval(t);
+  }, [reload]);
+
+  if (error) return <p className="notice notice--error">{error}</p>;
+  if (!data) return <p className="muted">Cargando…</p>;
+  if (!data.activa) {
+    return (
+      <p className="empty">
+        La revisión con IA está desactivada: falta OPENAI_API_KEY en el .env del servidor.
+      </p>
+    );
+  }
+  const { totales } = data;
+  const total = totales.publicar + totales.rechazar + totales.revisar;
+  const tiles = [
+    { label: 'Analizados', value: nf.format(total) },
+    { label: 'Publicados', value: nf.format(totales.publicar) },
+    { label: 'Rechazados', value: nf.format(totales.rechazar) },
+    { label: 'Sin respuesta', value: nf.format(totales.revisar) },
+    { label: 'Tiempo promedio', value: data.msPromedio === null ? '—' : `${data.msPromedio} ms` },
+  ];
+  const shown =
+    filtro === 'todas' ? data.registros : data.registros.filter((r) => r.decision === filtro);
+
+  return (
+    <>
+      <p className="muted small">
+        {data.modo === 'decision' ? 'API Decisions (normas propias)' : 'API de moderación'}, modelo{' '}
+        {data.modelo}. Se actualiza cada 5 s. Las consultas se guardan solo en memoria (las 200 más
+        recientes) y se borran al reiniciar el servidor.
+      </p>
+      <div className="kpis">
+        {tiles.map((t) => (
+          <div key={t.label} className="kpi">
+            <span className="kpi__label">{t.label}</span>
+            <span className="kpi__value">{t.value}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mod-actions">
+        {(['todas', 'publicar', 'rechazar', 'revisar'] as const).map((f) => (
+          <button
+            key={f}
+            type="button"
+            aria-pressed={filtro === f}
+            className={`btn btn--sm ${filtro === f ? 'btn--primary' : 'btn--ghost'}`}
+            onClick={() => setFiltro(f)}
+          >
+            {f === 'todas' ? 'Todas' : DECISION_IA[f].label}
+          </button>
+        ))}
+      </div>
+      {shown.length === 0 && <p className="empty">Todavía no hay consultas.</p>}
+      <ul className="mod-list">
+        {shown.map((r, i) => (
+          <li key={`${r.at}-${i}`} className="mod-card">
+            <div className="mod-card__top">
+              <span className={`tag ${DECISION_IA[r.decision].tag}`}>
+                {DECISION_IA[r.decision].label}
+              </span>
+              {r.categorias.map((c) => (
+                <span key={c} className="tag tag--danger">
+                  {c}
+                </span>
+              ))}
+              <span className="muted mod-card__time" title={fullDate(r.at)}>
+                {timeAgo(r.at, now)} · {r.ms} ms
+              </span>
+            </div>
+            <p className="mod-card__text">{r.texto}</p>
+            <p className="meta">
+              <strong>{r.autor}</strong>
+            </p>
+            {r.error && <p className="notice notice--error">{r.error}</p>}
+            {r.puntajes.length > 0 && (
+              <dl className="ia-puntajes">
+                {r.puntajes.map((p) => (
+                  <div key={p.categoria} className="ia-puntajes__fila">
+                    <dt>{p.categoria}</dt>
+                    <dd>
+                      <span className="hbar">
+                        <span
+                          className="hbar__fill"
+                          style={{ width: `${Math.max(1, p.puntaje * 100)}%` }}
+                        />
+                        <span className="hbar__value">{p.puntaje.toFixed(2)}</span>
+                      </span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

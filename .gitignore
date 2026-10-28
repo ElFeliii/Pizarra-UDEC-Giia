@@ -23,3 +23,6 @@ playwright-report/
 
 # Configuración local del editor
 .*/
+
+# Configuración local de Claude Code (lanzadores de prueba, permisos)
+.claude/

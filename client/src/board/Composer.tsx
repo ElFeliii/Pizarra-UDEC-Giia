@@ -42,6 +42,12 @@ export function Composer({
         onClose();
         return;
       }
+      if (res.error.code === 'EN_REVISION') {
+        st.cancelPlacing();
+        st.toast(res.error.message, 'info');
+        onClose();
+        return;
+      }
       if (res.error.code === 'NO_SESSION') st.setSession(null);
       setError(res.error.message);
     } catch {

@@ -10,6 +10,7 @@ import type {
   ModUser,
   PinsSnapshot,
   PublicUser,
+  ResumenIa,
   Seccion,
   Tema,
   SearchHit,
@@ -111,5 +112,6 @@ export const api = {
     applyWord: (id: number) =>
       post<{ pins: number; replies: number }>(`/api/admin/words/${id}/apply`),
     stats: () => get<ModStats>('/api/admin/stats'),
+    ia: () => get<ResumenIa>('/api/admin/ia'),
   },
 };

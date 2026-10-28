@@ -44,6 +44,11 @@ export function ComposerMuro({ temaId }: { temaId?: string }) {
         setText('');
         return;
       }
+      if (res.error.code === 'EN_REVISION') {
+        st.toast(res.error.message, 'info');
+        setText('');
+        return;
+      }
       if (res.error.code === 'NO_SESSION') st.setSession(null);
       setError(res.error.message);
     } catch {

@@ -15,7 +15,7 @@ describe('respuestas dinámicas sin caché compartida', () => {
   it('protege todas las lecturas administrativas, incluidas las denegadas y CSV', async () => {
     const cookie = await servidor.modLogin();
     const usuario = await servidor.newUser('Persona de prueba');
-    const nota = createPin(
+    const nota = await createPin(
       servidor.ctx,
       usuario.user.id,
       pinInput('Contenido reservado de revisión'),
@@ -85,7 +85,7 @@ describe('respuestas dinámicas sin caché compartida', () => {
 
   it('los hilos y las búsquedas cambian al ocultar contenido sin conservar la respuesta previa', async () => {
     const usuario = await servidor.newUser('Persona de prueba');
-    const nota = createPin(
+    const nota = await createPin(
       servidor.ctx,
       usuario.user.id,
       pinInput('Observatorio galáctico'),

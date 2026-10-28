@@ -18,6 +18,13 @@ services:
       # Un único proxy local; el par TCP puede ser el puente Docker.
       TRUST_PROXY: ${TRUST_PROXY:-1}
       AUTO_HIDE_REPORTS: ${AUTO_HIDE_REPORTS:-3}
+      # Vacía = sin revisión previa con IA.
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      MODERACION_IA_MODO: ${MODERACION_IA_MODO:-moderation}
+      OPENAI_MODERATION_MODEL: ${OPENAI_MODERATION_MODEL:-omni-moderation-latest}
+      OPENAI_DECISION_MODEL: ${OPENAI_DECISION_MODEL:-gpt-6-luna}
+      MODERACION_IA_UMBRAL: ${MODERACION_IA_UMBRAL:-0.5}
+      MODERACION_IA_TIMEOUT_MS: ${MODERACION_IA_TIMEOUT_MS:-5000}
     ports:
       # Solo escucha en localhost: el proxy HTTPS de la universidad reenvía hacia aquí.
       # GIIA asigna el puerto del servidor en .env; el puerto interno permanece en 3000.

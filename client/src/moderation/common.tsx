@@ -7,7 +7,7 @@ export const REASON_LABEL: Record<HiddenReason, string> = {
   mod: 'Oculto por moderador',
   reports: 'Oculto por reportes',
   word: 'Oculto por palabra prohibida',
-  ia: 'Oculto por análisis automático (IA)',
+  pendiente: 'Pendiente de revisión (IA sin respuesta)',
 };
 
 export const TYPE_LABEL: Record<TargetType, string> = { pin: 'Pin', reply: 'Respuesta' };
@@ -49,6 +49,7 @@ export function ContentActions({
   authorId,
   hidden,
   reported,
+  pending,
   onDone,
 }: {
   type: TargetType;
@@ -56,6 +57,8 @@ export function ContentActions({
   authorId: number;
   hidden: boolean;
   reported?: boolean;
+  /** Esperando aprobación porque la IA no respondió. */
+  pending?: boolean;
   onDone(): void;
 }) {
   const act = async (fn: () => Promise<unknown>, msg: string) => {
@@ -63,7 +66,25 @@ export function ContentActions({
   };
   return (
     <div className="mod-actions">
-      {hidden ? (
+      {pending ? (
+        <>
+          {/* Aprobar es restaurar; rechazar deja el mensaje oculto como decisión del moderador. */}
+          <button
+            type="button"
+            className="btn btn--sm btn--primary"
+            onClick={() => act(() => api.admin.content(type, id, 'restore'), 'Aprobado.')}
+          >
+            Aprobar
+          </button>
+          <button
+            type="button"
+            className="btn btn--sm btn--danger"
+            onClick={() => act(() => api.admin.content(type, id, 'hide'), 'Rechazado.')}
+          >
+            Rechazar
+          </button>
+        </>
+      ) : hidden ? (
         <>
           <button
             type="button"

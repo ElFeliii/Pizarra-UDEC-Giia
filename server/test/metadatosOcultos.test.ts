@@ -93,14 +93,14 @@ describe('ranking limitado a contenido público', () => {
       if (!tema.ok) throw new Error(tema.error.message);
       const usuario = await servidor.newUser();
       const otro = await servidor.newUser();
-      const nota = createNota(
+      const nota = await createNota(
         servidor.ctx,
         usuario.user.id,
         { seccion: 'faq', temaId: tema.data.id, color: 'verde', text: 'cobalto' },
         'ip-prueba',
       );
       if (!nota.ok) throw new Error(nota.error.message);
-      const respuesta = createReply(
+      const respuesta = await createReply(
         servidor.ctx,
         usuario.user.id,
         { pinId: nota.data.id, text: 'granito' },
@@ -108,7 +108,7 @@ describe('ranking limitado a contenido público', () => {
       );
       if (!respuesta.ok) throw new Error(respuesta.error.message);
       expect(
-        createPin(servidor.ctx, otro.user.id, pinInput('granito alameda'), 'ip-prueba').ok,
+        (await createPin(servidor.ctx, otro.user.id, pinInput('granito alameda'), 'ip-prueba')).ok,
       ).toBe(true);
       expect(await ranking()).toEqual(
         expect.arrayContaining([
@@ -154,9 +154,9 @@ describe('ranking limitado a contenido público', () => {
 
   it('los presets de sección actualizan el contador según la visibilidad', async () => {
     const usuario = await servidor.newUser();
-    expect(createPin(servidor.ctx, usuario.user.id, pinInput('telescopio'), 'ip-prueba').ok).toBe(
-      true,
-    );
+    expect(
+      (await createPin(servidor.ctx, usuario.user.id, pinInput('telescopio'), 'ip-prueba')).ok,
+    ).toBe(true);
     cambiarEstado(servidor.ctx, 'pizarra', 'oculta', 'Prueba');
     expect(await ranking()).toEqual([]);
     const { aplicarPreset } = await import('../src/services/secciones');
@@ -166,7 +166,7 @@ describe('ranking limitado a contenido público', () => {
 
   it('repara contadores previos al cargar el filtro y no recorre el corpus por cada publicación', async () => {
     const usuario = await servidor.newUser();
-    const pin = createPin(servidor.ctx, usuario.user.id, pinInput('cobalto'), 'ip-prueba');
+    const pin = await createPin(servidor.ctx, usuario.user.id, pinInput('cobalto'), 'ip-prueba');
     if (!pin.ok) throw new Error(pin.error.message);
     cambiarEstado(servidor.ctx, 'pizarra', 'oculta', 'Prueba');
     servidor.ctx.db.exec("INSERT INTO word_counts VALUES ('reservado', 'reservado', 99)");
@@ -177,7 +177,9 @@ describe('ranking limitado a contenido público', () => {
     const consulta = vi.spyOn(servidor.ctx.repos.wordCounts, 'textosVisibles');
     const cache = vi.spyOn(servidor.ctx.repos.wordCounts, 'top');
     const otro = await servidor.newUser();
-    expect(createPin(servidor.ctx, otro.user.id, pinInput('alameda'), 'ip-prueba').ok).toBe(true);
+    expect((await createPin(servidor.ctx, otro.user.id, pinInput('alameda'), 'ip-prueba')).ok).toBe(
+      true,
+    );
     await ranking();
     await ranking();
     expect(cache).toHaveBeenCalledTimes(1);
@@ -186,9 +188,9 @@ describe('ranking limitado a contenido público', () => {
 
   it('words:top no vuelve a difundir palabras de una sección oculta', async () => {
     const usuario = await servidor.newUser();
-    expect(createPin(servidor.ctx, usuario.user.id, pinInput('cobalto'), 'ip-prueba').ok).toBe(
-      true,
-    );
+    expect(
+      (await createPin(servidor.ctx, usuario.user.id, pinInput('cobalto'), 'ip-prueba')).ok,
+    ).toBe(true);
     expect(await ranking()).toEqual([{ word: 'cobalto', count: 1 }]);
     const lector = await servidor.connect();
     const evento = once(lector, 'words:top', 13000);

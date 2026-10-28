@@ -53,7 +53,7 @@ function carpetaTemporal(): string {
 }
 
 /** Incluye contenido oculto y respuestas de ambos autores en hilos de la otra persona. */
-function poblar(ctx: AppContext) {
+async function poblar(ctx: AppContext) {
   const asistentes = ['Ana', 'Beto'].map((nombre, indice) =>
     ctx.repos.users.create({
       tokenHash: String(indice).repeat(64),
@@ -66,8 +66,8 @@ function poblar(ctx: AppContext) {
   );
   const ana = asistentes[0]!;
   const beto = asistentes[1]!;
-  const nota = (id: number, texto: string) => {
-    const resultado = createPin(
+  const nota = async (id: number, texto: string) => {
+    const resultado = await createPin(
       ctx,
       id,
       { surface: 'board', x: 100, y: 100, color: 'verde', text: texto },
@@ -76,19 +76,19 @@ function poblar(ctx: AppContext) {
     if (!resultado.ok) throw new Error(resultado.error.message);
     return resultado.data;
   };
-  const responder = (id: number, pinId: number, texto: string) => {
-    const resultado = createReply(ctx, id, { pinId, text: texto }, '192.0.2.30');
+  const responder = async (id: number, pinId: number, texto: string) => {
+    const resultado = await createReply(ctx, id, { pinId, text: texto }, '192.0.2.30');
     if (!resultado.ok) throw new Error(resultado.error.message);
     return resultado.data;
   };
-  const propio = nota(ana.id, 'violeta');
-  const ajeno = nota(beto.id, 'jacaranda');
-  const oculto = nota(ana.id, 'hortensia');
-  responder(beto.id, propio.id, 'magnolia');
-  responder(ana.id, ajeno.id, 'jazmín');
-  responder(beto.id, ajeno.id, 'jacaranda');
-  responder(beto.id, oculto.id, 'lavanda');
-  const respuestaOculta = responder(ana.id, ajeno.id, 'azalea');
+  const propio = await nota(ana.id, 'violeta');
+  const ajeno = await nota(beto.id, 'jacaranda');
+  const oculto = await nota(ana.id, 'hortensia');
+  await responder(beto.id, propio.id, 'magnolia');
+  await responder(ana.id, ajeno.id, 'jazmín');
+  await responder(beto.id, ajeno.id, 'jacaranda');
+  await responder(beto.id, oculto.id, 'lavanda');
+  const respuestaOculta = await responder(ana.id, ajeno.id, 'azalea');
   hideContent(ctx, 'pin', oculto.id, 'Equipo ficticio', 'mod');
   hideContent(ctx, 'reply', respuestaOculta.id, 'Equipo ficticio', 'mod');
   return { ana, beto, propio, ajeno, oculto };
@@ -111,9 +111,9 @@ const fotografiar = (ctx: AppContext) =>
   tablas.map((tabla) => ctx.db.prepare(`SELECT * FROM ${tabla}`).all());
 
 describe('retención de palabras tras el mantenimiento administrativo', () => {
-  it('borra del ranking notas propias y respuestas retiradas sin conservar texto oculto', () => {
+  it('borra del ranking notas propias y respuestas retiradas sin conservar texto oculto', async () => {
     const ctx = contexto();
-    const { ana, ajeno } = poblar(ctx);
+    const { ana, ajeno } = await poblar(ctx);
     expect(ctx.topWords.takeChanged()).toEqual(
       expect.arrayContaining([
         { word: 'violeta', count: 1 },
@@ -130,9 +130,9 @@ describe('retención de palabras tras el mantenimiento administrativo', () => {
     expect(ctx.db.pragma('foreign_key_check')).toEqual([]);
   });
 
-  it('vaciar todo también invalida la caché caliente y difunde un ranking vacío', () => {
+  it('vaciar todo también invalida la caché caliente y difunde un ranking vacío', async () => {
     const ctx = contexto();
-    poblar(ctx);
+    await poblar(ctx);
     expect(ctx.topWords.takeChanged()!.length).toBeGreaterThan(0);
     borrarContenido(ctx.db);
     expect(rankingPersistido(ctx)).toEqual([]);
@@ -143,9 +143,9 @@ describe('retención de palabras tras el mantenimiento administrativo', () => {
 
   it.each(['usuario', 'contenido'] as const)(
     'un fallo del ranking revierte el borrado de %s y su señal de caché',
-    (tipo) => {
+    async (tipo) => {
       const ctx = contexto();
-      const { ana } = poblar(ctx);
+      const { ana } = await poblar(ctx);
       const caliente = ctx.topWords.takeChanged();
       const antes = fotografiar(ctx);
       ctx.db.exec(
@@ -163,10 +163,10 @@ describe('retención de palabras tras el mantenimiento administrativo', () => {
 
   it.each(['usuario', 'contenido'] as const)(
     'otra conexión SQLite invalida el ranking caliente al borrar %s',
-    (tipo) => {
+    async (tipo) => {
       const ruta = join(carpetaTemporal(), 'pizarra-ficticia.db');
       const ctx = contexto(ruta);
-      const { ana } = poblar(ctx);
+      const { ana } = await poblar(ctx);
       expect(ctx.topWords.takeChanged()!.length).toBeGreaterThan(0);
       const mantenimiento = openDatabase(ruta);
       conexiones.push(mantenimiento);
@@ -180,11 +180,11 @@ describe('retención de palabras tras el mantenimiento administrativo', () => {
     },
   );
 
-  it('el CLI en otro proceso elimina palabras y renueva la caché sin leer configuración privada', () => {
+  it('el CLI en otro proceso elimina palabras y renueva la caché sin leer configuración privada', async () => {
     const temporal = carpetaTemporal();
     const ruta = join(temporal, 'pizarra-ficticia.db');
     const ctx = contexto(ruta);
-    const { ana } = poblar(ctx);
+    const { ana } = await poblar(ctx);
     expect(ctx.topWords.takeChanged()!.length).toBeGreaterThan(0);
     writeFileSync(join(temporal, '.env'), '# entorno ficticio aislado sin credenciales\n');
     const resultado = spawnSync(
@@ -219,9 +219,9 @@ describe('retención de palabras tras el mantenimiento administrativo', () => {
     expect(ctx.topWords.takeChanged()).toEqual(supervivientes);
   });
 
-  it('las lecturas repetidas y la publicación habitual conservan el contador incremental', () => {
+  it('las lecturas repetidas y la publicación habitual conservan el contador incremental', async () => {
     const ctx = contexto();
-    poblar(ctx);
+    await poblar(ctx);
     ctx.topWords.top();
     const textos = vi.spyOn(ctx.repos.wordCounts, 'textosVisibles');
     const consulta = vi.spyOn(ctx.repos.wordCounts, 'top');

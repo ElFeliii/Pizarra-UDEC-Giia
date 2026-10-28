@@ -172,6 +172,9 @@ function ReplyForm({ pinId, onSent }: { pinId: number; onSent(r: Reply): void })
       if (res.ok) {
         onSent(res.data);
         setText('');
+      } else if (res.error.code === 'EN_REVISION') {
+        useStore.getState().toast(res.error.message, 'info');
+        setText('');
       } else {
         if (res.error.code === 'NO_SESSION') useStore.getState().setSession(null);
         setError(res.error.message);
