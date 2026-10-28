@@ -10,6 +10,7 @@ import {
   sessionInputSchema,
   vistaInputSchema,
   type Ack,
+  type NotaInput,
   type PinSummary,
   type PinsSnapshot,
   type PublicUser,
@@ -18,11 +19,12 @@ import {
   type Thread,
 } from '@pizarra/shared';
 import { createHash, randomBytes } from 'node:crypto';
+import type { z } from 'zod';
 import type { AppContext } from '../context';
 import { toDetail, toSummary } from '../db/repos/pins';
 import { toReply } from '../db/repos/replies';
 import type { UserRow } from '../db/repos/users';
-import { analizarPublicacion } from '../moderation/analisis';
+import { decidirPublicacion } from '../moderation/analisis';
 import { checkContentRules } from '../moderation/contentRules';
 import { incitesHate } from '../moderation/hate';
 import { sanitizeText } from '../moderation/normalize';
@@ -30,6 +32,8 @@ import { fail, ok, rateLimited, type Fail } from './errors';
 import { seccionAbierta, seccionDeSuperficie } from './secciones';
 
 const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
+/** Quien queda registrado como autor del ocultamiento de un mensaje pendiente. */
+const SISTEMA = 'sistema';
 
 export function hashToken(token: string): string {
   return createHash('sha256').update(token).digest('hex');
@@ -139,13 +143,35 @@ export function createSession(
   return ok({ token, user: { id: user.id, name: user.name, institutionName } });
 }
 
-export function createPin(
+/**
+ * Qué hacer cuando la IA ya habló. Lo rechazado no se guarda; lo pendiente se guarda oculto
+ * (`hidden_reason = 'pendiente'`) para que el moderador lo apruebe con "Aprobar", que es el
+ * mismo restaurar de siempre.
+ */
+type Publicable = { ok: true; pendiente: boolean; consultada: boolean } | Fail;
+
+async function consultarIa(
   ctx: AppContext,
-  userId: number,
-  input: unknown,
-  ip: string,
-  autorModerador: string | null = null,
-): Ack<PinSummary> {
+  user: UserRow,
+  text: string,
+  autorModerador: string | null,
+): Promise<Publicable> {
+  const consultada = ctx.config.moderacionIa !== null && autorModerador === null;
+  const decision = await decidirPublicacion(ctx, text, autorModerador, user.name);
+  if (decision === 'rechazar') return rejected(ctx, user.id, fail('IA_RECHAZADO'));
+  return { ok: true, pendiente: decision === 'revisar', consultada };
+}
+
+type PinPreparado = {
+  ok: true;
+  user: UserRow;
+  data: z.output<typeof pinInputSchema>;
+  seccion: string;
+  text: string;
+};
+
+/** Todo lo que se revisa de un pin sin escribir nada. Se corre antes y después de la IA. */
+function prepararPin(ctx: AppContext, userId: number, input: unknown): PinPreparado | Fail {
   const active = activeUser(ctx, userId);
   if (!active.ok) return active;
   const { user } = active;
@@ -164,20 +190,39 @@ export function createPin(
   if (!screened.ok) return rejected(ctx, user.id, screened);
   const text = screened.text;
 
-  const now = ctx.now();
-  if (ctx.repos.pins.hasRecentDuplicate(user.id, text, now - DUPLICATE_WINDOW_MS)) {
+  if (ctx.repos.pins.hasRecentDuplicate(user.id, text, ctx.now() - DUPLICATE_WINDOW_MS)) {
     return fail('DUPLICATE');
   }
+  return { ok: true, user, data: parsed.data, seccion, text };
+}
+
+export async function createPin(
+  ctx: AppContext,
+  userId: number,
+  input: unknown,
+  ip: string,
+  autorModerador: string | null = null,
+): Promise<Ack<PinSummary>> {
+  const previo = prepararPin(ctx, userId, input);
+  if (!previo.ok) return previo;
+  const ia = await consultarIa(ctx, previo.user, previo.text, autorModerador);
+  if (!ia.ok) return ia;
+  // Mientras la IA respondía pudo cerrarse la sección, silenciarse al autor o llegar un
+  // duplicado: si hubo que esperarla, se vuelve a validar.
+  const p = ia.consultada ? prepararPin(ctx, userId, input) : previo;
+  if (!p.ok) return p;
+  const { user, text } = p;
 
   // El límite de publicación solo cuenta lo que realmente se publica.
   const rl = ctx.limiters.pin.take(`u${user.id}`, ip);
   if (!rl.ok) return rateLimited(rl.retryAfterMs);
 
   const { repos } = ctx;
+  const now = ctx.now();
   const id = ctx.db.transaction(() => {
     const pinId = repos.pins.insert({
-      ...parsed.data,
-      seccion,
+      ...p.data,
+      seccion: p.seccion,
       text,
       autorModerador,
       userId: user.id,
@@ -191,29 +236,34 @@ export function createPin(
       author: autorModerador ?? user.name,
       institution: user.institutionName,
     });
-    ctx.topWords.apply(text, 1);
+    if (ia.pendiente) repos.pins.setHidden(pinId, SISTEMA, 'pendiente', now);
+    else ctx.topWords.apply(text, 1);
     return pinId;
   })();
 
-  const summary = toSummary(repos.pins.get(id)!);
-  ctx.broadcaster.pinCreated(summary);
-  const item = repos.mod.item('pin', id);
-  if (item) ctx.broadcaster.modFeed(item);
-  analizarPublicacion(ctx, { type: 'pin', id, text }, autorModerador);
-  return ok(summary);
+  return publicarPin(ctx, id, ia.pendiente);
 }
 
-/**
- * Publica una nota en un muro. Comparte todo con `createPin` —filtro, límites, duplicados,
- * índice de búsqueda y palabras repetidas— y solo cambia en que acá la nota no tiene lugar.
- */
-export function createNota(
-  ctx: AppContext,
-  userId: number,
-  input: unknown,
-  ip: string,
-  autorModerador: string | null = null,
-): Ack<PinSummary> {
+/** Avisa del pin nuevo: a todos si quedó publicado, solo a moderación si quedó pendiente. */
+function publicarPin(ctx: AppContext, id: number, pendiente: boolean): Ack<PinSummary> {
+  const { repos } = ctx;
+  const summary = toSummary(repos.pins.get(id)!);
+  if (!pendiente) ctx.broadcaster.pinCreated(summary);
+  const item = repos.mod.item('pin', id);
+  if (item) ctx.broadcaster.modFeed(item);
+  return pendiente ? fail('EN_REVISION') : ok(summary);
+}
+
+type NotaPreparada = {
+  ok: true;
+  user: UserRow;
+  data: NotaInput;
+  seccion: string;
+  temaId: string | null;
+  text: string;
+};
+
+function prepararNota(ctx: AppContext, userId: number, input: unknown): NotaPreparada | Fail {
   const active = activeUser(ctx, userId);
   if (!active.ok) return active;
   const { user } = active;
@@ -238,25 +288,46 @@ export function createNota(
   if (!screened.ok) return rejected(ctx, user.id, screened);
   const text = screened.text;
 
-  const now = ctx.now();
-  if (ctx.repos.pins.hasRecentDuplicate(user.id, text, now - DUPLICATE_WINDOW_MS)) {
+  if (ctx.repos.pins.hasRecentDuplicate(user.id, text, ctx.now() - DUPLICATE_WINDOW_MS)) {
     return fail('DUPLICATE');
   }
+  return { ok: true, user, data: parsed.data, seccion: seccion.id, temaId, text };
+}
+
+/**
+ * Publica una nota en un muro. Comparte todo con `createPin` —filtro, IA, límites, duplicados,
+ * índice de búsqueda y palabras repetidas— y solo cambia en que acá la nota no tiene lugar.
+ */
+export async function createNota(
+  ctx: AppContext,
+  userId: number,
+  input: unknown,
+  ip: string,
+  autorModerador: string | null = null,
+): Promise<Ack<PinSummary>> {
+  const previo = prepararNota(ctx, userId, input);
+  if (!previo.ok) return previo;
+  const ia = await consultarIa(ctx, previo.user, previo.text, autorModerador);
+  if (!ia.ok) return ia;
+  const p = ia.consultada ? prepararNota(ctx, userId, input) : previo;
+  if (!p.ok) return p;
+  const { user, text } = p;
 
   const rl = ctx.limiters.pin.take(`u${user.id}`, ip);
   if (!rl.ok) return rateLimited(rl.retryAfterMs);
 
   const { repos } = ctx;
+  const now = ctx.now();
   const id = ctx.db.transaction(() => {
     // En un muro no hay coordenadas; `surface` queda en 'board' por compatibilidad del esquema.
     const pinId = repos.pins.insert({
-      seccion: seccion.id,
-      temaId,
+      seccion: p.seccion,
+      temaId: p.temaId,
       autorModerador,
       surface: 'board',
       x: 0,
       y: 0,
-      color: parsed.data.color,
+      color: p.data.color,
       text,
       userId: user.id,
       now,
@@ -269,25 +340,17 @@ export function createNota(
       author: autorModerador ?? user.name,
       institution: user.institutionName,
     });
-    ctx.topWords.apply(text, 1);
+    if (ia.pendiente) repos.pins.setHidden(pinId, SISTEMA, 'pendiente', now);
+    else ctx.topWords.apply(text, 1);
     return pinId;
   })();
 
-  const summary = toSummary(repos.pins.get(id)!);
-  ctx.broadcaster.pinCreated(summary);
-  const item = repos.mod.item('pin', id);
-  if (item) ctx.broadcaster.modFeed(item);
-  analizarPublicacion(ctx, { type: 'pin', id, text }, autorModerador);
-  return ok(summary);
+  return publicarPin(ctx, id, ia.pendiente);
 }
 
-export function createReply(
-  ctx: AppContext,
-  userId: number,
-  input: unknown,
-  ip: string,
-  autorModerador: string | null = null,
-): Ack<Reply> {
+type ReplyPreparada = { ok: true; user: UserRow; pinId: number; text: string };
+
+function prepararReply(ctx: AppContext, userId: number, input: unknown): ReplyPreparada | Fail {
   const active = activeUser(ctx, userId);
   if (!active.ok) return active;
   const { user } = active;
@@ -306,18 +369,36 @@ export function createReply(
   if (!screened.ok) return rejected(ctx, user.id, screened);
   const text = screened.text;
 
-  const now = ctx.now();
-  if (ctx.repos.replies.hasRecentDuplicate(user.id, pinId, text, now - DUPLICATE_WINDOW_MS)) {
+  const desde = ctx.now() - DUPLICATE_WINDOW_MS;
+  if (ctx.repos.replies.hasRecentDuplicate(user.id, pinId, text, desde)) {
     return fail('DUPLICATE');
   }
+  return { ok: true, user, pinId, text };
+}
+
+export async function createReply(
+  ctx: AppContext,
+  userId: number,
+  input: unknown,
+  ip: string,
+  autorModerador: string | null = null,
+): Promise<Ack<Reply>> {
+  const previo = prepararReply(ctx, userId, input);
+  if (!previo.ok) return previo;
+  const ia = await consultarIa(ctx, previo.user, previo.text, autorModerador);
+  if (!ia.ok) return ia;
+  // También revisa que la nota siga visible: pudo ocultarse mientras la IA respondía.
+  const p = ia.consultada ? prepararReply(ctx, userId, input) : previo;
+  if (!p.ok) return p;
+  const { user, pinId, text } = p;
 
   const rl = ctx.limiters.reply.take(`u${user.id}`, ip);
   if (!rl.ok) return rateLimited(rl.retryAfterMs);
 
   const { repos } = ctx;
+  const now = ctx.now();
   const { id, replyCount } = ctx.db.transaction(() => {
     const replyId = repos.replies.insert({ pinId, text, autorModerador, userId: user.id, now });
-    const count = repos.pins.bumpReplyCount(pinId, 1, now);
     repos.search.index({
       kind: 'reply',
       refId: replyId,
@@ -326,17 +407,23 @@ export function createReply(
       author: autorModerador ?? user.name,
       institution: user.institutionName,
     });
+    // Una respuesta pendiente no suma al contador ni a las palabras: lo hace al aprobarse.
+    if (ia.pendiente) {
+      repos.replies.setHidden(replyId, SISTEMA, 'pendiente', now);
+      return { id: replyId, replyCount: null };
+    }
     ctx.topWords.apply(text, 1);
-    return { id: replyId, replyCount: count };
+    return { id: replyId, replyCount: repos.pins.bumpReplyCount(pinId, 1, now) };
   })();
 
   const reply = toReply(repos.replies.get(id)!);
-  ctx.broadcaster.replyCreated(reply);
-  ctx.broadcaster.replyCountChanged(pinId, replyCount);
+  if (replyCount !== null) {
+    ctx.broadcaster.replyCreated(reply);
+    ctx.broadcaster.replyCountChanged(pinId, replyCount);
+  }
   const item = repos.mod.item('reply', id);
   if (item) ctx.broadcaster.modFeed(item);
-  analizarPublicacion(ctx, { type: 'reply', id, text }, autorModerador);
-  return ok(reply);
+  return replyCount === null ? fail('EN_REVISION') : ok(reply);
 }
 
 /**

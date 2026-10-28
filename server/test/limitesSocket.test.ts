@@ -98,7 +98,7 @@ describe('presupuesto de eventos antes de acceder a SQLite', () => {
     })();
     const todas = vi.spyOn(servidor.ctx.repos.pins, 'listVisible');
     const avisos = vi.spyOn(servidor.ctx.repos.pins, 'listModeradoresVisibles');
-    const resultado = createPin(
+    const resultado = await createPin(
       servidor.ctx,
       usuario.user.id,
       pinInput('Publicación legítima'),

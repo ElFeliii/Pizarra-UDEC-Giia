@@ -3,6 +3,8 @@ import type { ApiError, ErrorCode } from '@pizarra/shared';
 const MESSAGES: Record<ErrorCode, string> = {
   VALIDATION: 'Revisa los datos ingresados.',
   CENSORED: 'Tu mensaje contiene palabras no permitidas.',
+  IA_RECHAZADO: 'Tu mensaje no cumple las normas de convivencia de la pizarra.',
+  EN_REVISION: 'Recibimos tu mensaje. Aparecerá cuando un moderador lo revise.',
   LINKS: 'No se permiten links.',
   PERSONAL_DATA: 'Por tu seguridad, no compartas correos, teléfonos ni RUT.',
   DUPLICATE: 'Ya publicaste ese mismo mensaje hace poco.',

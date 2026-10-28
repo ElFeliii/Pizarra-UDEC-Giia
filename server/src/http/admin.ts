@@ -184,6 +184,9 @@ export async function adminRoutes(app: FastifyInstance, { ctx, modSessions }: Ad
       return ctx.repos.mod.feed(limit);
     });
 
+    // Últimas respuestas de la IA: solo en memoria, se pierden al reiniciar.
+    admin.get('/api/admin/ia', async () => ctx.bitacoraIa.resumen(ctx.config.moderacionIa));
+
     admin.post('/api/admin/content/:type/:id/:action', async (req, reply) => {
       const p = contentParams.safeParse(req.params);
       const action = (req.params as { action?: string }).action;

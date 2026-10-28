@@ -6,6 +6,7 @@ import { useLoad } from '../moderation/common';
 import {
   ExportPanel,
   FeedPanel,
+  IaPanel,
   ReviewPanel,
   SeccionesPanel,
   StatsPanel,
@@ -15,11 +16,12 @@ import {
 import { useStore } from '../state/store';
 import { Toasts } from '../ui/Toasts';
 
-type Tab = 'review' | 'feed' | 'secciones' | 'words' | 'users' | 'stats' | 'export';
+type Tab = 'review' | 'feed' | 'ia' | 'secciones' | 'words' | 'users' | 'stats' | 'export';
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'review', label: 'Revisión' },
   { id: 'feed', label: 'En vivo' },
+  { id: 'ia', label: 'IA' },
   { id: 'secciones', label: 'Secciones' },
   { id: 'words', label: 'Palabras' },
   { id: 'users', label: 'Usuarios' },
@@ -179,6 +181,7 @@ function Panel({ name, onLogout }: { name: string; onLogout(): void }) {
       <main className="mod__body">
         {tab === 'review' && <ReviewPanel version={version} />}
         {tab === 'feed' && <FeedPanel items={feed.data} onChanged={reloadFeed} />}
+        {tab === 'ia' && <IaPanel />}
         {tab === 'secciones' && <SeccionesPanel />}
         {tab === 'words' && <WordsPanel />}
         {tab === 'users' && <UsersPanel />}

@@ -11,6 +11,7 @@ import type { Config } from './config';
 import { openDatabase, type DB } from './db/db';
 import { createRepos, type Repos } from './db/repos';
 import { loadInstitutions, type InstitutionCatalog } from './institutions';
+import { BitacoraIa } from './moderation/analisis';
 import { Censor } from './moderation/censor';
 import { createLimiters, type Limiters } from './moderation/rateLimit';
 import { TopWords } from './stats/topWords';
@@ -66,6 +67,8 @@ export interface AppContext {
   topWords: TopWords;
   institutions: InstitutionCatalog;
   broadcaster: Broadcaster;
+  /** Últimas respuestas de la IA, para el panel de moderación. */
+  bitacoraIa: BitacoraIa;
   /** Conexiones activas (lo provee la capa de tiempo real). */
   online: () => number;
   now: () => number;
@@ -84,6 +87,7 @@ export function createContext(config: Config, now: () => number = Date.now): App
     topWords: new TopWords(repos.wordCounts, censor),
     institutions: loadInstitutions(config.institutionsPath),
     broadcaster: nullBroadcaster,
+    bitacoraIa: new BitacoraIa(),
     online: () => 0,
     now,
   };

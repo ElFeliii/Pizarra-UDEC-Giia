@@ -18,6 +18,12 @@ for (const variable of [
   'SESSION_SECRET',
   'TRUST_PROXY',
   'AUTO_HIDE_REPORTS',
+  'OPENAI_API_KEY',
+  'MODERACION_IA_MODO',
+  'OPENAI_MODERATION_MODEL',
+  'OPENAI_DECISION_MODEL',
+  'MODERACION_IA_UMBRAL',
+  'MODERACION_IA_TIMEOUT_MS',
 ]) {
   delete entorno[variable];
 }

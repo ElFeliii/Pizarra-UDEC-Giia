@@ -2085,6 +2085,32 @@ select.input {
   border-color: #f6caca;
   color: #a3262b;
 }
+.tag--ok {
+  background: #e9f6ef;
+  border-color: #bfe3cf;
+  color: var(--success);
+}
+/* Panel IA: las categorías con mayor puntaje de cada consulta */
+.ia-puntajes {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 13px;
+}
+.ia-puntajes__fila {
+  display: grid;
+  grid-template-columns: minmax(90px, 30%) 1fr;
+  gap: 8px;
+  align-items: center;
+}
+.ia-puntajes dt {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.ia-puntajes dd {
+  margin: 0;
+  min-width: 0;
+}
 .empty {
   padding: 32px;
   text-align: center;

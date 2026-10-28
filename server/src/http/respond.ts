@@ -4,6 +4,9 @@ import type { FastifyReply } from 'fastify';
 const STATUS: Record<ErrorCode, number> = {
   VALIDATION: 400,
   CENSORED: 422,
+  IA_RECHAZADO: 422,
+  // Se guardó, pero oculto: no hay nada que mostrar todavía.
+  EN_REVISION: 202,
   LINKS: 422,
   PERSONAL_DATA: 422,
   DUPLICATE: 409,

@@ -131,13 +131,21 @@ export function attachRealtime(
   });
 
   /** Ejecuta un handler y responde por el ack; nunca deja una excepción sin respuesta. */
-  function respond<T>(socket: ClientSocket, ack: unknown, fn: () => Ack<T>): void {
+  /** Acepta handlers síncronos y asíncronos (publicar espera la revisión de la IA). */
+  function respond<T>(
+    socket: ClientSocket,
+    ack: unknown,
+    fn: () => Ack<T> | Promise<Ack<T>>,
+  ): void {
     if (typeof ack !== 'function') return;
-    try {
-      ack(fn());
-    } catch (err) {
+    const fallo = (err: unknown) => {
       app.log.error({ err, socket: socket.id }, 'error en handler de socket');
       ack(fail('INTERNAL'));
+    };
+    try {
+      void Promise.resolve(fn()).then((res) => ack(res), fallo);
+    } catch (err) {
+      fallo(err);
     }
   }
 
